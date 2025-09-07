@@ -332,6 +332,7 @@
         <p>${item.desc}</p>
         <p><strong>Starting Bid:</strong> $${item.startingBid}</p>
         <p><strong>Total Bids:</strong> <span id="${item.id}-total">0</span></p>
+        <p><strong>Top Bid:</strong> <span id="${item.id}-current">No bids made yet</span></p>
         <form onsubmit="submitBid(event, '${item.id}')">
           <input type="text" value="" placeholder="First Name" id="${item.id}-firstName" readonly>
           <input type="text" value="" placeholder="Last Name" id="${item.id}-lastName" readonly>
