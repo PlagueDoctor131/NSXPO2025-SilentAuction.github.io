@@ -359,7 +359,7 @@
           const topEl = document.getElementById(`${item.id}-current`);
           const expandedTopEl = document.getElementById(`${item.id}-expandedTop`);
           if (cur) {
-            topEl.textContent = `Top: ${cur.firstName} ${cur.lastName} – $${cur.amount}`;
+            topEl.textContent = `Top: ${cur.firstName} ${cur.lastName}`;
             expandedTopEl.textContent = `$${cur.amount} by ${cur.firstName} ${cur.lastName}`;
           } else {
             topEl.textContent = "No bids yet";
