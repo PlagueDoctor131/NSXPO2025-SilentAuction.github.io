@@ -191,25 +191,6 @@
       border-top: 1px solid #eee;
     }
 
-    /* default: visible */
-    #lookupOverlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      /* ← must not default to none */
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 1000;
-    }
-
-    /* hidden state */
-    #lookupOverlay.hidden {
-      display: none;
-    }
   </style>
 </head>
 
@@ -217,17 +198,6 @@
 
   <h1>Silent Auction</h1>
 
-
-  <!-- index.html -->
-  <!-- LOOKUP OVERLAY -->
-  <div id="lookupOverlay" class="overlay">
-    <form id="lookupForm">
-      <h2>Enter Your Bid Number</h2>
-      <input type="text" id="bidInput" required />
-      <button type="submit">Continue</button>
-      <p id="lookupError" style="color:#f88"></p>
-    </form>
-  </div>
 
 
   <div id="items"></div>
@@ -322,14 +292,7 @@
       });
     }
 
-    // submit a bid
-    function submitBid(e, itemId) {
-      if (!member) {
-        return alert('Please enter your bid number first.');
-      }
-      if (globalBL || member.blacklisted) {
-        return alert('Bidding is disabled for your account or site-wide.');
-      }
+
 
       e.preventDefault();
       const firstName = document.getElementById(`${itemId}-firstName`).value.trim();
@@ -480,59 +443,6 @@
 
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <script>
-    // 1. Define your lookup helper
-    function loadMember(bidNumber) {
-      return Promise.all([
-        db.ref(`members/${bidNumber}`).once('value'),
-        db.ref('settings/blacklistActive').once('value')
-      ])
-      .then(([memberSnap, globalSnap]) => {
-        const memberData   = memberSnap.val();
-        const globalActive = !!globalSnap.val();
-
-        if (!memberData) {
-          throw new Error('Unknown Bid Number');
-        }
-        if (globalActive || memberData.blacklisted) {
-          throw new Error('Bidding disabled for your account or site-wide.');
-        }
-
-        return {
-          bidNumber,
-          firstName:   memberData.firstName,
-          lastName:    memberData.lastName,
-          email:       memberData.email
-        };
-      });
-    }
-
-    // 2. Grab your DOM nodes **after** they exist
-    const lookupForm    = document.getElementById('lookupForm');
-    const bidInput      = document.getElementById('bidInput');
-    const lookupError   = document.getElementById('lookupError');
-    const lookupOverlay = document.getElementById('lookupOverlay');
-
-    // 3. Attach your submit listener
-    lookupForm.addEventListener('submit', e => {
-      e.preventDefault();
-      lookupError.textContent = '';
-      const bid = bidInput.value.trim();
-
-      console.log('Looking up BID →', bid);
-      loadMember(bid)
-        .then(member => {
-          console.log('Member OK:', member);
-          localStorage.setItem('bidNumber', bid);
-          lookupOverlay.style.display = 'none';
-        })
-        .catch(err => {
-          console.warn('Lookup failed:', err.message);
-          lookupError.textContent = err.message;
-          // overlay stays visible
-        });
-    });
-  </script>
 </body>
 
 </html>
