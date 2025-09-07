@@ -6,6 +6,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Silent Auction</title>
   <style>
+    /* turn each summary into a flex “header” */
+    .item>summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    /* thumbnail sizing */
+    .item>summary .thumb {
+      width: 60px;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    /* wrap title + top-bid for grouping/spacing */
+    .item>summary .item-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* mobile: stack everything vertically */
+    @media (max-width: 600px) {
+      .item>summary {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .item>summary .item-info {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .item>summary .item-info span {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
     body {
       font-family: sans-serif;
       padding: 20px;
@@ -134,13 +176,13 @@
     .item .title {
       font-weight: bold;
       flex: 1;
-      width:auto;
+      width: auto;
     }
 
     .item .top-bid {
       font-size: 0.9rem;
       color: #555;
-      width:auto;
+      width: auto;
     }
 
     /* expanded content section */
@@ -155,10 +197,10 @@
 
   <h1>Silent Auction</h1>
 
-  
+
 
   <div id="items"></div>
-<div id="admin-login">
+  <div id="admin-login">
     <h3>Admin Login</h3>
     <input type="password" id="admin-password" placeholder="Enter password">
     <button onclick="loginAdmin()">Login</button>
@@ -295,27 +337,30 @@
 
     // render UI
     function renderItems() {
-  const container = document.getElementById("items");
-  container.innerHTML = "";
+      const container = document.getElementById("items");
+      container.innerHTML = "";
 
-  auctionItems.forEach(item => {
-    // 1) Create the collapsible wrapper
-    const card = document.createElement("details");
-    card.className = "item";
+      auctionItems.forEach(item => {
+        // 1) Create the collapsible wrapper
+        const card = document.createElement("details");
+        card.className = "item";
 
-    // 2) Build the summary (collapsed) view
-    const summary = document.createElement("summary");
-    summary.innerHTML = `
-      <img src="${item.img}" class="thumb" alt="${item.name}">
-      <span class="title">${item.name}</span>
-      <span id="${item.id}-current" class="top-bid">Loading…</span>
-    `;
-    card.appendChild(summary);
+        // 2) Build the summary (collapsed) view
+        const summary = document.createElement("summary");
+        summary.innerHTML = `
+  <img src="${item.img}" class="thumb" alt="${item.name}">
+  <div class="item-info">
+    <span class="title">${item.name}</span>
+    <span id="${item.id}-current" class="top-bid">Loading…</span>
+  </div>
+`;
 
-    // 3) Build the expanded view
-    const expanded = document.createElement("div");
-    expanded.className = "expanded";
-    expanded.innerHTML = `
+        card.appendChild(summary);
+
+        // 3) Build the expanded view
+        const expanded = document.createElement("div");
+        expanded.className = "expanded";
+        expanded.innerHTML = `
       <p>${item.desc}</p>
       <p><strong>Starting Bid:</strong> $${item.startingBid}</p>
       <p><strong>Total Bids:</strong> <span id="${item.id}-total">0</span></p>
@@ -341,47 +386,47 @@
         Freeze Bidding
       </button>
     `;
-    card.appendChild(expanded);
+        card.appendChild(expanded);
 
-    // 4) Append the card
-    container.appendChild(card);
+        // 4) Append the card
+        container.appendChild(card);
 
-    // 5) Subscribe to Firebase updates
-    db.ref(`bids/${item.id}`).on("value", snap => {
-      const data   = snap.val() || {};
-      const hist   = data.history || [];
-      const cur    = data.current || null;
-      const frozen = data.frozen || false;
+        // 5) Subscribe to Firebase updates
+        db.ref(`bids/${item.id}`).on("value", snap => {
+          const data = snap.val() || {};
+          const hist = data.history || [];
+          const cur = data.current || null;
+          const frozen = data.frozen || false;
 
-      // update the top‐bid in the summary
-      const topEl = document.getElementById(`${item.id}-current`);
-      topEl.textContent = cur
-        ? `Top bidder: ${cur.firstName} ${cur.lastName}`
-        : "No bids yet";
+          // update the top‐bid in the summary
+          const topEl = document.getElementById(`${item.id}-current`);
+          topEl.textContent = cur
+            ? `Top bidder: ${cur.firstName} ${cur.lastName}`
+            : "No bids yet";
 
-      // update total bids
-      document.getElementById(`${item.id}-total`).textContent = hist.length;
+          // update total bids
+          document.getElementById(`${item.id}-total`).textContent = hist.length;
 
-      // update history list
-      document.getElementById(`${item.id}-history`).innerHTML =
-        hist.map(b =>
-          `<li>$${b.amount} by ${b.firstName} ${b.lastName}
+          // update history list
+          document.getElementById(`${item.id}-history`).innerHTML =
+            hist.map(b =>
+              `<li>$${b.amount} by ${b.firstName} ${b.lastName}
              at ${new Date(b.timestamp).toLocaleTimeString()}</li>`
-        ).join("");
+            ).join("");
 
-      // disable inputs when frozen
-      ["firstName","lastName","bidNumber","amount"].forEach(f => {
-        document.getElementById(`${item.id}-${f}`).disabled = frozen;
+          // disable inputs when frozen
+          ["firstName", "lastName", "bidNumber", "amount"].forEach(f => {
+            document.getElementById(`${item.id}-${f}`).disabled = frozen;
+          });
+
+          // toggle freeze button text
+          const btn = document.getElementById(`${item.id}-freeze-btn`);
+          btn.textContent = frozen ? "Unfreeze Bidding" : "Freeze Bidding";
+
+          if (isAdmin) showAdminControls();
+        });
       });
-
-      // toggle freeze button text
-      const btn = document.getElementById(`${item.id}-freeze-btn`);
-      btn.textContent = frozen ? "Unfreeze Bidding" : "Freeze Bidding";
-
-      if (isAdmin) showAdminControls();
-    });
-  });
-}
+    }
 
 
     // load items.json then init
