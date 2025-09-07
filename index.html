@@ -190,22 +190,26 @@
       padding: 15px;
       border-top: 1px solid #eee;
     }
+
     /* default: visible */
-#lookupOverlay {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  display: flex;          /* ← must not default to none */
-  align-items: center;
-  justify-content: center;
-  background: rgba(0,0,0,0.5);
-  z-index: 1000;
-}
+    #lookupOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      /* ← must not default to none */
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
 
-/* hidden state */
-#lookupOverlay.hidden {
-  display: none;
-}
-
+    /* hidden state */
+    #lookupOverlay.hidden {
+      display: none;
+    }
   </style>
 </head>
 
@@ -506,15 +510,35 @@
     const hide = el => el.style.display = 'none';
 
     // Validate member
-    function loadMember(id) {
-      return db.ref('members/' + id).once('value').then(s => {
-        const m = s.val();
-        if (!m) throw Error('Unknown ID');
-        if (globalBL || m.blacklisted)
-          throw Error('Bidding disabled.');
-        return { id, ...m };
-      });
+    // assumes `db` and `globalBL` (global blacklist flag) are already in scope
+    function loadMember(bidNumber) {
+      // fetch both the member record and the global blacklist flag in parallel
+      return Promise.all([
+        db.ref(`members/${bidNumber}`).once('value'),
+        db.ref('settings/blacklistActive').once('value')
+      ])
+        .then(([memberSnap, globalSnap]) => {
+          const memberData = memberSnap.val();
+          const globalActive = !!globalSnap.val();
+
+          if (!memberData) {
+            throw new Error('Unknown Bid Number');
+          }
+          if (globalActive || memberData.blacklisted) {
+            throw new Error('Bidding disabled for your account or site-wide.');
+          }
+
+          // return a clean member object
+          return {
+            bidNumber,
+            firstName: memberData.firstName,
+            lastName: memberData.lastName,
+            email: memberData.email,
+            blacklisted: memberData.blacklisted
+          };
+        });
     }
+
 
     // On load: check localStorage
     window.addEventListener('load', () => {
@@ -527,11 +551,30 @@
     });
 
     // Lookup form submit
-    f.addEventListener('submit', ev => {
-      ev.preventDefault();
-      loadMember(i.value.trim())
-        .then(m => { member = m; localStorage.setItem('bid', m.id); hide(o); })
-        .catch(err => e.textContent = err.message);
+    lookupForm.addEventListener('submit', e => {
+      e.preventDefault();
+
+      // clear any previous error
+      lookupError.textContent = '';
+
+      const bid = bidInput.value.trim();
+      console.log('Attempting lookup for bid', bid);
+
+      loadMember(bid)
+        .then(memberObj => {
+          console.log('Member validated:', memberObj);
+          currentMember = memberObj;
+          localStorage.setItem('bidNumber', bid);
+
+          // **THIS** hides your overlay
+          lookupOverlay.style.display = 'none';
+          console.log('Overlay hidden, user can now bid');
+        })
+        .catch(err => {
+          console.error('Lookup failed:', err);
+          lookupError.textContent = err.message;
+          // overlay stays visible
+        });
     });
 
     // Your existing submitBid, just add at its top:
