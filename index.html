@@ -34,7 +34,7 @@
     }
     .item img {
       width: 100%;
-      max-width: 35%;
+      max-width: 300px;
       height: auto;
       border-radius: 6px;
       margin-bottom: 10px;
@@ -221,10 +221,6 @@
           <img src="${item.img}">
           <h3>${item.name}</h3>
           <p>${item.desc}</p>
-<<<<<<< HEAD
-=======
-	      <p>${item.start}</p>
->>>>>>> 225d80a88185069d5100a874a597465ad7dcaf92
 
           <p><strong>Starting Bid:</strong>
             <span id="${item.id}-starting">$${item.startingBid}</span>
@@ -299,7 +295,7 @@
     }
 
     // load items.json then init
-    fetch("items.json")
+    fetch("./items.json")
       .then(r => r.json())
       .then(data => {
         auctionItems = data;
