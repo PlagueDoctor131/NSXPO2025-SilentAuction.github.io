@@ -18,14 +18,14 @@
       margin-bottom: 20px;
       border-radius: 6px;
       box-shadow: 0 0 4px #aaa;
-      max-width: 300px;
+      max-width: 320px;
     }
     #admin-login input {
-      width: calc(100% - 22px);
+      width: calc(100% - 12px);
       padding: 5px;
       margin: 5px 0;
     }
-    .item {
+    #items .item {
       background: white;
       padding: 15px;
       margin-bottom: 20px;
@@ -34,12 +34,11 @@
     }
     .item img {
       width: 100%;
-      max-width: 35%;    /* bump this up as high as you like */
+      max-width: 35%;
       height: auto;
       border-radius: 6px;
       margin-bottom: 10px;
     }
-
     .admin-btn {
       margin-top: 10px;
       background: #e74c3c;
@@ -54,6 +53,17 @@
     }
     details {
       margin-top: 10px;
+    }
+    form input {
+      width: calc(100% - 12px);
+      padding: 5px;
+      margin: 5px 0;
+      box-sizing: border-box;
+    }
+    form button {
+      padding: 6px 12px;
+      margin-top: 5px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -89,25 +99,25 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    let isAdmin = false;  // track admin session
-    let auctionItems = []; // will hold data from items.json
+    let isAdmin = false;
+    let auctionItems = [];
 
-    // sha256 helper
+    // SHA-256 helper
     async function hashPassword(password) {
       const buf = new TextEncoder().encode(password);
-      const hash = await crypto.subtle.digest("SHA-256", buf);
-      return Array.from(new Uint8Array(hash))
+      const hashBuf = await crypto.subtle.digest("SHA-256", buf);
+      return Array.from(new Uint8Array(hashBuf))
         .map(b => b.toString(16).padStart(2, "0"))
         .join("");
     }
 
-    // fetch admin hash from Firebase
+    // fetch stored admin hash
     async function getStoredHash() {
       const snap = await db.ref("admin/passwordHash").once("value");
       return snap.val();
     }
 
-    // Admin login flow
+    // Admin login
     async function loginAdmin() {
       const pw = document.getElementById("admin-password").value;
       const h = await hashPassword(pw);
@@ -125,7 +135,7 @@
       }
     }
 
-    // reveal all .admin-btn
+    // reveal admin buttons
     function showAdminControls() {
       document.querySelectorAll(".admin-btn").forEach(b => b.style.display = "inline-block");
     }
@@ -154,29 +164,52 @@
       });
     }
 
-    // submit a new bid
+    // submit a bid
     function submitBid(e, itemId) {
       e.preventDefault();
-      const nameEl = document.getElementById(`${itemId}-name`);
-      const amtEl  = document.getElementById(`${itemId}-amount`);
-      const name = nameEl.value.trim();
-      const amt  = parseFloat(amtEl.value);
-      const ref  = db.ref(`bids/${itemId}`);
+      const firstName = document.getElementById(`${itemId}-firstName`).value.trim();
+      const lastName  = document.getElementById(`${itemId}-lastName`).value.trim();
+      const bidNumber = document.getElementById(`${itemId}-bidNumber`).value.trim();
+      const amt       = parseFloat(document.getElementById(`${itemId}-amount`).value);
+      const ref       = db.ref(`bids/${itemId}`);
+      const itemData  = auctionItems.find(i => i.id === itemId);
+      const startBid  = parseFloat(itemData.startingBid);
 
-      ref.once("value").then(s => {
-        const data = s.val() || {};
-        if (data.frozen) return alert("Bidding closed.");
-        if (data.current && amt <= data.current.amount) {
-          return alert("Bid must exceed current highest.");
+      if (!firstName || !lastName || !bidNumber || isNaN(amt)) {
+        return alert("Please fill in all fields correctly.");
+      }
+
+      ref.once("value").then(snap => {
+        const data    = snap.val() || {};
+        const frozen  = data.frozen;
+        const current = data.current;
+        const hist    = data.history || [];
+
+        if (frozen) {
+          return alert("Bidding is closed for this item.");
         }
-        const bid = { name, amount: amt, timestamp: Date.now() };
-        const hist = data.history || [];
+
+        if (!current && amt < startBid) {
+          return alert(`First bid must be at least $${startBid}.`);
+        }
+
+        if (current && amt <= current.amount) {
+          return alert("Bid must exceed the current highest bid.");
+        }
+
+        const bid = {
+          firstName,
+          lastName,
+          bidNumber,
+          amount: amt,
+          timestamp: Date.now()
+        };
         hist.push(bid);
         ref.set({ current: bid, history: hist, frozen: false });
       });
     }
 
-    // render UI for each item
+    // render UI
     function renderItems() {
       const container = document.getElementById("items");
       container.innerHTML = "";
@@ -188,17 +221,22 @@
           <img src="${item.img}">
           <h3>${item.name}</h3>
           <p>${item.desc}</p>
-	  <p>${item.start}</p>
 
+          <p><strong>Starting Bid:</strong>
+            <span id="${item.id}-starting">$${item.startingBid}</span>
+          </p>
           <p><strong>Highest Bid:</strong>
             <span id="${item.id}-current">Loading…</span>
           </p>
-          <p>Total Bids: <span id="${item.id}-total">0</span></p>
-          
+          <p>Total Bids:
+            <span id="${item.id}-total">0</span>
+          </p>
 
           <form onsubmit="submitBid(event, '${item.id}')">
-            <input type="text" id="${item.id}-name" placeholder="Your name" required>
-            <input type="number" id="${item.id}-amount" placeholder="Your bid" required>
+            <input type="text" id="${item.id}-firstName"  placeholder="First Name" required>
+            <input type="text" id="${item.id}-lastName"   placeholder="Last Name" required>
+            <input type="text" id="${item.id}-bidNumber" placeholder="Bid Number" required>
+            <input type="number" id="${item.id}-amount"   placeholder="Your bid" required>
             <button>Submit Bid</button>
           </form>
 
@@ -217,40 +255,40 @@
         `;
         container.appendChild(div);
 
-        // subscribe to Firebase
+        // subscribe to updates
         db.ref(`bids/${item.id}`).on("value", snap => {
-          const data = snap.val() || {};
-          const hist = data.history || [];
-          const cur  = data.current || null;
+          const data   = snap.val() || {};
+          const hist   = data.history || [];
+          const cur    = data.current || null;
           const frozen = data.frozen || false;
 
-          // update current
-          document.getElementById(`${item.id}-current`).textContent = cur
-            ? `$${cur.amount} by ${cur.name}`
+          // update highest bid
+          const curEl = document.getElementById(`${item.id}-current`);
+          curEl.textContent = cur
+            ? `$${cur.amount} by ${cur.firstName} ${cur.lastName} (#${cur.bidNumber})`
             : "No bids yet";
 
-          // stats
+          // update stats
           const total = hist.length;
-          const sum   = hist.reduce((a,b) => a + b.amount, 0);
-          const avg   = total ? (sum/total).toFixed(2) : "0.00";
           document.getElementById(`${item.id}-total`).textContent = total;
-          document.getElementById(`${item.id}-avg`).textContent = `$${avg}`;
 
-          // history list
+          // update history list
           document.getElementById(`${item.id}-history`).innerHTML =
             hist.map(b =>
-              `<li>$${b.amount} by ${b.name} at ${new Date(b.timestamp).toLocaleTimeString()}</li>`
+              `<li>$${b.amount} by ${b.firstName} ${b.lastName} (#${b.bidNumber})
+                at ${new Date(b.timestamp).toLocaleTimeString()}</li>`
             ).join("");
 
-          // freeze inputs
-          document.getElementById(`${item.id}-name`).disabled   = frozen;
-          document.getElementById(`${item.id}-amount`).disabled = frozen;
+          // disable inputs if frozen
+          document.getElementById(`${item.id}-firstName`).disabled  = frozen;
+          document.getElementById(`${item.id}-lastName`).disabled   = frozen;
+          document.getElementById(`${item.id}-bidNumber`).disabled  = frozen;
+          document.getElementById(`${item.id}-amount`).disabled     = frozen;
 
-          // toggle button text
-          document.getElementById(`${item.id}-freeze-btn`).textContent =
-            frozen ? "Unfreeze Bidding" : "Freeze Bidding";
+          // update freeze button text
+          const btn = document.getElementById(`${item.id}-freeze-btn`);
+          btn.textContent = frozen ? "Unfreeze Bidding" : "Freeze Bidding";
 
-          // if admin already logged
           if (isAdmin) showAdminControls();
         });
       });
@@ -265,5 +303,6 @@
       })
       .catch(err => console.error("Failed to load items:", err));
   </script>
+
 </body>
 </html>
