@@ -152,15 +152,15 @@
 
   <h1>Silent Auction</h1>
 
-  <div id="admin-login">
+  
+
+  <div id="items"></div>
+<div id="admin-login">
     <h3>Admin Login</h3>
     <input type="password" id="admin-password" placeholder="Enter password">
     <button onclick="loginAdmin()">Login</button>
     <p id="admin-status" style="color: green;"></p>
   </div>
-
-  <div id="items"></div>
-
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -353,7 +353,7 @@
       // update the top‐bid in the summary
       const topEl = document.getElementById(`${item.id}-current`);
       topEl.textContent = cur
-        ? `$${cur.amount} by ${cur.firstName} ${cur.lastName}`
+        ? `Top bidder: ${cur.firstName} ${cur.lastName}`
         : "No bids yet";
 
       // update total bids
