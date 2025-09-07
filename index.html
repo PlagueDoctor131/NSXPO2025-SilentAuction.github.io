@@ -39,7 +39,13 @@
 </head>
 <body>
 
-<h1>Silent Auction</h1>
+<h1>
+  Silent Auction
+  <button id="logoutBtn" style="display:none; margin-left:20px; font-size:0.7em;">
+    Switch Bidder
+  </button>
+</h1>
+
 
 <!-- LOOKUP OVERLAY -->
 <div id="lookupOverlay" class="overlay">
@@ -83,6 +89,33 @@
   let auctionItems = [];
   let currentMember = null;
   let globalBL = false;
+
+  const logoutBtn = document.getElementById("logoutBtn");
+
+function logoutMember() {
+  currentMember = null;
+  localStorage.removeItem("bidNumber");
+  lookupOverlay.classList.remove("hidden");
+  logoutBtn.style.display = "none";
+
+  // clear readonly fields on items
+  auctionItems.forEach(item => {
+    ["firstName","lastName","bidNumber"].forEach(f => {
+      const el = document.getElementById(`${item.id}-${f}`);
+      if (el) el.value = "";
+    });
+  });
+}
+
+logoutBtn.addEventListener("click", logoutMember);
+
+// When member is loaded successfully:
+function onMemberLoaded(member) {
+  currentMember = member;
+  localStorage.setItem("bidNumber", member.bidNumber);
+  lookupOverlay.classList.add("hidden");
+  logoutBtn.style.display = "inline-block"; // show logout button
+}
 
   // SHA-256 helper
   async function hashPassword(password) {
@@ -160,19 +193,23 @@
   const lookupOverlay = document.getElementById('lookupOverlay');
 
   lookupForm.addEventListener('submit', e => {
-    e.preventDefault();
-    lookupError.textContent = '';
-    const bid = bidInput.value.trim();
-    loadMember(bid)
-      .then(member => {
-        currentMember = member;
-        localStorage.setItem('bidNumber', bid);
-        lookupOverlay.classList.add('hidden');
-      })
-      .catch(err => {
-        lookupError.textContent = err.message;
-      });
-  });
+  e.preventDefault();
+  lookupError.textContent = '';
+  const bid = bidInput.value.trim();
+  loadMember(bid)
+    .then(member => onMemberLoaded(member))
+    .catch(err => { lookupError.textContent = err.message; });
+});
+
+// restore member if saved
+window.addEventListener("DOMContentLoaded", () => {
+  const savedBid = localStorage.getItem("bidNumber");
+  if (savedBid) {
+    loadMember(savedBid)
+      .then(member => onMemberLoaded(member))
+      .catch(() => { localStorage.removeItem("bidNumber"); });
+  }
+});
 
   // submit a bid
   function submitBid(e, itemId) {
