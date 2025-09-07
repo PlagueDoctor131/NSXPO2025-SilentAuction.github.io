@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,9 +11,11 @@
       padding: 20px;
       background: #f4f4f4;
     }
+
     h1 {
       text-align: center;
     }
+
     #admin-login {
       background: #fff;
       padding: 10px;
@@ -21,11 +24,13 @@
       box-shadow: 0 0 4px #aaa;
       max-width: 320px;
     }
+
     #admin-login input {
       width: calc(100% - 12px);
       padding: 5px;
       margin: 5px 0;
     }
+
     #items .item {
       background: white;
       padding: 15px;
@@ -33,6 +38,7 @@
       border-radius: 8px;
       box-shadow: 0 0 5px #ccc;
     }
+
     .item img {
       width: 100%;
       max-width: 300px;
@@ -40,6 +46,7 @@
       border-radius: 6px;
       margin-bottom: 10px;
     }
+
     .admin-btn {
       margin-top: 10px;
       background: #e74c3c;
@@ -49,28 +56,33 @@
       cursor: pointer;
       display: none;
     }
+
     .admin-btn:hover {
       background: #c0392b;
     }
+
     details {
       margin-top: 10px;
     }
+
     form input {
       width: calc(100% - 12px);
       padding: 5px;
       margin: 5px 0;
       box-sizing: border-box;
     }
+
     form button {
       padding: 6px 12px;
       margin-top: 5px;
       cursor: pointer;
     }
+
     .item-card {
       background: #fff;
       border: 1px solid #ddd;
       border-radius: 4px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
       padding: 12px;
@@ -84,8 +96,58 @@
       border-radius: 4px 4px 0 0;
     }
 
+    /* make each item a <details> card */
+    .item {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    /* style the header summary */
+    .item>summary {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      cursor: pointer;
+      list-style: none;
+      /* remove default marker */
+    }
+
+    /* remove the default triangle */
+    .item>summary::-webkit-details-marker,
+    .item>summary::marker {
+      display: none;
+    }
+
+    /* thumbnail in collapsed view */
+    .item .thumb {
+      width: 60px;
+      height: auto;
+      border-radius: 4px;
+      margin-right: 12px;
+    }
+
+    /* title + top bid */
+    .item .title {
+      font-weight: bold;
+      flex: 1;
+    }
+
+    .item .top-bid {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* expanded content section */
+    .item .expanded {
+      padding: 15px;
+      border-top: 1px solid #eee;
+    }
   </style>
 </head>
+
 <body>
 
   <h1>Silent Auction</h1>
@@ -106,14 +168,14 @@
   <script>
     // --- Firebase config (replace with yours) ---
     const firebaseConfig = {
-        apiKey: "AIzaSyDu8hu1LSLQf6zmJ5DsnTuAosaqOX2hoSI",
-        authDomain: "nsxpo-78017.firebaseapp.com",
-        databaseURL: "https://nsxpo-78017-default-rtdb.firebaseio.com",
-        projectId: "nsxpo-78017",
-        storageBucket: "nsxpo-78017.firebasestorage.app",
-        messagingSenderId: "170661972532",
-        appId: "1:170661972532:web:2203124865e9f525a15861",
-        measurementId: "G-59XTFSY4LQ"
+      apiKey: "AIzaSyDu8hu1LSLQf6zmJ5DsnTuAosaqOX2hoSI",
+      authDomain: "nsxpo-78017.firebaseapp.com",
+      databaseURL: "https://nsxpo-78017-default-rtdb.firebaseio.com",
+      projectId: "nsxpo-78017",
+      storageBucket: "nsxpo-78017.firebasestorage.app",
+      messagingSenderId: "170661972532",
+      appId: "1:170661972532:web:2203124865e9f525a15861",
+      measurementId: "G-59XTFSY4LQ"
     };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
@@ -187,22 +249,22 @@
     function submitBid(e, itemId) {
       e.preventDefault();
       const firstName = document.getElementById(`${itemId}-firstName`).value.trim();
-      const lastName  = document.getElementById(`${itemId}-lastName`).value.trim();
+      const lastName = document.getElementById(`${itemId}-lastName`).value.trim();
       const bidNumber = document.getElementById(`${itemId}-bidNumber`).value.trim();
-      const amt       = parseFloat(document.getElementById(`${itemId}-amount`).value);
-      const ref       = db.ref(`bids/${itemId}`);
-      const itemData  = auctionItems.find(i => i.id === itemId);
-      const startBid  = parseFloat(itemData.startingBid);
+      const amt = parseFloat(document.getElementById(`${itemId}-amount`).value);
+      const ref = db.ref(`bids/${itemId}`);
+      const itemData = auctionItems.find(i => i.id === itemId);
+      const startBid = parseFloat(itemData.startingBid);
 
       if (!firstName || !lastName || !bidNumber || isNaN(amt)) {
         return alert("Please fill in all fields correctly.");
       }
 
       ref.once("value").then(snap => {
-        const data    = snap.val() || {};
-        const frozen  = data.frozen;
+        const data = snap.val() || {};
+        const frozen = data.frozen;
         const current = data.current;
-        const hist    = data.history || [];
+        const hist = data.history || [];
 
         if (frozen) {
           return alert("Bidding is closed for this item.");
@@ -230,88 +292,94 @@
 
     // render UI
     function renderItems() {
-      const container = document.getElementById("items");
-      container.innerHTML = "";
+  const container = document.getElementById("items");
+  container.innerHTML = "";
 
-      auctionItems.forEach(item => {
-        const div = document.createElement("div");
-        div.className = "item item-card";
-        div.innerHTML = `
-          <img src="${item.img}">
-          <h3>${item.name}</h3>
-          <p>${item.desc}</p>
+  auctionItems.forEach(item => {
+    // 1) Create the collapsible wrapper
+    const card = document.createElement("details");
+    card.className = "item";
 
-          <p><strong>Starting Bid:</strong>
-            <span id="${item.id}-starting">$${item.startingBid}</span>
-          </p>
-          <p><strong>Highest Bid:</strong>
-            <span id="${item.id}-current">Loading…</span>
-          </p>
-          <p>Total Bids:
-            <span id="${item.id}-total">0</span>
-          </p>
+    // 2) Build the summary (collapsed) view
+    const summary = document.createElement("summary");
+    summary.innerHTML = `
+      <img src="${item.img}" class="thumb" alt="${item.name}">
+      <span class="title">${item.name}</span>
+      <span id="${item.id}-current" class="top-bid">Loading…</span>
+    `;
+    card.appendChild(summary);
 
-          <form onsubmit="submitBid(event, '${item.id}')">
-            <input type="text" id="${item.id}-firstName"  placeholder="First Name" required>
-            <input type="text" id="${item.id}-lastName"   placeholder="Last Name" required>
-            <input type="text" id="${item.id}-bidNumber" placeholder="Bid Number" required>
-            <input type="number" id="${item.id}-amount"   placeholder="Your bid" required>
-            <button>Submit Bid</button>
-          </form>
+    // 3) Build the expanded view
+    const expanded = document.createElement("div");
+    expanded.className = "expanded";
+    expanded.innerHTML = `
+      <p>${item.desc}</p>
+      <p><strong>Starting Bid:</strong> $${item.startingBid}</p>
+      <p><strong>Total Bids:</strong> <span id="${item.id}-total">0</span></p>
 
-          <details>
-            <summary>Bid History</summary>
-            <ul id="${item.id}-history"></ul>
-          </details>
+      <form onsubmit="submitBid(event, '${item.id}')">
+        <input type="text" id="${item.id}-firstName"  placeholder="First Name" required>
+        <input type="text" id="${item.id}-lastName"   placeholder="Last Name" required>
+        <input type="text" id="${item.id}-bidNumber"  placeholder="Bid Number" required>
+        <input type="number" id="${item.id}-amount"   placeholder="Your bid" required>
+        <button>Submit Bid</button>
+      </form>
 
-          <button class="admin-btn" onclick="removeLastBid('${item.id}')">
-            Remove Last Bid
-          </button>
-          <button class="admin-btn" id="${item.id}-freeze-btn"
-                  onclick="toggleFreeze('${item.id}')">
-            Freeze Bidding
-          </button>
-        `;
-        container.appendChild(div);
+      <details>
+        <summary>Bid History</summary>
+        <ul id="${item.id}-history"></ul>
+      </details>
 
-        // subscribe to updates
-        db.ref(`bids/${item.id}`).on("value", snap => {
-          const data   = snap.val() || {};
-          const hist   = data.history || [];
-          const cur    = data.current || null;
-          const frozen = data.frozen || false;
+      <button class="admin-btn" onclick="removeLastBid('${item.id}')">
+        Remove Last Bid
+      </button>
+      <button class="admin-btn" id="${item.id}-freeze-btn"
+              onclick="toggleFreeze('${item.id}')">
+        Freeze Bidding
+      </button>
+    `;
+    card.appendChild(expanded);
 
-          // update highest bid
-          const curEl = document.getElementById(`${item.id}-current`);
-          curEl.textContent = cur
-            ? `$${cur.amount} by ${cur.firstName} ${cur.lastName} (#${cur.bidNumber})`
-            : "No bids yet";
+    // 4) Append the card
+    container.appendChild(card);
 
-          // update stats
-          const total = hist.length;
-          document.getElementById(`${item.id}-total`).textContent = total;
+    // 5) Subscribe to Firebase updates
+    db.ref(`bids/${item.id}`).on("value", snap => {
+      const data   = snap.val() || {};
+      const hist   = data.history || [];
+      const cur    = data.current || null;
+      const frozen = data.frozen || false;
 
-          // update history list
-          document.getElementById(`${item.id}-history`).innerHTML =
-            hist.map(b =>
-              `<li>$${b.amount} by ${b.firstName} ${b.lastName} (#${b.bidNumber})
-                at ${new Date(b.timestamp).toLocaleTimeString()}</li>`
-            ).join("");
+      // update the top‐bid in the summary
+      const topEl = document.getElementById(`${item.id}-current`);
+      topEl.textContent = cur
+        ? `$${cur.amount} by ${cur.firstName} ${cur.lastName}`
+        : "No bids yet";
 
-          // disable inputs if frozen
-          document.getElementById(`${item.id}-firstName`).disabled  = frozen;
-          document.getElementById(`${item.id}-lastName`).disabled   = frozen;
-          document.getElementById(`${item.id}-bidNumber`).disabled  = frozen;
-          document.getElementById(`${item.id}-amount`).disabled     = frozen;
+      // update total bids
+      document.getElementById(`${item.id}-total`).textContent = hist.length;
 
-          // update freeze button text
-          const btn = document.getElementById(`${item.id}-freeze-btn`);
-          btn.textContent = frozen ? "Unfreeze Bidding" : "Freeze Bidding";
+      // update history list
+      document.getElementById(`${item.id}-history`).innerHTML =
+        hist.map(b =>
+          `<li>$${b.amount} by ${b.firstName} ${b.lastName}
+             at ${new Date(b.timestamp).toLocaleTimeString()}</li>`
+        ).join("");
 
-          if (isAdmin) showAdminControls();
-        });
+      // disable inputs when frozen
+      ["firstName","lastName","bidNumber","amount"].forEach(f => {
+        document.getElementById(`${item.id}-${f}`).disabled = frozen;
       });
-    }
+
+      // toggle freeze button text
+      const btn = document.getElementById(`${item.id}-freeze-btn`);
+      btn.textContent = frozen ? "Unfreeze Bidding" : "Freeze Bidding";
+
+      if (isAdmin) showAdminControls();
+    });
+  });
+}
+
 
     // load items.json then init
     fetch("items.json")
@@ -324,4 +392,5 @@
   </script>
 
 </body>
+
 </html>
