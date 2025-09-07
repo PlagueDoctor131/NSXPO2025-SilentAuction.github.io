@@ -196,7 +196,20 @@
 <body>
 
   <h1>Silent Auction</h1>
-  
+
+
+  <!-- index.html -->
+  <!-- LOOKUP OVERLAY -->
+  <div id="lookupOverlay" style="display:none;position:fixed;top:0;left:0;
+     width:100%;height:100%;background:rgba(0,0,0,0.7);
+     color:#fff;align-items:center;justify-content:center;z-index:1000;">
+    <form id="lookupForm">
+      <h2>Enter Your Bid Number</h2>
+      <input type="text" id="bidInput" required />
+      <button type="submit">Continue</button>
+      <p id="lookupError" style="color:#f88"></p>
+    </form>
+  </div>
 
 
   <div id="items"></div>
@@ -209,6 +222,7 @@
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="app.js"></script>
 
   <script>
     // --- Firebase config (replace with yours) ---
@@ -292,6 +306,13 @@
 
     // submit a bid
     function submitBid(e, itemId) {
+      if (!member) {
+        return alert('Please enter your bid number first.');
+      }
+      if (globalBL || member.blacklisted) {
+        return alert('Bidding is disabled for your account or site-wide.');
+      }
+
       e.preventDefault();
       const firstName = document.getElementById(`${itemId}-firstName`).value.trim();
       const lastName = document.getElementById(`${itemId}-lastName`).value.trim();
@@ -438,6 +459,74 @@
       })
       .catch(err => console.error("Failed to load items:", err));
   </script>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script>
+    // Initialize
+    firebase.initializeApp({
+      apiKey: "AIzaSyDu8hu1LSLQf6zmJ5DsnTuAosaqOX2hoSI",
+      authDomain: "nsxpo-78017.firebaseapp.com",
+      databaseURL: "https://nsxpo-78017-default-rtdb.firebaseio.com",
+      projectId: "nsxpo-78017",
+      storageBucket: "nsxpo-78017.firebasestorage.app",
+      messagingSenderId: "170661972532",
+      appId: "1:170661972532:web:2203124865e9f525a15861",
+      measurementId: "G-59XTFSY4LQ"
+    });
+    db = firebase.database();
+
+    // State
+    let member = null, globalBL = false;
+    const o = document.getElementById('lookupOverlay');
+    const f = document.getElementById('lookupForm');
+    const i = document.getElementById('bidInput');
+    const e = document.getElementById('lookupError');
+
+    // Load global blacklist
+    db.ref('settings/blacklistActive')
+      .on('value', s => globalBL = !!s.val());
+
+    // Show/hide helpers
+    const show = el => el.style.display = 'flex';
+    const hide = el => el.style.display = 'none';
+
+    // Validate member
+    function loadMember(id) {
+      return db.ref('members/' + id).once('value').then(s => {
+        const m = s.val();
+        if (!m) throw Error('Unknown ID');
+        if (globalBL || m.blacklisted)
+          throw Error('Bidding disabled.');
+        return { id, ...m };
+      });
+    }
+
+    // On load: check localStorage
+    window.addEventListener('load', () => {
+      const saved = localStorage.getItem('bid');
+      if (saved) {
+        loadMember(saved)
+          .then(m => { member = m; hide(o); })
+          .catch(() => { localStorage.removeItem('bid'); show(o); });
+      } else show(o);
+    });
+
+    // Lookup form submit
+    f.addEventListener('submit', ev => {
+      ev.preventDefault();
+      loadMember(i.value.trim())
+        .then(m => { member = m; localStorage.setItem('bid', m.id); hide(o); })
+        .catch(err => e.textContent = err.message);
+    });
+
+    // Your existing submitBid, just add at its top:
+    // if (!member) return alert('Enter your bid#.');
+    // if (globalBL || member.blacklisted) return alert('Bidding disabled.');
+
+    // …then use member.firstName, member.lastName, member.id in your bid logic.
+  </script>
+
 
 </body>
 
