@@ -331,8 +331,8 @@
         expanded.innerHTML = `
         <p>${item.desc}</p>
         <p><strong>Starting Bid:</strong> $${item.startingBid}</p>
+        <p><strong>Current Top Bid:</strong> <span id="${item.id}-expandedTop">Loading…</span></p>
         <p><strong>Total Bids:</strong> <span id="${item.id}-total">0</span></p>
-        <p><strong>Top Bid:</strong> <span id="${item.id}-current">No bids made yet</span></p>
         <form onsubmit="submitBid(event, '${item.id}')">
           <input type="text" value="" placeholder="First Name" id="${item.id}-firstName" readonly>
           <input type="text" value="" placeholder="Last Name" id="${item.id}-lastName" readonly>
@@ -357,7 +357,14 @@
           const cur = data.current || null;
           const frozen = data.frozen || false;
           const topEl = document.getElementById(`${item.id}-current`);
-          topEl.textContent = cur ? `Top: ${cur.firstName} ${cur.lastName}` : "No bids yet";
+          const expandedTopEl = document.getElementById(`${item.id}-expandedTop`);
+          if (cur) {
+            topEl.textContent = `Top: ${cur.firstName} ${cur.lastName} – $${cur.amount}`;
+            expandedTopEl.textContent = `$${cur.amount} by ${cur.firstName} ${cur.lastName}`;
+          } else {
+            topEl.textContent = "No bids yet";
+            expandedTopEl.textContent = "No bids yet";
+          }
           document.getElementById(`${item.id}-total`).textContent = hist.length;
           document.getElementById(`${item.id}-history`).innerHTML =
             hist.map(b => `<li>$${b.amount} by ${b.firstName} ${b.lastName} at ${new Date(b.timestamp).toLocaleTimeString()}</li>`).join("");
