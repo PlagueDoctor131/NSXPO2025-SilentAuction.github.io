@@ -1,595 +1,307 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Silent Auction</title>
   <style>
-    /* turn each summary into a flex “header” */
-    .item>summary {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-    }
-
-    /* thumbnail sizing */
-    .item>summary .thumb {
-      width: 50%;
-      height: auto;
-      border-radius: 4px;
-    }
-
-    /* wrap title + top-bid for grouping/spacing */
-    .item>summary .item-info {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    /* mobile: stack everything vertically */
-    @media (max-width: 600px) {
-      .item>summary {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .item>summary .item-info {
-        flex-direction: column;
-        width: 100%;
-      }
-
-      .item>summary .item-info span {
-        width: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
-
     body {
       background-image: url("https://nsxca.org/resources/Pictures/NSXPO%20Photo%20Albums/2022/_DSC7739.jpg");
       font-family: sans-serif;
       padding: 20px;
       background-size: 175%;
     }
-
-    h1 {
-      text-align: center;
-    }
-
+    h1 { text-align: center; }
     #admin-login {
-      background: #fff;
-      padding: 10px;
-      margin-bottom: 20px;
-      border-radius: 6px;
-      box-shadow: 0 0 4px #aaa;
-      max-width: 320px;
+      background: #fff; padding: 10px; margin-bottom: 20px;
+      border-radius: 6px; box-shadow: 0 0 4px #aaa; max-width: 320px;
     }
-
-    #admin-login input {
-      width: calc(100% - 12px);
-      padding: 5px;
-      margin: 5px 0;
-    }
-
     #items .item {
-      background: white;
-      padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 5px #ccc;
+      background: white; padding: 15px; margin-bottom: 20px;
+      border-radius: 8px; box-shadow: 0 0 5px #ccc;
     }
-
-    .item img {
-      width: 100%;
-      max-width: 300px;
-      height: auto;
-      border-radius: 6px;
-      margin-bottom: 10px;
-    }
-
     .admin-btn {
-      margin-top: 10px;
-      background: #e74c3c;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      cursor: pointer;
-      display: none;
+      margin-top: 10px; background: #e74c3c; color: white;
+      border: none; padding: 5px 10px; cursor: pointer; display: none;
     }
-
-    .admin-btn:hover {
-      background: #c0392b;
-    }
-
-    details {
-      margin-top: 10px;
-    }
-
-    form input {
-      width: calc(100% - 12px);
-      padding: 5px;
-      margin: 5px 0;
-      box-sizing: border-box;
-    }
-
-    form button {
-      padding: 6px 12px;
-      margin-top: 5px;
-      cursor: pointer;
-    }
-
-    .item-card {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      padding: 12px;
-      flex: 1 1 240px;
-      margin: 8px;
-    }
-
-    .item-card img {
-      width: 100%;
-      height: auto;
-      border-radius: 4px 4px 0 0;
-    }
-
-    /* make each item a <details> card */
-    .item {
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-      overflow: hidden;
-    }
-
-    /* style the header summary */
-    .item>summary {
-      display: flex;
-      align-items: center;
-      padding: 10px 15px;
-      cursor: pointer;
-      list-style: none;
-      /* remove default marker */
-    }
-
-    /* remove the default triangle */
-    .item>summary::-webkit-details-marker,
-    .item>summary::marker {
-      display: none;
-    }
-
-    /* thumbnail in collapsed view */
-    .item .thumb {
-      width: 20%;
-      height: auto;
-      border-radius: 4px;
-      margin-right: 12px;
-    }
-
-    /* title + top bid */
-    .item .title {
-      font-weight: bold;
-      flex: 1;
-      width: auto;
-    }
-
-    .item .top-bid {
-      font-size: 0.9rem;
-      color: #555;
-      width: auto;
-    }
-
-    /* expanded content section */
-    .item .expanded {
-      padding: 15px;
-      border-top: 1px solid #eee;
-    }
-
-    /* default: visible */
+    .admin-btn:hover { background: #c0392b; }
     #lookupOverlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      /* ← must not default to none */
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 1000;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.5); z-index: 1000;
     }
-
-    /* hidden state */
-    #lookupOverlay.hidden {
-      display: none;
+    #lookupOverlay.hidden { display: none; }
+    form input {
+      width: calc(100% - 12px); padding: 5px; margin: 5px 0;
+      box-sizing: border-box;
     }
   </style>
 </head>
-
 <body>
 
-  <h1>Silent Auction</h1>
+<h1>Silent Auction</h1>
 
+<!-- LOOKUP OVERLAY -->
+<div id="lookupOverlay" class="overlay">
+  <form id="lookupForm">
+    <h2>Enter Your Bid Number</h2>
+    <input type="text" id="bidInput" required />
+    <button type="submit">Continue</button>
+    <p id="lookupError" style="color:#f88"></p>
+  </form>
+</div>
 
-  <!-- index.html -->
-  <!-- LOOKUP OVERLAY -->
-  <div id="lookupOverlay" class="overlay">
-    <form id="lookupForm">
-      <h2>Enter Your Bid Number</h2>
-      <input type="text" id="bidInput" required />
-      <button type="submit">Continue</button>
-      <p id="lookupError" style="color:#f88"></p>
-    </form>
-  </div>
+<div id="items"></div>
 
+<div id="admin-login">
+  <h3>Admin Login</h3>
+  <input type="password" id="admin-password" placeholder="Enter password">
+  <button onclick="loginAdmin()">Login</button>
+  <p id="admin-status" style="color: green;"></p>
+</div>
 
-  <div id="items"></div>
-  <div id="admin-login">
-    <h3>Admin Login</h3>
-    <input type="password" id="admin-password" placeholder="Enter password">
-    <button onclick="loginAdmin()">Login</button>
-    <p id="admin-status" style="color: green;"></p>
-  </div>
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
-
-  <script>
-    // --- Firebase config (replace with yours) ---
-    const firebaseConfig = {
-      apiKey: "AIzaSyDu8hu1LSLQf6zmJ5DsnTuAosaqOX2hoSI",
-      authDomain: "nsxpo-78017.firebaseapp.com",
-      databaseURL: "https://nsxpo-78017-default-rtdb.firebaseio.com",
-      projectId: "nsxpo-78017",
-      storageBucket: "nsxpo-78017.firebasestorage.app",
-      messagingSenderId: "170661972532",
-      appId: "1:170661972532:web:2203124865e9f525a15861",
-      measurementId: "G-59XTFSY4LQ"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    let isAdmin = false;
-    let auctionItems = [];
-
-    // SHA-256 helper
-    async function hashPassword(password) {
-      const buf = new TextEncoder().encode(password);
-      const hashBuf = await crypto.subtle.digest("SHA-256", buf);
-      return Array.from(new Uint8Array(hashBuf))
-        .map(b => b.toString(16).padStart(2, "0"))
-        .join("");
-    }
-
-    // fetch stored admin hash
-    async function getStoredHash() {
-      const snap = await db.ref("admin/passwordHash").once("value");
-      return snap.val();
-    }
-
-    // Admin login
-    async function loginAdmin() {
-      const pw = document.getElementById("admin-password").value;
-      const h = await hashPassword(pw);
-      const stored = await getStoredHash();
-      const status = document.getElementById("admin-status");
-
-      if (h === stored) {
-        isAdmin = true;
-        status.textContent = "Admin privileges granted.";
-        document.getElementById("admin-login").style.display = "none";
-        showAdminControls();
-      } else {
-        status.textContent = "Incorrect password.";
-        status.style.color = "red";
-      }
-    }
-
-    // reveal admin buttons
-    function showAdminControls() {
-      document.querySelectorAll(".admin-btn").forEach(b => b.style.display = "inline-block");
-    }
-
-    // toggle freeze/unfreeze
-    function toggleFreeze(itemId) {
-      if (!isAdmin) return;
-      const ref = db.ref(`bids/${itemId}/frozen`);
-      ref.once("value").then(s => ref.set(!s.val()));
-    }
-
-    // remove last bid
-    function removeLastBid(itemId) {
-      if (!isAdmin) return;
-      const ref = db.ref(`bids/${itemId}`);
-      ref.once("value").then(s => {
-        const data = s.val() || {};
-        const hist = data.history || [];
-        hist.pop();
-        const prev = hist[hist.length - 1] || null;
-        if (prev) {
-          ref.set({ current: prev, history: hist, frozen: data.frozen || false });
-        } else {
-          ref.remove();
-        }
-      });
-    }
-
-    // submit a bid
-    function submitBid(e, itemId) {
-      if (!member) {
-        return alert('Please enter your bid number first.');
-      }
-      if (globalBL || member.blacklisted) {
-        return alert('Bidding is disabled for your account or site-wide.');
-      }
-
-      e.preventDefault();
-  const amt = parseFloat(document.getElementById(`${itemId}-amount`).value);
-  const ref = db.ref(`bids/${itemId}`);
-  const itemData = auctionItems.find(i => i.id === itemId);
-  const startBid = parseFloat(itemData.startingBid);
-
-  if (isNaN(amt)) {
-    return alert("Please enter a valid bid amount.");
-  }
-
-  ref.once("value").then(snap => {
-    const data = snap.val() || {};
-    const frozen = data.frozen;
-    const current = data.current;
-    const hist = data.history || [];
-
-    if (frozen) return alert("Bidding is closed for this item.");
-    if (!current && amt < startBid) {
-      return alert(`First bid must be at least $${startBid}.`);
-    }
-    if (current && amt <= current.amount) {
-      return alert("Bid must exceed the current highest bid.");
-    }
-
-    const bid = {
-      firstName: currentMember.firstName,
-      lastName: currentMember.lastName,
-      bidNumber: currentMember.bidNumber,
-      amount: amt,
-      timestamp: Date.now()
-    };
-    hist.push(bid);
-    ref.set({ current: bid, history: hist, frozen: false });
-  });
-}
-
-    // render UI
-    function renderItems() {
-      const container = document.getElementById("items");
-      container.innerHTML = "";
-
-      auctionItems.forEach(item => {
-        // 1) Create the collapsible wrapper
-        const card = document.createElement("details");
-        card.className = "item";
-
-        // 2) Build the summary (collapsed) view
-        const summary = document.createElement("summary");
-        summary.innerHTML = `
-  <img src="${item.img}" class="thumb" alt="${item.name}">
-  <div class="item-info">
-    <span class="title">${item.name}</span>
-    <span id="${item.id}-current" class="top-bid">Loading…</span>
-  </div>
-`;
-
-        card.appendChild(summary);
-
-        // 3) Build the expanded view
-        const expanded = document.createElement("div");
-        expanded.className = "expanded";
-        expanded.innerHTML = `
-      <p>${item.desc}</p>
-      <p><strong>Starting Bid:</strong> $${item.startingBid}</p>
-      <p><strong>Total Bids:</strong> <span id="${item.id}-total">0</span></p>
-
-      <form onsubmit="submitBid(event, '${item.id}')">
-        <input type="text" id="${item.id}-firstName"  placeholder="First Name" readonly>
-        <input type="text" id="${item.id}-lastName"   placeholder="Last Name" readonly>
-        <input type="text" id="${item.id}-bidNumber"  placeholder="Bid Number" readonly>
-        <input type="number" id="${item.id}-amount"   placeholder="Your bid" required>
-        <button>Submit Bid</button>
-      </form>
-
-      <details>
-        <summary>Bid History</summary>
-        <ul id="${item.id}-history"></ul>
-      </details>
-
-      <button class="admin-btn" onclick="removeLastBid('${item.id}')">
-        Remove Last Bid
-      </button>
-      <button class="admin-btn" id="${item.id}-freeze-btn"
-              onclick="toggleFreeze('${item.id}')">
-        Freeze Bidding
-      </button>
-    `;
-        card.appendChild(expanded);
-
-        // 4) Append the card
-        container.appendChild(card);
-
-        // 5) Subscribe to Firebase updates
-        db.ref(`bids/${item.id}`).on("value", snap => {
-          const data = snap.val() || {};
-          const hist = data.history || [];
-          const cur = data.current || null;
-          const frozen = data.frozen || false;
-
-          // update the top‐bid in the summary
-          const topEl = document.getElementById(`${item.id}-current`);
-          topEl.textContent = cur
-            ? `Top bidder: ${cur.firstName} ${cur.lastName}`
-            : "No bids yet";
-
-          // update total bids
-          document.getElementById(`${item.id}-total`).textContent = hist.length;
-
-          // update history list
-          document.getElementById(`${item.id}-history`).innerHTML =
-            hist.map(b =>
-              `<li>$${b.amount} by ${b.firstName} ${b.lastName}
-             at ${new Date(b.timestamp).toLocaleTimeString()}</li>`
-            ).join("");
-
-          // disable inputs when frozen
-          ["firstName", "lastName", "bidNumber", "amount"].forEach(f => {
-            document.getElementById(`${item.id}-${f}`).disabled = frozen;
-          });
-
-          // toggle freeze button text
-          const btn = document.getElementById(`${item.id}-freeze-btn`);
-          btn.textContent = frozen ? "Unfreeze Bidding" : "Freeze Bidding";
-
-          if (isAdmin) showAdminControls();
-        });
-      });
-    }
-
-
-    // load items.json then init
-    fetch("items.json")
-      .then(r => r.json())
-      .then(data => {
-        auctionItems = data;
-        renderItems();
-      })
-      .catch(err => console.error("Failed to load items:", err));
-  </script>
-
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <script>
-    // 1. Define your lookup helper
-    function loadMember(bidNumber) {
-      return Promise.all([
-        db.ref(`members/${bidNumber}`).once('value'),
-        db.ref('settings/blacklistActive').once('value')
-      ])
-      .then(([memberSnap, globalSnap]) => {
-        const memberData   = memberSnap.val();
-        const globalActive = !!globalSnap.val();
-
-        if (!memberData) {
-          throw new Error('Unknown Bid Number');
-        }
-        if (globalActive || memberData.blacklisted) {
-          throw new Error('Bidding disabled for your account or site-wide.');
-        }
-
-        return {
-          bidNumber,
-          firstName:   memberData.firstName,
-          lastName:    memberData.lastName,
-          email:       memberData.email
-        };
-      });
-    }
-
-    // 2. Grab your DOM nodes **after** they exist
-    const lookupForm    = document.getElementById('lookupForm');
-    const bidInput      = document.getElementById('bidInput');
-    const lookupError   = document.getElementById('lookupError');
-    const lookupOverlay = document.getElementById('lookupOverlay');
-
-    // 3. Attach your submit listener
-    lookupForm.addEventListener('submit', e => {
-      e.preventDefault();
-      lookupError.textContent = '';
-      const bid = bidInput.value.trim();
-
-      console.log('Looking up BID →', bid);
-      loadMember(bid)
-    .then(member => {
-      currentMember = member; // <-- store member globally
-      localStorage.setItem('bidNumber', bid);
-      lookupOverlay.classList.add('hidden'); // cleaner than display:none
-    })
-    .catch(err => {
-      lookupError.textContent = err.message;
-    });
-});
-
-    //  A) grab the bid form and its elements
-const bidForm        = document.getElementById('bidForm');
-const firstNameField = document.getElementById('firstNameField');
-const lastNameField  = document.getElementById('lastNameField');
-const bidField       = document.getElementById('bidField');
-const amountField    = document.getElementById('amountField');
-
-// C) attach your bid‐submission listener – this prevents the reload
-bidForm.addEventListener('submit', e => {
-  e.preventDefault();                // ← critical to stop the page reload
-
-  // enforce lookup + blacklist
-  if (!currentMember) {
-    return alert('Please enter your bid number first.');
-  }
-  if (globalBL || currentMember.blacklisted) {
-    return alert('Bidding is disabled.');
-  }
-
-  // read the amount only—the name & bid come from currentMember
-  const amount = parseFloat(amountField.value);
-  if (isNaN(amount)) {
-    return alert('Please enter a valid bid amount.');
-  }
-
-  // build & push your bid object
-  const bidData = {
-    firstName:   currentMember.firstName,
-    lastName:    currentMember.lastName,
-    bidNumber:   currentMember.bidNumber,
-    amount:      amount,
-    timestamp:   Date.now()
+<script>
+  // --- Firebase config ---
+  const firebaseConfig = {
+    apiKey: "AIzaSyDu8hu1LSLQf6zmJ5DsnTuAosaqOX2hoSI",
+    authDomain: "nsxpo-78017.firebaseapp.com",
+    databaseURL: "https://nsxpo-78017-default-rtdb.firebaseio.com",
+    projectId: "nsxpo-78017",
+    storageBucket: "nsxpo-78017.firebasestorage.app",
+    messagingSenderId: "170661972532",
+    appId: "1:170661972532:web:2203124865e9f525a15861",
+    measurementId: "G-59XTFSY4LQ"
   };
-  db.ref(`bids/${itemId}`)  // you need to supply itemId here
-    .once('value')
-    .then(snap => {
-      const data   = snap.val() || {};
-      const hist   = data.history || [];
-      const current= data.current;
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
 
-      if (data.frozen) {
-        throw new Error('Bidding closed for this item.');
-      }
-      if (!current && amount < parseFloat(itemData.startingBid)) {
-        throw new Error(`First bid must be at least $${itemData.startingBid}.`);
-      }
-      if (current && amount <= current.amount) {
-        throw new Error('Bid must exceed the current highest bid.');
-      }
+  let isAdmin = false;
+  let auctionItems = [];
+  let currentMember = null;
+  let globalBL = false;
 
-      hist.push(bidData);
-      return db.ref(`bids/${itemId}`).set({
-        current: bidData,
-        history: hist,
-        frozen:  false
+  // SHA-256 helper
+  async function hashPassword(password) {
+    const buf = new TextEncoder().encode(password);
+    const hashBuf = await crypto.subtle.digest("SHA-256", buf);
+    return Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2,"0")).join("");
+  }
+  async function getStoredHash() {
+    const snap = await db.ref("admin/passwordHash").once("value");
+    return snap.val();
+  }
+  async function loginAdmin() {
+    const pw = document.getElementById("admin-password").value;
+    const h = await hashPassword(pw);
+    const stored = await getStoredHash();
+    const status = document.getElementById("admin-status");
+    if (h === stored) {
+      isAdmin = true;
+      status.textContent = "Admin privileges granted.";
+      document.getElementById("admin-login").style.display = "none";
+      showAdminControls();
+    } else {
+      status.textContent = "Incorrect password.";
+      status.style.color = "red";
+    }
+  }
+  function showAdminControls() {
+    document.querySelectorAll(".admin-btn").forEach(b => b.style.display="inline-block");
+  }
+  function toggleFreeze(itemId) {
+    if (!isAdmin) return;
+    const ref = db.ref(`bids/${itemId}/frozen`);
+    ref.once("value").then(s => ref.set(!s.val()));
+  }
+  function removeLastBid(itemId) {
+    if (!isAdmin) return;
+    const ref = db.ref(`bids/${itemId}`);
+    ref.once("value").then(s => {
+      const data = s.val() || {};
+      const hist = data.history || [];
+      hist.pop();
+      const prev = hist[hist.length-1] || null;
+      if (prev) {
+        ref.set({ current: prev, history: hist, frozen: data.frozen||false });
+      } else {
+        ref.remove();
+      }
+    });
+  }
+
+  // load member info
+  function loadMember(bidNumber) {
+    return Promise.all([
+      db.ref(`members/${bidNumber}`).once('value'),
+      db.ref('settings/blacklistActive').once('value')
+    ]).then(([memberSnap, globalSnap]) => {
+      const memberData = memberSnap.val();
+      globalBL = !!globalSnap.val();
+      if (!memberData) throw new Error("Unknown Bid Number");
+      if (globalBL || memberData.blacklisted) throw new Error("Bidding disabled.");
+      return {
+        bidNumber,
+        firstName: memberData.firstName,
+        lastName: memberData.lastName,
+        email: memberData.email,
+        blacklisted: !!memberData.blacklisted
+      };
+    });
+  }
+
+  // lookup overlay handler
+  const lookupForm = document.getElementById('lookupForm');
+  const bidInput = document.getElementById('bidInput');
+  const lookupError = document.getElementById('lookupError');
+  const lookupOverlay = document.getElementById('lookupOverlay');
+
+  lookupForm.addEventListener('submit', e => {
+    e.preventDefault();
+    lookupError.textContent = '';
+    const bid = bidInput.value.trim();
+    loadMember(bid)
+      .then(member => {
+        currentMember = member;
+        localStorage.setItem('bidNumber', bid);
+        lookupOverlay.classList.add('hidden');
+      })
+      .catch(err => {
+        lookupError.textContent = err.message;
       });
-    })
-    .then(() => {
-      console.log('Bid submitted', bidData);
-      // optionally clear amountField or show a success message
-      amountField.value = '';
-    })
-    .catch(err => alert(err.message));
-});
+  });
 
-  </script>
+  // submit a bid
+  function submitBid(e, itemId) {
+    e.preventDefault();
+    if (!currentMember) return alert("Please enter your bid number first.");
+    if (globalBL || currentMember.blacklisted) return alert("Bidding disabled.");
+
+    const amt = parseFloat(document.getElementById(`${itemId}-amount`).value);
+    if (isNaN(amt)) return alert("Please enter a valid bid amount.");
+
+    const ref = db.ref(`bids/${itemId}`);
+    const itemData = auctionItems.find(i => i.id === itemId);
+    const startBid = parseFloat(itemData.startingBid);
+
+    ref.once("value").then(snap => {
+      const data = snap.val() || {};
+      const hist = data.history || [];
+      const current = data.current;
+
+      if (data.frozen) return alert("Bidding closed for this item.");
+      if (!current && amt < startBid) return alert(`First bid must be at least $${startBid}.`);
+      if (current && amt <= current.amount) return alert("Bid must exceed current highest bid.");
+
+      const bid = {
+        firstName: currentMember.firstName,
+        lastName: currentMember.lastName,
+        bidNumber: currentMember.bidNumber,
+        amount: amt,
+        timestamp: Date.now()
+      };
+      hist.push(bid);
+      ref.set({ current: bid, history: hist, frozen: false });
+    });
+  }
+
+  // render items
+  function renderItems() {
+    const container = document.getElementById("items");
+    container.innerHTML = "";
+    auctionItems.forEach(item => {
+      const card = document.createElement("details");
+      card.className = "item";
+
+      const summary = document.createElement("summary");
+      summary.innerHTML = `
+        <img src="${item.img}" class="thumb" alt="${item.name}">
+        <div class="item-info">
+          <span class="title">${item.name}</span>
+          <span id="${item.id}-current" class="top-bid">Loading…</span>
+        </div>`;
+      card.appendChild(summary);
+
+      const expanded = document.createElement("div");
+      expanded.className = "expanded";
+      expanded.innerHTML = `
+        <p>${item.desc}</p>
+        <p><strong>Starting Bid:</strong> $${item.startingBid}</p>
+        <p><strong>Total Bids:</strong> <span id="${item.id}-total">0</span></p>
+        <form onsubmit="submitBid(event, '${item.id}')">
+          <input type="text" value="" placeholder="First Name" id="${item.id}-firstName" readonly>
+          <input type="text" value="" placeholder="Last Name" id="${item.id}-lastName" readonly>
+          <input type="text" value="" placeholder="Bid Number" id="${item.id}-bidNumber" readonly>
+          <input type="number" id="${item.id}-amount" placeholder="Your bid" required>
+          <button>Submit Bid</button>
+        </form>
+        <details>
+          <summary>Bid History</summary>
+          <ul id="${item.id}-history"></ul>
+        </details>
+        <button class="admin-btn" onclick="removeLastBid('${item.id}')">Remove Last Bid</button>
+        <button class="admin-btn" id="${item.id}-freeze-btn" onclick="toggleFreeze('${item.id}')">Freeze Bidding</button>
+      `;
+      card.appendChild(expanded);
+      container.appendChild(card);
+
+      // subscribe to bid updates
+      db.ref(`bids/${item.id}`).on("value", snap => {
+        const data = snap.val() || {};
+        const hist = data.history || [];
+        const cur = data.current || null;
+        const frozen = data.frozen || false;
+        const topEl = document.getElementById(`${item.id}-current`);
+        topEl.textContent = cur ? `Top: ${cur.firstName} ${cur.lastName}` : "No bids yet";
+        document.getElementById(`${item.id}-total`).textContent = hist.length;
+        document.getElementById(`${item.id}-history`).innerHTML =
+          hist.map(b => `<li>$${b.amount} by ${b.firstName} ${b.lastName} at ${new Date(b.timestamp).toLocaleTimeString()}</li>`).join("");
+        ["firstName","lastName","bidNumber","amount"].forEach(f => {
+          const el = document.getElementById(`${item.id}-${f}`);
+          if (el) el.disabled = frozen;
+        });
+        const btn = document.getElementById(`${item.id}-freeze-btn`);
+        btn.textContent = frozen ? "Unfreeze Bidding" : "Freeze Bidding";
+
+        // autofill readonly fields if logged in
+        if (currentMember) {
+          document.getElementById(`${item.id}-firstName`).value = currentMember.firstName;
+          document.getElementById(`${item.id}-lastName`).value = currentMember.lastName;
+          document.getElementById(`${item.id}-bidNumber`).value = currentMember.bidNumber;
+        }
+
+        if (isAdmin) showAdminControls();
+      });
+    });
+  }
+
+  // load items
+  fetch("items.json")
+    .then(r => r.json())
+    .then(data => {
+      auctionItems = data;
+      renderItems();
+    })
+    .catch(err => console.error("Failed to load items:", err));
+
+  // restore member if saved
+  window.addEventListener("DOMContentLoaded", () => {
+    const savedBid = localStorage.getItem("bidNumber");
+    if (savedBid) {
+      loadMember(savedBid)
+        .then(member => {
+          currentMember = member;
+          lookupOverlay.classList.add("hidden");
+        })
+        .catch(() => {
+          localStorage.removeItem("bidNumber");
+        });
+    }
+  });
+</script>
+
 </body>
-
 </html>
