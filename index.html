@@ -405,9 +405,9 @@
       <p><strong>Total Bids:</strong> <span id="${item.id}-total">0</span></p>
 
       <form onsubmit="submitBid(event, '${item.id}')">
-        <input type="text" id="${item.id}-firstName"  placeholder="First Name" required>
-        <input type="text" id="${item.id}-lastName"   placeholder="Last Name" required>
-        <input type="text" id="${item.id}-bidNumber"  placeholder="Bid Number" required>
+        <input type="text" id="${item.id}-firstName"  placeholder="First Name" readonly>
+        <input type="text" id="${item.id}-lastName"   placeholder="Last Name" readonly>
+        <input type="text" id="${item.id}-bidNumber"  placeholder="Bid Number" readonly>
         <input type="number" id="${item.id}-amount"   placeholder="Your bid" required>
         <button>Submit Bid</button>
       </form>
@@ -532,6 +532,94 @@
           // overlay stays visible
         });
     });
+
+    //  A) grab the bid form and its elements
+const bidForm        = document.getElementById('bidForm');
+const firstNameField = document.getElementById('firstNameField');
+const lastNameField  = document.getElementById('lastNameField');
+const bidField       = document.getElementById('bidField');
+const amountField    = document.getElementById('amountField');
+
+// B) when lookup succeeds, fill & lock those fields
+lookupForm.addEventListener('submit', e => {
+  e.preventDefault();
+  lookupError.textContent = '';
+  const bid = bidInput.value.trim();
+
+  loadMember(bid)
+    .then(member => {
+      currentMember = member;
+      localStorage.setItem('bidNumber', bid);
+      lookupOverlay.style.display = 'none';
+
+      // autofill + lock
+      firstNameField.value = member.firstName;
+      lastNameField.value  = member.lastName;
+      bidField.value       = member.bidNumber;
+    })
+    .catch(err => {
+      lookupError.textContent = err.message;
+    });
+});
+
+// C) attach your bid‐submission listener – this prevents the reload
+bidForm.addEventListener('submit', e => {
+  e.preventDefault();                // ← critical to stop the page reload
+
+  // enforce lookup + blacklist
+  if (!currentMember) {
+    return alert('Please enter your bid number first.');
+  }
+  if (globalBL || currentMember.blacklisted) {
+    return alert('Bidding is disabled.');
+  }
+
+  // read the amount only—the name & bid come from currentMember
+  const amount = parseFloat(amountField.value);
+  if (isNaN(amount)) {
+    return alert('Please enter a valid bid amount.');
+  }
+
+  // build & push your bid object
+  const bidData = {
+    firstName:   currentMember.firstName,
+    lastName:    currentMember.lastName,
+    bidNumber:   currentMember.bidNumber,
+    amount:      amount,
+    timestamp:   Date.now()
+  };
+  db.ref(`bids/${itemId}`)  // you need to supply itemId here
+    .once('value')
+    .then(snap => {
+      const data   = snap.val() || {};
+      const hist   = data.history || [];
+      const current= data.current;
+
+      if (data.frozen) {
+        throw new Error('Bidding closed for this item.');
+      }
+      if (!current && amount < parseFloat(itemData.startingBid)) {
+        throw new Error(`First bid must be at least $${itemData.startingBid}.`);
+      }
+      if (current && amount <= current.amount) {
+        throw new Error('Bid must exceed the current highest bid.');
+      }
+
+      hist.push(bidData);
+      return db.ref(`bids/${itemId}`).set({
+        current: bidData,
+        history: hist,
+        frozen:  false
+      });
+    })
+    .then(() => {
+      console.log('Bid submitted', bidData);
+      // optionally clear amountField or show a success message
+      amountField.value = '';
+    })
+    .catch(err => alert(err.message));
+});
+
   </script>
 </body>
 
