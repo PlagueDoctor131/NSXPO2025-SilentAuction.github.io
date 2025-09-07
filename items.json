@@ -4,17 +4,13 @@
     "name": "Tomica NSX Transport truck (1/64 scale)",
     "desc": "Donated by Brian Miller",
     "img": "https://cdn.discordapp.com/attachments/538174118948896779/1411069801215950868/5.png?ex=68bddca9&is=68bc8b29&hm=cbda5ed01de9c44660d30fe762c57f9caa7e6ea2108e11784d2a68e10706d568&"
+    "start": "$100"
   },
   {
     "id": "item2",
     "name": "Jada Toys Power Rangers NSX with figurine (1/24 scale) ",
     "desc": "Donated by Brian Miller",
     "img": "https://cdn.discordapp.com/attachments/538174118948896779/1411070039397896333/5.png?ex=68bddce1&is=68bc8b61&hm=0f6d478eae31b1135a6f1399a5841c12a00aea82b0f9e226ad031ea97cf65a76&"
+    "start": "$100"
   },
-  {
-    "id": "item3",
-    "name": "Custom Mechanical Keyboard",
-    "desc": "RGB backlit keyboard with hot-swappable switches.",
-    "img": "https://via.placeholder.com/150"
-  }
 ]

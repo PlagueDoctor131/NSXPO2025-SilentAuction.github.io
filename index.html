@@ -188,12 +188,13 @@
           <img src="${item.img}">
           <h3>${item.name}</h3>
           <p>${item.desc}</p>
+	  <p>${item.start}</p>
 
           <p><strong>Highest Bid:</strong>
             <span id="${item.id}-current">Loading…</span>
           </p>
           <p>Total Bids: <span id="${item.id}-total">0</span></p>
-          <p>Average Bid: <span id="${item.id}-avg">$0.00</span></p>
+          
 
           <form onsubmit="submitBid(event, '${item.id}')">
             <input type="text" id="${item.id}-name" placeholder="Your name" required>
