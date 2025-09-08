@@ -153,8 +153,10 @@
     <input type="text" id="newFirstName" placeholder="First Name">
     <input type="text" id="newLastName" placeholder="Last Name">
     <input type="email" id="newEmail" placeholder="Email">
+    <input type="tel" id="newPhone" placeholder="Phone">
     <button id="addMemberBtn">Add Member</button>
     <p id="addMemberStatus"></p>
+
   </div>
 
 
@@ -260,27 +262,34 @@
 
     refreshGlobalBL();
 
-    // MEMBER BLACKLIST TOGGLE
+    // MEMBER BLACKLIST TOGGLE (drop-in replacement)
     const toggleMemberBLBtn = document.getElementById("toggleMemberBL");
     const memberBidInput = document.getElementById("memberBidInput");
     const memberBLStatus = document.getElementById("memberBLStatus");
 
     toggleMemberBLBtn.addEventListener("click", () => {
       const bid = memberBidInput.value.trim();
-      if (!bid) return alert("Enter a bid number");
+      if (!bid) { alert("Enter a bid number"); return; }
 
-      const ref = db.ref(`members/${bid}/blacklisted`);
-      ref.once("value").then(snap => {
-        const newVal = !snap.val();
-        return ref.set(newVal);
-      }).then(() => {
-        memberBLStatus.textContent = `Member ${bid} is now ${newVal ? "BLACKLISTED" : "ACTIVE"}`;
-      }).catch(err => {
-        memberBLStatus.textContent = "Error: " + err.message;
-      });
+      const memberRef = db.ref(`members/${bid}`);
+
+      memberRef.once("value")
+        .then(snap => {
+          if (!snap.exists()) throw new Error(`Member ${bid} not found.`);
+          const currentBlacklisted = !!snap.val().blacklisted;
+          const toggled = !currentBlacklisted;
+          return memberRef.child("blacklisted").set(toggled).then(() => toggled);
+        })
+        .then(toggled => {
+          memberBLStatus.textContent = `Member ${bid} is now ${toggled ? "BLACKLISTED" : "ACTIVE"}`;
+        })
+        .catch(err => {
+          memberBLStatus.textContent = "Error: " + err.message;
+        });
     });
 
-    // ADD NEW MEMBER
+
+    // ADD NEW MEMBER (drop-in replacement)
     const addMemberBtn = document.getElementById("addMemberBtn");
     const addMemberStatus = document.getElementById("addMemberStatus");
 
@@ -289,27 +298,46 @@
       const first = document.getElementById("newFirstName").value.trim();
       const last = document.getElementById("newLastName").value.trim();
       const email = document.getElementById("newEmail").value.trim();
+      const phone = document.getElementById("newPhone").value.trim();
 
-      if (!bid || !first || !last || !email) {
+      if (!bid || !first || !last || !email || !phone) {
         addMemberStatus.textContent = "Please fill in all fields.";
         return;
       }
 
-      db.ref(`members/${bid}`).set({
-        firstName: first,
-        lastName: last,
-        email: email,
-        blacklisted: false
-      }).then(() => {
-        addMemberStatus.textContent = `Member ${first} ${last} (Bid #${bid}) added.`;
-        document.getElementById("newBidNum").value = "";
-        document.getElementById("newFirstName").value = "";
-        document.getElementById("newLastName").value = "";
-        document.getElementById("newEmail").value = "";
-      }).catch(err => {
-        addMemberStatus.textContent = "Error: " + err.message;
-      });
+      // (Optional) very light phone sanity check
+      const digits = phone.replace(/\D/g, "");
+      if (digits.length < 7) {
+        addMemberStatus.textContent = "Please enter a valid phone number.";
+        return;
+      }
+
+      const ref = db.ref(`members/${bid}`);
+
+      ref.once("value")
+        .then(snap => {
+          if (snap.exists()) throw new Error(`Bid number ${bid} is already in use.`);
+          return ref.set({
+            firstName: first,
+            lastName: last,
+            email: email,
+            phone: phone,
+            blacklisted: false
+          });
+        })
+        .then(() => {
+          addMemberStatus.textContent = `Member ${first} ${last} (Bid #${bid}) added.`;
+          document.getElementById("newBidNum").value = "";
+          document.getElementById("newFirstName").value = "";
+          document.getElementById("newLastName").value = "";
+          document.getElementById("newEmail").value = "";
+          document.getElementById("newPhone").value = "";
+        })
+        .catch(err => {
+          addMemberStatus.textContent = "Error: " + err.message;
+        });
     });
+
 
 
     function toggleFreeze(itemId) {
@@ -340,18 +368,20 @@
         db.ref('settings/blacklistActive').once('value')
       ]).then(([memberSnap, globalSnap]) => {
         const memberData = memberSnap.val();
-        globalBL = !!globalSnap.val();
+        globalBL = !!globalSnap.val();               // enforcement flag
         if (!memberData) throw new Error("Unknown Bid Number");
-        if (globalBL || memberData.blacklisted) throw new Error("Bidding disabled.");
+        if (globalBL && memberData.blacklisted) throw new Error("You are blacklisted.");
         return {
           bidNumber,
           firstName: memberData.firstName,
           lastName: memberData.lastName,
           email: memberData.email,
+          phone: memberData.phone || "",
           blacklisted: !!memberData.blacklisted
         };
       });
     }
+
 
     // lookup overlay handler
     const lookupForm = document.getElementById('lookupForm');
