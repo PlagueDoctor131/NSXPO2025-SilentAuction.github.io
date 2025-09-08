@@ -477,53 +477,54 @@
     });
 
 
-    // submit a bid
     function submitBid(e, itemId) {
-      e.preventDefault();
-      if (!currentMember) return alert("Please enter your bid number first.");
-      if (allFrozen) return alert("All auctions are currently paused.");
-      if (globalBL && currentMember.blacklisted) return alert("You are blacklisted.");
+  e.preventDefault();
 
-      const amt = parseFloat(document.getElementById(`${itemId}-amount`).value);
-      if (isNaN(amt)) return alert("Please enter a valid bid amount.");
+  if (!currentMember) return alert("Please enter your bid number first.");
+  if (allFrozen) return alert("All auctions are currently frozen.");
+  if (globalBL && currentMember.blacklisted) return alert("You are blacklisted.");
 
-      const ref = db.ref(`bids/${itemId}`);
-      const itemData = auctionItems.find(i => i.id === itemId);
-      const startBid = parseFloat(itemData.startingBid);
+  const amt = parseFloat(document.getElementById(`${itemId}-amount`).value);
+  if (isNaN(amt)) return alert("Please enter a valid bid amount.");
 
-      ref.once("value").then(snap => {
-        const data = snap.val() || {};
-        const hist = data.history || [];
-        const current = data.current;
+  const ref = db.ref(`bids/${itemId}`);
+  const itemData = auctionItems.find(i => i.id === itemId);
+  const startBid = parseFloat(itemData.startingBid);
 
-        if (data.frozen) return alert("Bidding closed for this item.");
-        if (!current && amt < startBid) return alert(`First bid must be at least $${startBid}.`);
-        if (current && amt <= current.amount) return alert("Bid must exceed current highest bid.");
+  ref.once("value").then(snap => {
+    const data = snap.val() || {};
+    const hist = data.history || [];
+    const current = data.current;
 
-        const newBid = {
-          firstName: currentMember.firstName,
-          lastName: currentMember.lastName,
-          bidNumber: currentMember.bidNumber,
-          amount: amt,
-          timestamp: Date.now()
-        };
-        hist.push(newBid);
-      })
-      ref.set({ current: newBid, history: hist, frozen: false })
-        .then(() => {
-          // ✅ Clear bid field after successful submission
-          document.getElementById(`${itemId}-amount`).value = "";
+    if (data.frozen) return alert("Bidding closed for this item.");
+    if (!current && amt < startBid) return alert(`First bid must be at least $${startBid}.`);
+    if (current && amt <= current.amount) return alert("Bid must exceed current highest bid.");
 
-          // ✅ Show success message
-          const successEl = document.getElementById(`${itemId}-success`);
-          if (successEl) {
-            successEl.textContent = "Bid submitted successfully!";
-            setTimeout(() => { successEl.textContent = ""; }, 3000); // auto-hide after 3s
-          }
-        });
+    // Build bid object
+    const newBid = {
+      firstName: currentMember.firstName,
+      lastName: currentMember.lastName,
+      bidNumber: currentMember.bidNumber,
+      amount: amt,
+      timestamp: Date.now()
+    };
 
+    hist.push(newBid);
 
-    }
+    // Return promise so we can chain .then()
+    return ref.set({ current: newBid, history: hist, frozen: false })
+      .then(() => {
+        // ✅ Clear bid field
+        document.getElementById(`${itemId}-amount`).value = "";
+
+        // ✅ Show success message
+        const successEl = document.getElementById(`${itemId}-success`);
+        if (successEl) {
+          successEl.textContent = "Bid submitted successfully!";
+          setTimeout(() => { successEl.textContent = ""; }, 3000);
+        }
+      });
+    
 
     // render items
     function renderItems() {
