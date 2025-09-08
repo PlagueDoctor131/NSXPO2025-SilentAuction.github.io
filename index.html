@@ -129,6 +129,34 @@
     <button onclick="loginAdmin()">Login</button>
     <p id="admin-status" style="color: green;"></p>
   </div>
+  <div id="admin-panel"
+    style="display:none; margin-top:20px; background:#fff; padding:15px; border-radius:6px; box-shadow:0 0 5px #aaa;">
+    <h3>Admin Panel</h3>
+
+    <!-- Global Blacklist -->
+    <button id="toggleGlobalBL">Toggle Global Blacklist</button>
+    <p>Global Blacklist: <span id="globalBLStatus">Loading…</span></p>
+
+    <hr>
+
+    <!-- Member Blacklist -->
+    <h4>Manage Member Blacklist</h4>
+    <input type="text" id="memberBidInput" placeholder="Bid Number">
+    <button id="toggleMemberBL">Toggle Member Blacklist</button>
+    <p id="memberBLStatus"></p>
+
+    <hr>
+
+    <!-- Add Member -->
+    <h4>Add New Member</h4>
+    <input type="text" id="newBidNum" placeholder="Bid Number">
+    <input type="text" id="newFirstName" placeholder="First Name">
+    <input type="text" id="newLastName" placeholder="Last Name">
+    <input type="email" id="newEmail" placeholder="Email">
+    <button id="addMemberBtn">Add Member</button>
+    <p id="addMemberStatus"></p>
+  </div>
+
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -201,6 +229,7 @@
         status.textContent = "Admin privileges granted.";
         document.getElementById("admin-login").style.display = "none";
         showAdminControls();
+
       } else {
         status.textContent = "Incorrect password.";
         status.style.color = "red";
@@ -208,7 +237,81 @@
     }
     function showAdminControls() {
       document.querySelectorAll(".admin-btn").forEach(b => b.style.display = "inline-block");
+      document.getElementById("admin-panel").style.display = "block";
     }
+    // GLOBAL BLACKLIST TOGGLE
+    const globalBLStatus = document.getElementById("globalBLStatus");
+    const toggleGlobalBLBtn = document.getElementById("toggleGlobalBL");
+
+    function refreshGlobalBL() {
+      db.ref("settings/blacklistActive").once("value").then(snap => {
+        const active = !!snap.val();
+        globalBL = active;
+        globalBLStatus.textContent = active ? "ON" : "OFF";
+      });
+    }
+
+    toggleGlobalBLBtn.addEventListener("click", () => {
+      db.ref("settings/blacklistActive").once("value").then(snap => {
+        const current = !!snap.val();
+        db.ref("settings/blacklistActive").set(!current).then(refreshGlobalBL);
+      });
+    });
+
+    refreshGlobalBL();
+
+    // MEMBER BLACKLIST TOGGLE
+    const toggleMemberBLBtn = document.getElementById("toggleMemberBL");
+    const memberBidInput = document.getElementById("memberBidInput");
+    const memberBLStatus = document.getElementById("memberBLStatus");
+
+    toggleMemberBLBtn.addEventListener("click", () => {
+      const bid = memberBidInput.value.trim();
+      if (!bid) return alert("Enter a bid number");
+
+      const ref = db.ref(`members/${bid}/blacklisted`);
+      ref.once("value").then(snap => {
+        const newVal = !snap.val();
+        return ref.set(newVal);
+      }).then(() => {
+        memberBLStatus.textContent = `Member ${bid} is now ${newVal ? "BLACKLISTED" : "ACTIVE"}`;
+      }).catch(err => {
+        memberBLStatus.textContent = "Error: " + err.message;
+      });
+    });
+
+    // ADD NEW MEMBER
+    const addMemberBtn = document.getElementById("addMemberBtn");
+    const addMemberStatus = document.getElementById("addMemberStatus");
+
+    addMemberBtn.addEventListener("click", () => {
+      const bid = document.getElementById("newBidNum").value.trim();
+      const first = document.getElementById("newFirstName").value.trim();
+      const last = document.getElementById("newLastName").value.trim();
+      const email = document.getElementById("newEmail").value.trim();
+
+      if (!bid || !first || !last || !email) {
+        addMemberStatus.textContent = "Please fill in all fields.";
+        return;
+      }
+
+      db.ref(`members/${bid}`).set({
+        firstName: first,
+        lastName: last,
+        email: email,
+        blacklisted: false
+      }).then(() => {
+        addMemberStatus.textContent = `Member ${first} ${last} (Bid #${bid}) added.`;
+        document.getElementById("newBidNum").value = "";
+        document.getElementById("newFirstName").value = "";
+        document.getElementById("newLastName").value = "";
+        document.getElementById("newEmail").value = "";
+      }).catch(err => {
+        addMemberStatus.textContent = "Error: " + err.message;
+      });
+    });
+
+
     function toggleFreeze(itemId) {
       if (!isAdmin) return;
       const ref = db.ref(`bids/${itemId}/frozen`);
