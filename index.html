@@ -398,52 +398,52 @@
       db.ref("settings/pause").set({ endTime, message: msg });
       countdownStatus.textContent = `Auction paused for ${hrs}h ${mins}m.`;
     });
+    document.addEventListener("DOMContentLoaded", () => {
+      const auctionOverlay = document.getElementById("auctionOverlay");
+      const overlayMessage = document.getElementById("overlayMessage");
+      const overlayTimer = document.getElementById("overlayTimer");
 
-    const auctionOverlay = document.getElementById("auctionOverlay");
-    const overlayMessage = document.getElementById("overlayMessage");
-    const overlayTimer = document.getElementById("overlayTimer");
-
-    db.ref("settings/pause").on("value", snap => {
-      const data = snap.val();
-      if (!data || !data.endTime) {
-        auctionOverlay.style.display = "none";
-        auctionPaused = false;
-        return;
-      }
-
-      const { endTime, message } = data;
-      auctionPaused = true;
-      auctionOverlay.style.display = "flex";
-
-      function runTimer() {
-        const now = Date.now();
-        const diff = endTime - now;
-
-        if (diff <= 0) {
-          overlayMessage.textContent = "Auction is now OPEN!";
-          overlayTimer.textContent = "";
-          setTimeout(() => {
-            db.ref("settings/pause").remove();
-            auctionOverlay.style.display = "none";
-            auctionPaused = false;
-          }, 5000);
+      db.ref("settings/pause").on("value", snap => {
+        const data = snap.val();
+        if (!data || !data.endTime) {
+          auctionOverlay.style.display = "none";
+          auctionPaused = false;
           return;
         }
 
-        const hrs = Math.floor(diff / 3600000);
-        const mins = Math.floor((diff % 3600000) / 60000);
-        const secs = Math.floor((diff % 60000) / 1000);
+        const { endTime, message } = data;
+        auctionPaused = true;
+        auctionOverlay.style.display = "flex";
 
-        overlayMessage.textContent = message || "Auction Paused";
-        overlayTimer.textContent = `${hrs}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-      }
+        function runTimer() {
+          const now = Date.now();
+          const diff = endTime - now;
 
-      // Run immediately and every second
-      runTimer();
-      clearInterval(window._pauseTimerInterval);
-      window._pauseTimerInterval = setInterval(runTimer, 1000);
+          if (diff <= 0) {
+            overlayMessage.textContent = "Auction is now OPEN!";
+            overlayTimer.textContent = "";
+            setTimeout(() => {
+              db.ref("settings/pause").remove();
+              auctionOverlay.style.display = "none";
+              auctionPaused = false;
+            }, 5000);
+            return;
+          }
+
+          const hrs = Math.floor(diff / 3600000);
+          const mins = Math.floor((diff % 3600000) / 60000);
+          const secs = Math.floor((diff % 60000) / 1000);
+
+          overlayMessage.textContent = message || "Auction Paused";
+          overlayTimer.textContent = `${hrs}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+        }
+
+        // Run immediately and every second
+        runTimer();
+        clearInterval(window._pauseTimerInterval);
+        window._pauseTimerInterval = setInterval(runTimer, 1000);
+      });
     });
-
 
 
     // ADD NEW MEMBER 
