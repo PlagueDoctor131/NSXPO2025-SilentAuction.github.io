@@ -51,7 +51,9 @@
     .admin-btn:hover {
       background: #c0392b;
     }
-
+    #lookupOverlay span {
+      background-color: #fff;
+    }
     #lookupOverlay {
       position: fixed;
       top: 0;
@@ -114,7 +116,7 @@
   <!-- LOOKUP OVERLAY -->
   <div id="lookupOverlay" class="overlay">
     <form id="lookupForm">
-      <h2>Enter Your Bid Number</h2>
+      <h2><span>Enter Your Bid Number</span></h2>
       <input type="text" id="bidInput" required />
       <button type="submit">Continue</button>
       <p id="lookupError" style="color:#f88"></p>
@@ -134,7 +136,7 @@
     <h3>Admin Panel</h3>
 
     <!-- Global Blacklist -->
-    <button id="toggleGlobalBL">Toggle Global Blacklist</button>
+    <button id="toggleGlobalBL">Toggle Blacklist</button>
     <p>Global Blacklist: <span id="globalBLStatus">Loading…</span></p>
 
     <hr>
@@ -142,7 +144,7 @@
     <!-- Member Blacklist -->
     <h4>Manage Member Blacklist</h4>
     <input type="text" id="memberBidInput" placeholder="Bid Number">
-    <button id="toggleMemberBL">Toggle Member Blacklist</button>
+    <button id="toggleMemberBL">Add/Remove from Blacklist</button>
     <p id="memberBLStatus"></p>
 
     <hr>
@@ -157,6 +159,12 @@
     <button id="addMemberBtn">Add Member</button>
     <p id="addMemberStatus"></p>
 
+    <hr>
+
+    <!-- Freeze All Auctions -->
+    <button id="toggleAllFreeze">Toggle Pause All Auctions</button>
+    <p>Auctions Status: <span id="allFreezeStatus">Loading…</span></p>
+
   </div>
 
 
@@ -165,6 +173,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
   <script>
+    
     // --- Firebase config ---
     const firebaseConfig = {
       apiKey: "AIzaSyDu8hu1LSLQf6zmJ5DsnTuAosaqOX2hoSI",
@@ -178,7 +187,8 @@
     };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-
+    
+    let allFrozen = false;
     let isAdmin = false;
     let auctionItems = [];
     let currentMember = null;
@@ -339,6 +349,32 @@
     });
 
 
+    // --- GLOBAL FREEZE ALL ---
+const allFreezeStatus   = document.getElementById("allFreezeStatus");
+const toggleAllFreezeBtn = document.getElementById("toggleAllFreeze");
+
+function refreshAllFreeze() {
+  db.ref("settings/allFrozen").once("value").then(snap => {
+    allFrozen = !!snap.val();
+    allFreezeStatus.textContent = allFrozen ? "Paused" : "ACTIVE";
+  });
+}
+
+toggleAllFreezeBtn.addEventListener("click", () => {
+  db.ref("settings/allFrozen").once("value").then(snap => {
+    const current = !!snap.val();
+    return db.ref("settings/allFrozen").set(!current);
+  }).then(refreshAllFreeze);
+});
+
+// Call once on load
+refreshAllFreeze();
+
+// Keep listening for changes in real-time
+db.ref("settings/allFrozen").on("value", snap => {
+  allFrozen = !!snap.val();
+  allFreezeStatus.textContent = allFrozen ? "Paused" : "ACTIVE";
+});
 
     function toggleFreeze(itemId) {
       if (!isAdmin) return;
@@ -412,7 +448,8 @@
     function submitBid(e, itemId) {
       e.preventDefault();
       if (!currentMember) return alert("Please enter your bid number first.");
-      if (globalBL || currentMember.blacklisted) return alert("Bidding disabled.");
+      if (allFrozen) return alert("All auctions are currently paused.");
+      if (globalBL && currentMember.blacklisted) return alert("You are blacklisted.");
 
       const amt = parseFloat(document.getElementById(`${itemId}-amount`).value);
       if (isNaN(amt)) return alert("Please enter a valid bid amount.");
