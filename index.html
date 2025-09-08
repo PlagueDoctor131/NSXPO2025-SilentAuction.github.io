@@ -500,17 +500,16 @@
         if (!current && amt < startBid) return alert(`First bid must be at least $${startBid}.`);
         if (current && amt <= current.amount) return alert("Bid must exceed current highest bid.");
 
-        const bid = {
+        const newBid = {
           firstName: currentMember.firstName,
           lastName: currentMember.lastName,
           bidNumber: currentMember.bidNumber,
           amount: amt,
           timestamp: Date.now()
         };
-        hist.push(bid);
-        ref.set({ current: bid, history: hist, frozen: false });
+        hist.push(newBid);
       })
-      ref.set({ current: bid, history: hist, frozen: false })
+      ref.set({ current: newBid, history: hist, frozen: false })
         .then(() => {
           // ✅ Clear bid field after successful submission
           document.getElementById(`${itemId}-amount`).value = "";
