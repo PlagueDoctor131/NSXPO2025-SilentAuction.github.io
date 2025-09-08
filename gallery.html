@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Live Auction Preview</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    nav { margin-bottom: 20px; }
+    #gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .gallery-item {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 5px #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    .gallery-item img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Silent Auction</a> |
+    <a href="gallery.html">Live Auction Preview</a>
+  </nav>
+
+  <h1>Live Auction Preview</h1>
+  <div id="gallery"></div>
+
+  <script>
+    fetch("gallery.json")
+      .then(r => r.json())
+      .then(items => {
+        const container = document.getElementById("gallery");
+        items.forEach(item => {
+          const div = document.createElement("div");
+          div.className = "gallery-item";
+          div.innerHTML = `
+            <img src="${item.img}" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <p><em>Donated by: ${item.donor}</em></p>
+          `;
+          container.appendChild(div);
+        });
+      });
+  </script>
+</body>
+</html>

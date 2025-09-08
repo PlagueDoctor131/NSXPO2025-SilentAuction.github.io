@@ -62,13 +62,14 @@
       border-radius: 8px;
       box-shadow: 0 0 5px #ccc;
       flex: 1 1 32%;
-      max-width:500px;
+      max-width: 500px;
     }
+
     #items {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
-      justify-content: center; 
+      justify-content: center;
     }
 
     .admin-btn {
@@ -132,6 +133,11 @@
       border-radius: 4px;
       cursor: pointer;
     }
+
+    nav {
+      align-items: center;
+      margin: auto;
+    }
   </style>
 </head>
 
@@ -143,6 +149,14 @@
       Switch Bidder
     </button>
   </h1>
+  <nav>
+    <a href="index.html">Silent Auction</a> |
+    <a href="gallery.html">Live Auction Preview</a>
+  </nav>
+
+  <div id="countdownDisplay"
+    style="display:none; background:#ffeeba; padding:10px; margin-bottom:20px; text-align:center; font-size:1.2em; border-radius:6px;">
+  </div>
 
   <!-- LOOKUP OVERLAY -->
   <div id="lookupOverlay" class="overlay">
@@ -179,6 +193,12 @@
     <p id="memberBLStatus"></p>
 
     <hr>
+    <hr>
+    <h4>Auction Countdown</h4>
+    <input type="number" id="countdownMinutes" placeholder="Minutes">
+    <input type="text" id="countdownMessage" placeholder="Custom message (optional)">
+    <button id="startCountdownBtn">Start Countdown</button>
+    <p id="countdownStatus"></p>
 
     <!-- Add Member -->
     <h4>Add New Member</h4>
@@ -358,6 +378,52 @@
         });
     });
 
+    const countdownDisplay = document.getElementById("countdownDisplay");
+    const countdownStatus = document.getElementById("countdownStatus");
+    const startCountdownBtn = document.getElementById("startCountdownBtn");
+
+    startCountdownBtn.addEventListener("click", () => {
+      const mins = parseInt(document.getElementById("countdownMinutes").value, 10);
+      const msg = document.getElementById("countdownMessage").value.trim();
+
+      if (isNaN(mins) || mins <= 0) {
+        countdownStatus.textContent = "Enter a valid number of minutes.";
+        return;
+      }
+
+      const endTime = Date.now() + mins * 60 * 1000;
+      db.ref("settings/countdown").set({ endTime, message: msg });
+      countdownStatus.textContent = `Countdown started for ${mins} minutes.`;
+    });
+
+    // Listen for countdown changes
+    db.ref("settings/countdown").on("value", snap => {
+      const data = snap.val();
+      if (!data || !data.endTime) {
+        countdownDisplay.style.display = "none";
+        return;
+      }
+
+      const { endTime, message } = data;
+      function updateTimer() {
+        const now = Date.now();
+        const diff = endTime - now;
+        if (diff <= 0) {
+          countdownDisplay.textContent = "Auction is now open!";
+          setTimeout(() => {
+            db.ref("settings/countdown").remove();
+            countdownDisplay.style.display = "none";
+          }, 5000);
+          return;
+        }
+        const mins = Math.floor(diff / 60000);
+        const secs = Math.floor((diff % 60000) / 1000);
+        countdownDisplay.textContent = `${message ? message + " – " : ""}${mins}:${secs.toString().padStart(2, "0")} remaining`;
+        countdownDisplay.style.display = "block";
+        requestAnimationFrame(updateTimer);
+      }
+      updateTimer();
+    });
 
     // ADD NEW MEMBER 
     const addMemberBtn = document.getElementById("addMemberBtn");
@@ -569,7 +635,7 @@
         summary.innerHTML = `
         <img src="${item.img}" class="thumb" alt="${item.name}">
         <div class="item-info">
-          <span class="title">${item.name}</span>
+          <span class="title"><strong>${item.name}</strong></span>
           <span id="${item.id}-current" class="top-bid">Loading…</span>
         </div>`;
         card.appendChild(summary);
