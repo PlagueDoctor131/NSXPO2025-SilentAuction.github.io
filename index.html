@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -217,7 +217,7 @@
       lookupOverlay.classList.remove("hidden");
       logoutBtn.style.display = "none";
 
-      // clear readonly fields on items
+      // Clear readonly fields
       auctionItems.forEach(item => {
         ["firstName", "lastName", "bidNumber"].forEach(f => {
           const el = document.getElementById(`${item.id}-${f}`);
@@ -225,6 +225,7 @@
         });
       });
     }
+
 
     logoutBtn.addEventListener("click", logoutMember);
 
@@ -280,6 +281,7 @@
       });
     }
 
+
     toggleGlobalBLBtn.addEventListener("click", () => {
       db.ref("settings/blacklistActive").once("value").then(snap => {
         const current = !!snap.val();
@@ -288,6 +290,18 @@
     });
 
     refreshGlobalBL();
+    // Watch blacklist enforcement in real time
+    db.ref("settings/blacklistActive").on("value", snap => {
+      globalBL = !!snap.val();
+      globalBLStatus.textContent = globalBL ? "ENFORCED" : "IGNORED";
+
+      // If enforcement is active and current member is blacklisted → kick them
+      if (globalBL && currentMember && currentMember.blacklisted) {
+        alert("You have been blacklisted. You are now logged out.");
+        logoutMember();
+      }
+    });
+
 
     // MEMBER BLACKLIST TOGGLE (drop-in replacement)
     const toggleMemberBLBtn = document.getElementById("toggleMemberBL");
