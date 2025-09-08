@@ -580,11 +580,11 @@
           const topEl = document.getElementById(`${item.id}-current`);
           const expandedTopEl = document.getElementById(`${item.id}-expandedTop`);
           if (cur) {
-            topEl.textContent = `Top: ${cur.firstName} ${cur.lastName}`;
-            expandedTopEl.textContent = `$${cur.amount} by ${cur.firstName} ${cur.lastName}`;
+            topEl.textContent = `\nTop: ${cur.firstName} ${cur.lastName}`;
+            expandedTopEl.textContent = ``;
           } else {
-            topEl.textContent = "No bids yet";
-            expandedTopEl.textContent = "No bids yet";
+            topEl.textContent = "\nNo bids yet";
+            expandedTopEl.textContent = "";
           }
           document.getElementById(`${item.id}-total`).textContent = hist.length;
           document.getElementById(`${item.id}-history`).innerHTML =
