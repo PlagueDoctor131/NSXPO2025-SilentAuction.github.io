@@ -11,7 +11,7 @@
       font-family: sans-serif;
       padding: 20px;
       background-size: 100%;
-      
+
     }
 
     summary {
@@ -194,12 +194,12 @@
     <p id="memberBLStatus"></p>
 
     <hr>
-  <h4>Auction Pause Timer</h4>
-  <input type="number" id="countdownHours" placeholder="Hours">
-  <input type="number" id="countdownMinutes" placeholder="Minutes">
-  <input type="text" id="countdownMessage" placeholder="Custom message (optional)">
-  <button id="startCountdownBtn">Start Pause</button>
-  <p id="countdownStatus"></p>
+    <h4>Auction Pause Timer</h4>
+    <input type="number" id="countdownHours" placeholder="Hours">
+    <input type="number" id="countdownMinutes" placeholder="Minutes">
+    <input type="text" id="countdownMessage" placeholder="Custom message (optional)">
+    <button id="startCountdownBtn">Start Pause</button>
+    <p id="countdownStatus"></p>
     <hr>
 
     <!-- Add Member -->
@@ -382,64 +382,68 @@
     });
 
     const startCountdownBtn = document.getElementById("startCountdownBtn");
-const countdownStatus   = document.getElementById("countdownStatus");
+    const countdownStatus = document.getElementById("countdownStatus");
 
-startCountdownBtn.addEventListener("click", () => {
-  const hrs = parseInt(document.getElementById("countdownHours").value, 10) || 0;
-  const mins = parseInt(document.getElementById("countdownMinutes").value, 10) || 0;
-  const msg  = document.getElementById("countdownMessage").value.trim();
+    startCountdownBtn.addEventListener("click", () => {
+      const hrs = parseInt(document.getElementById("countdownHours").value, 10) || 0;
+      const mins = parseInt(document.getElementById("countdownMinutes").value, 10) || 0;
+      const msg = document.getElementById("countdownMessage").value.trim();
 
-  if (hrs <= 0 && mins <= 0) {
-    countdownStatus.textContent = "Enter at least minutes or hours.";
-    return;
-  }
+      if (hrs <= 0 && mins <= 0) {
+        countdownStatus.textContent = "Enter at least minutes or hours.";
+        return;
+      }
 
-  const endTime = Date.now() + (hrs * 3600 + mins * 60) * 1000;
-  db.ref("settings/pause").set({ endTime, message: msg });
-  countdownStatus.textContent = `Auction paused for ${hrs}h ${mins}m.`;
-});
+      const endTime = Date.now() + (hrs * 3600 + mins * 60) * 1000;
+      db.ref("settings/pause").set({ endTime, message: msg });
+      countdownStatus.textContent = `Auction paused for ${hrs}h ${mins}m.`;
+    });
 
-const auctionOverlay  = document.getElementById("auctionOverlay");
-const overlayMessage  = document.getElementById("overlayMessage");
-const overlayTimer    = document.getElementById("overlayTimer");
+    const auctionOverlay = document.getElementById("auctionOverlay");
+    const overlayMessage = document.getElementById("overlayMessage");
+    const overlayTimer = document.getElementById("overlayTimer");
 
-db.ref("settings/pause").on("value", snap => {
-  const data = snap.val();
-  if (!data || !data.endTime) {
-    auctionOverlay.style.display = "none";
-    auctionPaused = false;
-    return;
-  }
-
-  const { endTime, message } = data;
-  auctionPaused = true;
-  auctionOverlay.style.display = "flex";
-
-  function updateTimer() {
-    const now = Date.now();
-    const diff = endTime - now;
-
-    if (diff <= 0) {
-      overlayMessage.textContent = "Auction is now OPEN!";
-      overlayTimer.textContent = "";
-      setTimeout(() => {
-        db.ref("settings/pause").remove();
+    db.ref("settings/pause").on("value", snap => {
+      const data = snap.val();
+      if (!data || !data.endTime) {
         auctionOverlay.style.display = "none";
         auctionPaused = false;
-      }, 5000);
-      return;
-    }
+        return;
+      }
 
-    const hrs = Math.floor(diff / 3600000);
-    const mins = Math.floor((diff % 3600000) / 60000);
-    const secs = Math.floor((diff % 60000) / 1000);
+      const { endTime, message } = data;
+      auctionPaused = true;
+      auctionOverlay.style.display = "flex";
 
-    overlayMessage.textContent = message || "Auction Paused";
-    overlayTimer.textContent = `${hrs}:${mins.toString().padStart(2,"0")}:${secs.toString().padStart(2,"0")}`;
-    requestAnimationFrame(updateTimer);
-  }
-  updateTimer();
-});
+      function runTimer() {
+        const now = Date.now();
+        const diff = endTime - now;
+
+        if (diff <= 0) {
+          overlayMessage.textContent = "Auction is now OPEN!";
+          overlayTimer.textContent = "";
+          setTimeout(() => {
+            db.ref("settings/pause").remove();
+            auctionOverlay.style.display = "none";
+            auctionPaused = false;
+          }, 5000);
+          return;
+        }
+
+        const hrs = Math.floor(diff / 3600000);
+        const mins = Math.floor((diff % 3600000) / 60000);
+        const secs = Math.floor((diff % 60000) / 1000);
+
+        overlayMessage.textContent = message || "Auction Paused";
+        overlayTimer.textContent = `${hrs}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+      }
+
+      // Run immediately and every second
+      runTimer();
+      clearInterval(window._pauseTimerInterval);
+      window._pauseTimerInterval = setInterval(runTimer, 1000);
+    });
+
 
 
     // ADD NEW MEMBER 
@@ -759,9 +763,9 @@ db.ref("settings/pause").on("value", snap => {
   text-align: center;
   font-size: 2em;
 ">
-  <p id="overlayMessage"></p>
-  <p id="overlayTimer" style="font-size:3em; margin-top:10px;"></p>
-</div>
+    <p id="overlayMessage"></p>
+    <p id="overlayTimer" style="font-size:3em; margin-top:10px;"></p>
+  </div>
 
 </body>
 
