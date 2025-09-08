@@ -509,7 +509,21 @@
         };
         hist.push(bid);
         ref.set({ current: bid, history: hist, frozen: false });
-      });
+      })
+      ref.set({ current: bid, history: hist, frozen: false })
+        .then(() => {
+          // ✅ Clear bid field after successful submission
+          document.getElementById(`${itemId}-amount`).value = "";
+
+          // ✅ Show success message
+          const successEl = document.getElementById(`${itemId}-success`);
+          if (successEl) {
+            successEl.textContent = "Bid submitted successfully!";
+            setTimeout(() => { successEl.textContent = ""; }, 3000); // auto-hide after 3s
+          }
+        })
+
+
     }
 
     // render items
@@ -543,6 +557,7 @@
           <input type="number" id="${item.id}-amount" placeholder="Your bid" required>
           <button>Submit Bid</button>
         </form>
+        <p id="${item.id}-success" style="color:green; font-size:0.9em; min-height:1em;"></p>
         <details>
           <summary>Bid History</summary>
           <ul id="${item.id}-history"></ul>
