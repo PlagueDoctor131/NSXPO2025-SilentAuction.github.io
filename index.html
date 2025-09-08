@@ -23,7 +23,7 @@
       /* arrow & text both left-aligned */
     }
 
-    summary::before {
+    summary::after {
       content: "▸";
       font-size: 2rem;
       /* control its size */
@@ -34,7 +34,7 @@
       transform-origin: center;
     }
 
-    details[open]>summary::before {
+    details[open]>summary::after {
       transform: rotate(90deg);
       /* rotate when open */
     }
