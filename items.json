@@ -1,16 +1,121 @@
 [
   {
     "id": "item1",
-    "name": "Tomica NSX Transport truck (1/64 scale)",
-    "desc": "Donated by Brian Miller",
-    "startingBid": 100,
-    "img": "https://cdn.discordapp.com/attachments/538174118948896779/1411069801215950868/5.png?ex=68bddca9&is=68bc8b29&hm=cbda5ed01de9c44660d30fe762c57f9caa7e6ea2108e11784d2a68e10706d568&"
+    "name": "Sport 350 Clutch & Flywheel (91-05 NSX)",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414321704527986868/Seattle_2025_logo.png?ex=68bf253b&is=68bdd3bb&hm=20925a04af39bca3876b4054ea0ef3d0ba79fba6e12bcb7fd3b2b877e23d9870&=&format=webp&quality=lossless&width=978&height=982"
   },
   {
     "id": "item2",
-    "name": "Jada Toys Power Rangers NSX with figurine (1/24 scale) ",
-    "desc": "Donated by Brian Miller",
-    "startingBid": 100,
-    "img": "https://cdn.discordapp.com/attachments/538174118948896779/1411070039397896333/5.png?ex=68bddce1&is=68bc8b61&hm=0f6d478eae31b1135a6f1399a5841c12a00aea82b0f9e226ad031ea97cf65a76&"
+    "name": "KTuner Flash V2 Touch (17-22 NSX)",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414321704527986868/Seattle_2025_logo.png?ex=68bf253b&is=68bdd3bb&hm=20925a04af39bca3876b4054ea0ef3d0ba79fba6e12bcb7fd3b2b877e23d9870&=&format=webp&quality=lossless&width=978&height=982"
+  },
+  {
+    "id": "item3",
+    "name": "Carbon Rear Window Garnish (91-05 NSX)",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414321704527986868/Seattle_2025_logo.png?ex=68bf253b&is=68bdd3bb&hm=20925a04af39bca3876b4054ea0ef3d0ba79fba6e12bcb7fd3b2b877e23d9870&=&format=webp&quality=lossless&width=978&height=982"
+  },
+  {
+    "id": "item4",
+    "name": "Carbon Fiber Side Mirror Covers (17-22 NSX)",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414321704527986868/Seattle_2025_logo.png?ex=68bf253b&is=68bdd3bb&hm=20925a04af39bca3876b4054ea0ef3d0ba79fba6e12bcb7fd3b2b877e23d9870&=&format=webp&quality=lossless&width=978&height=982"
+  },
+  {
+    "id": "item5",
+    "name": "Carbon Fiber Airbox Cover (91-05 NSX)",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414321704527986868/Seattle_2025_logo.png?ex=68bf253b&is=68bdd3bb&hm=20925a04af39bca3876b4054ea0ef3d0ba79fba6e12bcb7fd3b2b877e23d9870&=&format=webp&quality=lossless&width=978&height=982"
+  },
+  {
+    "id": "item6",
+    "name": "Timing Belt Shields (91-05 NSX)",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414321704527986868/Seattle_2025_logo.png?ex=68bf253b&is=68bdd3bb&hm=20925a04af39bca3876b4054ea0ef3d0ba79fba6e12bcb7fd3b2b877e23d9870&=&format=webp&quality=lossless&width=978&height=982"
+  },
+  {
+    "id": "item7",
+    "name": "Mattel NSX Brick Kits",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414321704527986868/Seattle_2025_logo.png?ex=68bf253b&is=68bdd3bb&hm=20925a04af39bca3876b4054ea0ef3d0ba79fba6e12bcb7fd3b2b877e23d9870&=&format=webp&quality=lossless&width=978&height=982"
+  },
+  {
+    "id": "item8",
+    "name": "Dry Ice Blasting Gift Certificate",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414321704527986868/Seattle_2025_logo.png?ex=68bf253b&is=68bdd3bb&hm=20925a04af39bca3876b4054ea0ef3d0ba79fba6e12bcb7fd3b2b877e23d9870&=&format=webp&quality=lossless&width=978&height=982"
+  },
+  {
+    "id": "item9",
+    "name": "Premier Membership",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414321704527986868/Seattle_2025_logo.png?ex=68bf253b&is=68bdd3bb&hm=20925a04af39bca3876b4054ea0ef3d0ba79fba6e12bcb7fd3b2b877e23d9870&=&format=webp&quality=lossless&width=978&height=982"
+  },
+  {
+    "id": "item10",
+    "name": "Tomica NSX Transport truck (1/64 scale)",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414399243443245056/Tomica_Transport_Truck_2.jpeg?ex=68bf6d71&is=68be1bf1&hm=1451f5227ffda37ae7e1f13b27f954360a2a4958173ec7c489cfcf39416e2988&=&format=webp&width=512&height=384"
+  },
+  {
+    "id": "item11",
+    "name": "Tomica NSX 3 car package (1/64 scale)",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414399242608578570/Tomica_NSX_3_car_1.jpeg?ex=68bf6d71&is=68be1bf1&hm=05689f62c75b938b07e09077fdba1e89aa9659edfff8962b1b58ca92b65fc07c&=&format=webp&width=512&height=384"
+  },
+  {
+    "id": "item12",
+    "name": "Hot Wheels Ryu\u2019s ride light up NSX (1/64 scale)",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414399393116721232/Ryus_ride_light_up.jpeg?ex=68bf6d95&is=68be1c15&hm=21c65322db5888f77542f587503d62eb2c92ab19a4f82b68083994d21c27585a&=&format=webp&width=512&height=384"
+  },
+  {
+    "id": "item13",
+    "name": "Jada Toys Power Rangers NSX Green (1/64 scale)",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414399391904694443/Power_rangers_Green.jpeg?ex=68bf6d95&is=68be1c15&hm=d2cea849b541508000d9095647b14d66708ef1c38214ce0f36f0ec776a9d1c2a&=&format=webp&width=512&height=384"
+  },
+  {
+    "id": "item14",
+    "name": "Jada Toys Power Rangers NSX white with figurine (1/24 scale)",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414399420325429278/Power_Rangers_white.jpeg?ex=68bf6d9c&is=68be1c1c&hm=2b8139a128b1845caede3ad37a9b5d93c0cc11f95d756102a06cfcc371533102&=&format=webp&width=512&height=344"
+  },
+  {
+    "id": "item15",
+    "name": "NSX Silver and Black coffee table book",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414321704527986868/Seattle_2025_logo.png?ex=68bf253b&is=68bdd3bb&hm=20925a04af39bca3876b4054ea0ef3d0ba79fba6e12bcb7fd3b2b877e23d9870&=&format=webp&quality=lossless&width=978&height=982"
+  },
+  {
+    "id": "item16",
+    "name": "NSX technical history and information coffee table book",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414321704527986868/Seattle_2025_logo.png?ex=68bf253b&is=68bdd3bb&hm=20925a04af39bca3876b4054ea0ef3d0ba79fba6e12bcb7fd3b2b877e23d9870&=&format=webp&quality=lossless&width=978&height=982"
+  },
+  {
+    "id": "item17",
+    "name": "ScienceofSpeed NC1 wheel spacers with studs (12mm for front and 20mm for rear.)",
+    "desc": "N/A",
+    "startingBid": 0.0,
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414399419406880929/NC1_wheel_spacers_with_studs_1.jpeg?ex=68bf6d9b&is=68be1c1b&hm=12c61feedcddd13a70124722065424248e31f1b29766ea8b584dfc250e1e7968&=&format=webp&width=512&height=384"
   }
 ]
