@@ -13,9 +13,32 @@
       background-size: 100%;
     }
 
-    summary::marker{
-      font-size:1.5em;
+    summary {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      /* arrow & text both left-aligned */
     }
+
+    summary::before {
+      content: "▸";
+      font-size: 2rem;
+      /* control its size */
+      line-height: 1;
+      margin-bottom: 0.2em;
+      /* gap between arrow & text */
+      transition: transform .2s ease;
+      transform-origin: center;
+    }
+
+    details[open]>summary::before {
+      transform: rotate(90deg);
+      /* rotate when open */
+    }
+
 
     h1 {
       text-align: center;
@@ -482,56 +505,56 @@
 
 
     function submitBid(e, itemId) {
-  e.preventDefault();
+      e.preventDefault();
 
-  if (!currentMember) return alert("Please enter your bid number first.");
-  if (allFrozen) return alert("All auctions are currently frozen.");
-  if (globalBL && currentMember.blacklisted) return alert("You are blacklisted.");
+      if (!currentMember) return alert("Please enter your bid number first.");
+      if (allFrozen) return alert("All auctions are currently frozen.");
+      if (globalBL && currentMember.blacklisted) return alert("You are blacklisted.");
 
-  const amt = parseFloat(document.getElementById(`${itemId}-amount`).value);
-  if (isNaN(amt)) return alert("Please enter a valid bid amount.");
+      const amt = parseFloat(document.getElementById(`${itemId}-amount`).value);
+      if (isNaN(amt)) return alert("Please enter a valid bid amount.");
 
-  const ref = db.ref(`bids/${itemId}`);
-  const itemData = auctionItems.find(i => i.id === itemId);
-  const startBid = parseFloat(itemData.startingBid);
+      const ref = db.ref(`bids/${itemId}`);
+      const itemData = auctionItems.find(i => i.id === itemId);
+      const startBid = parseFloat(itemData.startingBid);
 
-  ref.once("value").then(snap => {
-    const data = snap.val() || {};
-    const hist = data.history || [];
-    const current = data.current;
+      ref.once("value").then(snap => {
+        const data = snap.val() || {};
+        const hist = data.history || [];
+        const current = data.current;
 
-    if (data.frozen) return alert("Bidding closed for this item.");
-    if (!current && amt < startBid) return alert(`First bid must be at least $${startBid}.`);
-    if (current && amt <= current.amount) return alert("Bid must exceed current highest bid.");
+        if (data.frozen) return alert("Bidding closed for this item.");
+        if (!current && amt < startBid) return alert(`First bid must be at least $${startBid}.`);
+        if (current && amt <= current.amount) return alert("Bid must exceed current highest bid.");
 
-    // Build bid object
-    const newBid = {
-      firstName: currentMember.firstName,
-      lastName: currentMember.lastName,
-      bidNumber: currentMember.bidNumber,
-      amount: amt,
-      timestamp: Date.now()
-    };
+        // Build bid object
+        const newBid = {
+          firstName: currentMember.firstName,
+          lastName: currentMember.lastName,
+          bidNumber: currentMember.bidNumber,
+          amount: amt,
+          timestamp: Date.now()
+        };
 
-    hist.push(newBid);
+        hist.push(newBid);
 
-    // Return promise so we can chain .then()
-    return ref.set({ current: newBid, history: hist, frozen: false })
-      .then(() => {
-        // ✅ Clear bid field
-        document.getElementById(`${itemId}-amount`).value = "";
+        // Return promise so we can chain .then()
+        return ref.set({ current: newBid, history: hist, frozen: false })
+          .then(() => {
+            // ✅ Clear bid field
+            document.getElementById(`${itemId}-amount`).value = "";
 
-        // ✅ Show success message
-        const successEl = document.getElementById(`${itemId}-success`);
-        if (successEl) {
-          successEl.textContent = "Bid submitted successfully!";
-          setTimeout(() => { successEl.textContent = ""; }, 3000);
-        }
-      });
-  })
-  .catch(err => alert(err.message));
-}
-    
+            // ✅ Show success message
+            const successEl = document.getElementById(`${itemId}-success`);
+            if (successEl) {
+              successEl.textContent = "Bid submitted successfully!";
+              setTimeout(() => { successEl.textContent = ""; }, 3000);
+            }
+          });
+      })
+        .catch(err => alert(err.message));
+    }
+
 
     // render items
     function renderItems() {
