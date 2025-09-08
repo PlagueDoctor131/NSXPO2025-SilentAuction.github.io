@@ -51,9 +51,11 @@
     .admin-btn:hover {
       background: #c0392b;
     }
+
     #lookupOverlay span {
       background-color: #fff;
     }
+
     #lookupOverlay {
       position: fixed;
       top: 0;
@@ -173,7 +175,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
   <script>
-    
+
     // --- Firebase config ---
     const firebaseConfig = {
       apiKey: "AIzaSyDu8hu1LSLQf6zmJ5DsnTuAosaqOX2hoSI",
@@ -187,7 +189,7 @@
     };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-    
+
     let allFrozen = false;
     let isAdmin = false;
     let auctionItems = [];
@@ -195,6 +197,19 @@
     let globalBL = false;
 
     const logoutBtn = document.getElementById("logoutBtn");
+
+    function autofillMemberFields() {
+      if (!currentMember) return;
+      auctionItems.forEach(item => {
+        const first = document.getElementById(`${item.id}-firstName`);
+        const last = document.getElementById(`${item.id}-lastName`);
+        const bid = document.getElementById(`${item.id}-bidNumber`);
+        if (first) first.value = currentMember.firstName;
+        if (last) last.value = currentMember.lastName;
+        if (bid) bid.value = currentMember.bidNumber;
+      });
+    }
+
 
     function logoutMember() {
       currentMember = null;
@@ -213,13 +228,15 @@
 
     logoutBtn.addEventListener("click", logoutMember);
 
-    // When member is loaded successfully:
     function onMemberLoaded(member) {
       currentMember = member;
       localStorage.setItem("bidNumber", member.bidNumber);
       lookupOverlay.classList.add("hidden");
-      logoutBtn.style.display = "inline-block"; // show logout button
+      logoutBtn.style.display = "inline-block";
+
+      autofillMemberFields();  // 👈 fill immediately
     }
+
 
     // SHA-256 helper
     async function hashPassword(password) {
@@ -350,31 +367,31 @@
 
 
     // --- GLOBAL FREEZE ALL ---
-const allFreezeStatus   = document.getElementById("allFreezeStatus");
-const toggleAllFreezeBtn = document.getElementById("toggleAllFreeze");
+    const allFreezeStatus = document.getElementById("allFreezeStatus");
+    const toggleAllFreezeBtn = document.getElementById("toggleAllFreeze");
 
-function refreshAllFreeze() {
-  db.ref("settings/allFrozen").once("value").then(snap => {
-    allFrozen = !!snap.val();
-    allFreezeStatus.textContent = allFrozen ? "Paused" : "ACTIVE";
-  });
-}
+    function refreshAllFreeze() {
+      db.ref("settings/allFrozen").once("value").then(snap => {
+        allFrozen = !!snap.val();
+        allFreezeStatus.textContent = allFrozen ? "Paused" : "ACTIVE";
+      });
+    }
 
-toggleAllFreezeBtn.addEventListener("click", () => {
-  db.ref("settings/allFrozen").once("value").then(snap => {
-    const current = !!snap.val();
-    return db.ref("settings/allFrozen").set(!current);
-  }).then(refreshAllFreeze);
-});
+    toggleAllFreezeBtn.addEventListener("click", () => {
+      db.ref("settings/allFrozen").once("value").then(snap => {
+        const current = !!snap.val();
+        return db.ref("settings/allFrozen").set(!current);
+      }).then(refreshAllFreeze);
+    });
 
-// Call once on load
-refreshAllFreeze();
+    // Call once on load
+    refreshAllFreeze();
 
-// Keep listening for changes in real-time
-db.ref("settings/allFrozen").on("value", snap => {
-  allFrozen = !!snap.val();
-  allFreezeStatus.textContent = allFrozen ? "Paused" : "ACTIVE";
-});
+    // Keep listening for changes in real-time
+    db.ref("settings/allFrozen").on("value", snap => {
+      allFrozen = !!snap.val();
+      allFreezeStatus.textContent = allFrozen ? "Paused" : "ACTIVE";
+    });
 
     function toggleFreeze(itemId) {
       if (!isAdmin) return;
@@ -434,15 +451,17 @@ db.ref("settings/allFrozen").on("value", snap => {
         .catch(err => { lookupError.textContent = err.message; });
     });
 
-    // restore member if saved
     window.addEventListener("DOMContentLoaded", () => {
       const savedBid = localStorage.getItem("bidNumber");
       if (savedBid) {
         loadMember(savedBid)
           .then(member => onMemberLoaded(member))
-          .catch(() => { localStorage.removeItem("bidNumber"); });
+          .catch(() => {
+            localStorage.removeItem("bidNumber");
+          });
       }
     });
+
 
     // submit a bid
     function submitBid(e, itemId) {
