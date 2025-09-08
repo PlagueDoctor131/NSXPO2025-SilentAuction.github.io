@@ -1,14 +1,14 @@
 [
   {
     "id": "live1",
-    "name": "Track Day Experience",
-    "img": "track.jpg",
-    "donor": "Acme Motors"
+    "name": "Set of 4 Tires",
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414321704527986868/Seattle_2025_logo.png?ex=68bf253b&is=68bdd3bb&hm=20925a04af39bca3876b4054ea0ef3d0ba79fba6e12bcb7fd3b2b877e23d9870&=&format=webp&quality=lossless&width=978&height=982",
+    "donor": "Pirelli"
   },
   {
     "id": "live2",
-    "name": "Signed Memorabilia",
-    "img": "signed.jpg",
-    "donor": "John Doe"
+    "name": "NSX Our Dreams Come True book",
+    "img": "https://media.discordapp.net/attachments/538174118948896779/1414321704527986868/Seattle_2025_logo.png?ex=68bf253b&is=68bdd3bb&hm=20925a04af39bca3876b4054ea0ef3d0ba79fba6e12bcb7fd3b2b877e23d9870&=&format=webp&quality=lossless&width=978&height=982",
+    "donor": "Brian Miller"
   }
 ]
