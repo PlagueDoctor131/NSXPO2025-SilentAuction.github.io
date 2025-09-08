@@ -26,10 +26,8 @@
     summary::after {
       content: "▸";
       font-size: 2rem;
-      /* control its size */
       line-height: 1;
       margin-bottom: 0.2em;
-      /* gap between arrow & text */
       transition: transform .2s ease;
       transform-origin: center;
     }
@@ -115,11 +113,8 @@
     .page-title {
       display: flex;
       align-items: center;
-      /* vertical alignment */
       justify-content: center;
-      /* centers title + button as a group */
       gap: 12px;
-      /* space between text and button */
     }
 
     .page-title button {
@@ -140,7 +135,6 @@
       Switch Bidder
     </button>
   </h1>
-
 
   <!-- LOOKUP OVERLAY -->
   <div id="lookupOverlay" class="overlay">
@@ -262,7 +256,7 @@
       lookupOverlay.classList.add("hidden");
       logoutBtn.style.display = "inline-block";
 
-      autofillMemberFields();  // 👈 fill immediately
+      autofillMemberFields();
     }
 
 
@@ -322,7 +316,7 @@
       globalBL = !!snap.val();
       globalBLStatus.textContent = globalBL ? "ENFORCED" : "IGNORED";
 
-      // If enforcement is active and current member is blacklisted → kick them
+      // If enforcement is active and current member is blacklisted kick them
       if (globalBL && currentMember && currentMember.blacklisted) {
         alert("You have been blacklisted. You are now logged out.");
         logoutMember();
@@ -330,7 +324,7 @@
     });
 
 
-    // MEMBER BLACKLIST TOGGLE (drop-in replacement)
+    // MEMBER BLACKLIST TOGGLE
     const toggleMemberBLBtn = document.getElementById("toggleMemberBL");
     const memberBidInput = document.getElementById("memberBidInput");
     const memberBLStatus = document.getElementById("memberBLStatus");
@@ -357,7 +351,7 @@
     });
 
 
-    // ADD NEW MEMBER (drop-in replacement)
+    // ADD NEW MEMBER 
     const addMemberBtn = document.getElementById("addMemberBtn");
     const addMemberStatus = document.getElementById("addMemberStatus");
 
@@ -373,7 +367,7 @@
         return;
       }
 
-      // (Optional) very light phone sanity check
+
       const digits = phone.replace(/\D/g, "");
       if (digits.length < 7) {
         addMemberStatus.textContent = "Please enter a valid phone number.";
@@ -425,7 +419,6 @@
       }).then(refreshAllFreeze);
     });
 
-    // Call once on load
     refreshAllFreeze();
 
     // Keep listening for changes in real-time
@@ -462,7 +455,7 @@
         db.ref('settings/blacklistActive').once('value')
       ]).then(([memberSnap, globalSnap]) => {
         const memberData = memberSnap.val();
-        globalBL = !!globalSnap.val();               // enforcement flag
+        globalBL = !!globalSnap.val();
         if (!memberData) throw new Error("Unknown Bid Number");
         if (globalBL && memberData.blacklisted) throw new Error("You are blacklisted.");
         return {
@@ -527,7 +520,7 @@
         if (!current && amt < startBid) return alert(`First bid must be at least $${startBid}.`);
         if (current && amt <= current.amount) return alert("Bid must exceed current highest bid.");
 
-        // Build bid object
+
         const newBid = {
           firstName: currentMember.firstName,
           lastName: currentMember.lastName,
@@ -538,13 +531,13 @@
 
         hist.push(newBid);
 
-        // Return promise so we can chain .then()
+
         return ref.set({ current: newBid, history: hist, frozen: false })
           .then(() => {
-            // ✅ Clear bid field
+
             document.getElementById(`${itemId}-amount`).value = "";
 
-            // ✅ Show success message
+            // Show success message
             const successEl = document.getElementById(`${itemId}-success`);
             if (successEl) {
               successEl.textContent = "Bid submitted successfully!";
