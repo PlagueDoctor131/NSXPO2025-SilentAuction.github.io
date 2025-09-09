@@ -3,14 +3,14 @@
     "id": "live1",
     "name": "Set of 4 Tires",
     "dono": "N/A",
-    "img": "https://i5.walmartimages.com/seo/4-Pirelli-Cinturato-P7-225-40R18-92H-Summer-Ultra-High-Performance-Tires-UHP-P2345400-225-40-18-2254018_7463d400-87b4-4987-9b84-becc529aefdf.cc436d5f6063c2e8a5063f62d9e366b4.jpeg",
+    "img": "./resources/tires.avif",
     "donor": "Pirelli"
   },
   {
     "id": "live2",
     "name": "NSX Our Dreams Come True book",
     "dono": "N/A",
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414399450851315795/Dreams_come_true_1.jpeg?ex=68c01663&is=68bec4e3&hm=123e881ea36ad1b9db4cf2ebbc5944d36f490092ae48f2d367d1fb6432b84b41&=&format=webp&width=384&height=512",
+    "img": "./resources/Dreams_come_true_1.jpeg",
     "donor": "Brian Miller"
   }
 ]

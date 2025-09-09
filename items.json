@@ -13,7 +13,7 @@
     "dono": "ScienceofSpeed",
     "desc": "The KTuner Flash V2 Touch is a device that reflashes the factory ECU in the 2017-22 NSX to increase performance by more than  40 - 130+ horsepower, depending on fuel used (91, 93, 98, or E40). Included is a touchscreen programming module that reads the software version on your NSX and uploads maps with higher performance targets. All factory emissions components and engine safety functions are retained. See more details on the <a href=\"https://www.scienceofspeed.com/ktuner-flash-v2-touch-nsx-2017-22-all.html\" target=\"_blank\">ScienceofSpeed</a> site!",
     "startingBid": 0.0,
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414744204000891070/KTuner_Flash.jpg?ex=68c0aeb6&is=68bf5d36&hm=85d6deb4d316aa808d86d884b2f95f44f9da39017f7c08a1868bc9d779644ec5&=&format=webp&width=480&height=360"
+    "img": "./resources/ktuner.webp"
   },
   {
     "id": "item3",
@@ -21,7 +21,7 @@
     "dono": "Pride",
     "desc": "Carbon fiber replacement for '91-'05 NSX Rear Window garnish. See more detail on <a href=\"https://pridecarbon.com/products/pride-nsx-91-05-carbon-rear-window-garnish?pr_prod_strat=e5_desc&pr_rec_id=bce831100&pr_rec_pid=8077742735656&pr_ref_pid=8077734740264&pr_seq=uniform\" target=\"_blank\">Pride's</a> site!",
     "startingBid": 0.0,
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414769531578224743/Carbon_Rear_Window_garnish.webp?ex=68c0c64d&is=68bf74cd&hm=cc70c91aa502c2d8c2f882af6baf5dce98fe72ccac7fbb3059e6b98add826bab&=&format=webp&width=480&height=359"
+    "img": "./resources/rearwindow.webp"
   },
   {
     "id": "item4",
@@ -29,7 +29,7 @@
     "dono": "EuroBoutique",
     "desc": "Give your 2017+ NSX Interior a more refined and exotic look with OEM replacement Carbon Fiber exterior upper mirror caps! See more information on the <a href=\"https://euroboutique.us/products/2017-2022-nc1-nsx-carbon-fiber-exterior-side-mirror-upper-covers-pair?_pos=1&_sid=d8e30c050&_ss=r\" target=\"_blank\">Euro Boutique</a> site!",
     "startingBid": 0.0,
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414744202700394506/Carbon_Side_Mirror_covers.webp?ex=68c0aeb6&is=68bf5d36&hm=a23e6f52377e3c6d6186c065a1445fccbc714c048f3565d0a5f2967352d21bfd&=&format=webp&width=384&height=288"
+    "img": "./resources/sidemirror.webp"
   },
   {
     "id": "item5",
@@ -37,31 +37,31 @@
     "dono": "EuroBoutique",
     "desc": "Direct replacement of the stock Intake Box Top Cover. See more information on the <a href=\"https://euroboutique.us/products/nsx-oem-airbox-cover-1991-2005-nsx?_pos=1&_sid=ff5ed9c09&_ss=r\" target=\"_blank\">Euro Boutique</a> site!",
     "startingBid": 0.0,
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414744206307754015/Carbon_Fiber_Airbox_Cover.jpg?ex=68c0aeb7&is=68bf5d37&hm=fce56dafb0462d5615fc3e71cba4164103e10282f0066202104cb9a9a8c4af4e&=&format=webp&width=384&height=288"
+    "img": "./resources/airboxcover.webp"
   },
   {
     "id": "item6",
     "name": "Timing Belt Shields (91-05 NSX)",
     "dono": "Cedar Ridge Fabrication",
-    "desc": "The Harmonic Damper Shield is a simple steel plate which keys into the stock timing belt cover, with 2 chrome-moly legs and socket head cap screws securing it in place.  The shield will take the initial impact when the balancing weight separates from the back of the damper body, keeping your timing belt cover safe and giving you more time to pull over and save your motor! See the <a href=\"https://cedarridgeparts.com/store/p/timing-belt-shield\" target=\"_blank\">Cedar Ridge Fabrication</a> site for more details!",
+    "desc": "The Harmonic Damper Shield is a simple steel plate which keys into the stock timing belt cover, with 2 chrome-moly legs and socket head cap screws securing it in place.  The shield will take the initial impact when the balancing weight separates from the back of the damper body, keeping your timing belt cover safe and giving you more time to pull over and save your motor! See more details on the <a href=\"https://cedarridgeparts.com/store/p/timing-belt-shield\" target=\"_blank\">Cedar Ridge Fabrication</a> site!",
     "startingBid": 0.0,
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414759649101611079/Timing_Belt_Shield.jpg?ex=68c0bd19&is=68bf6b99&hm=f92d60c0597e14738b1cf32cb169c5295cae14e475f661916c74b4703444e3b5&=&format=webp&width=373&height=247"
+    "img": "./resources/beltshield.webp"
   },
   {
     "id": "item7",
     "name": "Mattel NSX Brick Kits",
     "dono": "Mattel Brick Shop",
-    "desc": "Build car history with the 1:16 scale Acura NSX by Mattel Brick Shop. This detailed and authentic set includes extra parts for customization, a decal sheet, metal wheel covers, signature plate, plus an exclusive metal car to collect and display. See the <a href=\"https://shop.mattel.com/products/mattel-brick-shop-hot-wheels-90-acura-nsx-jft17\" target=\"_blank\">Mattel</a> site for more details!",
+    "desc": "Build car history with the 1:16 scale Acura NSX by Mattel Brick Shop. This detailed and authentic set includes extra parts for customization, a decal sheet, metal wheel covers, signature plate, plus an exclusive metal car to collect and display. See more details on the <a href=\"https://shop.mattel.com/products/mattel-brick-shop-hot-wheels-90-acura-nsx-jft17\" target=\"_blank\">Mattel</a> site!",
     "startingBid": 0.0,
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414743554600734770/myclngnghlj6ypt7vv1c.png?ex=68c0ae1c&is=68bf5c9c&hm=f9b5e8bd0bdbce6fe0f87856c68baa52feb343d135360d925a977c8fc4e85406&=&format=webp&quality=lossless&width=517&height=517"
+    "img": "./resources/mattelbrick.webp"
   },
   {
     "id": "item8",
     "name": "Dry Ice Blasting Gift Certificate",
     "dono": "CyroMode Dry Ice Blasting services",
-    "desc": "Dry Ice Blasting is the next level of perfection giving you a deep, chemical-free cleaning which will leave you saying, \"Wow, is that my car?!\". Read more about it on the <a href=\"https://www.cryomode.us/dryiceblasting\" target=\"_blank\">CryoMode</a> site!",
+    "desc": "Dry Ice Blasting is the next level of perfection giving you a deep, chemical-free cleaning which will leave you saying, \"Wow, is that my car?!\". See more details on the <a href=\"https://www.cryomode.us/dryiceblasting\" target=\"_blank\">CryoMode</a> site!",
     "startingBid": 0.0,
-    "img": "https://leadingedgeautosport.com/wp-content/uploads/2021/09/LeadingEdge-44.jpg"
+    "img": "./resources/dryice.jpg"
   },
   {
     "id": "item9",
@@ -69,7 +69,7 @@
     "dono": "Open Bay Garage",
     "desc": "Openbay Garage offers way more than secure vehicle storage, it's a DIY garage and social club for automotive enthusiasts. Premium membership gives you discounts on bay rentals, sim rentals, car storage, as well as a huge list of exclusive savings with their partners. See more details on the <a href=\"https://openbaygarage.com/\" target=\"_blank\">Openbay Garage</a> site!",
     "startingBid": 0.0,
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414744204877369424/Open_Bay_Garage.jpg?ex=68c0aeb7&is=68bf5d37&hm=f8a46c7d8946364f20786c9814f4122f3fabb3048f82115c39ce0488bf76a566&=&format=webp&width=1286&height=899"
+    "img": "./resources/openbay.webp"
   },
   {
     "id": "item10",
@@ -77,7 +77,7 @@
     "dono": "Brian Miller",
     "desc": "New in box, includes Honda NSX Type R and transporter truck to carry it in!",
     "startingBid": 0.0,
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414399243443245056/Tomica_Transport_Truck_2.jpeg?ex=68bf6d71&is=68be1bf1&hm=1451f5227ffda37ae7e1f13b27f954360a2a4958173ec7c489cfcf39416e2988&=&format=webp&width=512&height=384"
+    "img": "./resources/Tomica_Transport_Truck_2.jpeg"
   },
   {
     "id": "item11",
@@ -85,7 +85,7 @@
     "dono": "Brian Miller",
     "desc": "New in box, includes 1/64 scale NA1, NA2, and NC1.",
     "startingBid": 0.0,
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414399242608578570/Tomica_NSX_3_car_1.jpeg?ex=68bf6d71&is=68be1bf1&hm=05689f62c75b938b07e09077fdba1e89aa9659edfff8962b1b58ca92b65fc07c&=&format=webp&width=512&height=384"
+    "img": "./resources/Tomica_NSX_3_car_1.jpeg"
   },
   {
     "id": "item12",
@@ -93,7 +93,7 @@
     "dono": "Brian Miller",
     "desc": "New in box, special edition diecast car from the Hotwheels Red Line series.",
     "startingBid": 0.0,
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414399393116721232/Ryus_ride_light_up.jpeg?ex=68bf6d95&is=68be1c15&hm=21c65322db5888f77542f587503d62eb2c92ab19a4f82b68083994d21c27585a&=&format=webp&width=512&height=384"
+    "img": "./resources/Ryus_ride_light_up.jpeg"
   },
   {
     "id": "item13",
@@ -101,7 +101,7 @@
     "dono": "Brian Miller",
     "desc": "New in box, Top 2 bidders win! Special edition diecast car from the Hotwheels Hollywood Rides series.",
     "startingBid": 0.0,
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414399391904694443/Power_rangers_Green.jpeg?ex=68bf6d95&is=68be1c15&hm=d2cea849b541508000d9095647b14d66708ef1c38214ce0f36f0ec776a9d1c2a&=&format=webp&width=512&height=384"
+    "img": "./resources/Power_rangers_Green.jpeg"
   },
   {
     "id": "item14",
@@ -109,7 +109,7 @@
     "dono": "Brian Miller",
     "desc": "New in box, special edition diecast car from the Hotwheels Hollywood Rides series.",
     "startingBid": 0.0,
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414399420325429278/Power_Rangers_white.jpeg?ex=68bf6d9c&is=68be1c1c&hm=2b8139a128b1845caede3ad37a9b5d93c0cc11f95d756102a06cfcc371533102&=&format=webp&width=512&height=344"
+    "img": "./resources/Power_Rangers_white.jpeg"
   },
   {
     "id": "item15",
@@ -117,7 +117,7 @@
     "dono": "Brian Miller",
     "desc": "50 page coffee table book, cover is partially finished in aluminum",
     "startingBid": 0.0,
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414399420102873168/Silver_and_Black.jpeg?ex=68c0165c&is=68bec4dc&hm=1d68f7acd9adc63ea7b0e6498321c97bc5b1d841bc87484fbd4bd3cf6077d914&=&format=webp&width=512&height=384"
+    "img": "./resources/Silver_and_Black.jpeg"
   },
   {
     "id": "item16",
@@ -125,7 +125,7 @@
     "dono": "Brian Miller",
     "desc": "64 page NSX technical history and information coffee table book. Used, in good condition",
     "startingBid": 0.0,
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414399450519961701/Technical_history.jpeg?ex=68c01663&is=68bec4e3&hm=f5e350b2813ece299e93896fa29570cce1aae4a456bd9fe96d1b04fb032232ab&=&format=webp&width=512&height=384"
+    "img": "./resources/Technical_history.jpeg"
   },
   {
     "id": "item17",
@@ -133,6 +133,6 @@
     "dono": "Alan Chan",
     "desc": "N/A",
     "startingBid": 0.0,
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414399419406880929/NC1_wheel_spacers_with_studs_1.jpeg?ex=68bf6d9b&is=68be1c1b&hm=12c61feedcddd13a70124722065424248e31f1b29766ea8b584dfc250e1e7968&=&format=webp&width=512&height=384"
+    "img": "./resources/NC1_wheel_spacers_with_studs_1.jpeg"
   }
 ]
