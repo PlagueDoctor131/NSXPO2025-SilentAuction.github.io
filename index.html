@@ -685,6 +685,7 @@
         const expanded = document.createElement("div");
         expanded.className = "expanded";
         expanded.innerHTML = `
+        <p><strong>Donated by:</strong> ${item.dono}</p>
         <p>${item.desc}</p>
         <p><strong>Starting Bid:</strong> $${item.startingBid}</p>
         <p><strong>Current Top Bid:</strong> <span id="${item.id}-expandedTop">Loading…</span></p>
