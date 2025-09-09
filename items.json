@@ -5,7 +5,7 @@
     "dono": "ScienceofSpeed",
     "desc": "N/A",
     "startingBid": 0.0,
-    "img": "https://media.discordapp.net/attachments/538174118948896779/1414744204323590254/Sprot_350_Clutch-Flywheel.jpg?ex=68c0aeb6&is=68bf5d36&hm=82514539b7c46481edffffd8355213d73c8fb64ed464f4cf6d91dd88eb4c9287&=&format=webp&width=480&height=360"
+    "img": "./resources/clutchfly.webp"
   },
   {
     "id": "item2",
