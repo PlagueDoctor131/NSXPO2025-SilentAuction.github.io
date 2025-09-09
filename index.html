@@ -21,7 +21,6 @@
       display: inline-flex;
       flex-direction: column;
       align-items: flex-start;
-      /* arrow & text both left-aligned */
     }
 
     summary::after {
@@ -35,7 +34,6 @@
 
     details[open]>summary::after {
       transform: rotate(90deg);
-      /* rotate when open */
     }
 
 
@@ -177,7 +175,7 @@
     style="display:none; background:#ffeeba; padding:10px; margin-bottom:20px; text-align:center; font-size:1.2em; border-radius:6px;">
   </div>
 
-  <!-- LOOKUP OVERLAY -->
+  <!-- Overlay for looking up users -->
   <div id="lookupOverlay" class="overlay">
     <form id="lookupForm">
       <h2><span>Enter Your Bid Number</span></h2>
@@ -280,7 +278,7 @@
       });
     }
 
-
+    // Button function for logging out the user, clears local storage
     function logoutMember() {
       currentMember = null;
       localStorage.removeItem("bidNumber");
@@ -299,6 +297,7 @@
 
     logoutBtn.addEventListener("click", logoutMember);
 
+    // auto fills the name fields, and immediately shows them
     function onMemberLoaded(member) {
       currentMember = member;
       localStorage.setItem("bidNumber", member.bidNumber);
@@ -339,7 +338,8 @@
       document.querySelectorAll(".admin-btn").forEach(b => b.style.display = "inline-block");
       document.getElementById("admin-panel").style.display = "block";
     }
-    // GLOBAL BLACKLIST TOGGLE
+
+    // Global blacklist toggle
     const globalBLStatus = document.getElementById("globalBLStatus");
     const toggleGlobalBLBtn = document.getElementById("toggleGlobalBL");
 
@@ -373,7 +373,7 @@
     });
 
 
-    // MEMBER BLACKLIST TOGGLE
+    // Member blacklist toggle
     const toggleMemberBLBtn = document.getElementById("toggleMemberBL");
     const memberBidInput = document.getElementById("memberBidInput");
     const memberBLStatus = document.getElementById("memberBLStatus");
@@ -398,7 +398,7 @@
           memberBLStatus.textContent = "Error: " + err.message;
         });
     });
-
+    //Starts the countdown for locking folks out
     const startCountdownBtn = document.getElementById("startCountdownBtn");
     const countdownStatus = document.getElementById("countdownStatus");
 
@@ -464,7 +464,7 @@
     });
 
 
-    // ADD NEW MEMBER 
+    // Add new member
     const addMemberBtn = document.getElementById("addMemberBtn");
     const addMemberStatus = document.getElementById("addMemberStatus");
 
@@ -514,7 +514,7 @@
     });
 
 
-    // --- GLOBAL FREEZE ALL ---
+    // --- Global freeze all ---
     const allFreezeStatus = document.getElementById("allFreezeStatus");
     const toggleAllFreezeBtn = document.getElementById("toggleAllFreeze");
 
@@ -545,6 +545,7 @@
       const ref = db.ref(`bids/${itemId}/frozen`);
       ref.once("value").then(s => ref.set(!s.val()));
     }
+    // removing the last bid made from the firebase and site
     function removeLastBid(itemId) {
       if (!isAdmin) return;
       const ref = db.ref(`bids/${itemId}`);
@@ -768,6 +769,8 @@
       }
     });
   </script>
+  
+  <!-- Overlay for the timer, hidden until needed -->
   <div id="auctionOverlay" style="
   position: fixed;
   top: 0; left: 0;
