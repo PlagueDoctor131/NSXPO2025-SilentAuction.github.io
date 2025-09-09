@@ -2,14 +2,14 @@
   {
     "id": "live1",
     "name": "Set of 4 Tires",
-    "dono": "N/A",
+    "desc": "N/A",
     "img": "./resources/tires.avif",
     "donor": "Pirelli"
   },
   {
     "id": "live2",
     "name": "NSX Our Dreams Come True book",
-    "dono": "N/A",
+    "desc": "N/A",
     "img": "./resources/Dreams_come_true_1.jpeg",
     "donor": "Brian Miller"
   }
