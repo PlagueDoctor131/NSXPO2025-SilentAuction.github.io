@@ -3,8 +3,9 @@
     "id": "item1",
     "name": "Sport 350 Clutch & Flywheel (91-05 NSX)",
     "dono": "ScienceofSpeed",
-    "desc": "The Sport 350 Clutch & Flywheel Kit is designed to be as smooth as a factory clutch with the ability to handle 350 lb/ft of torque for the supercharged or turbocharged NSX producing up to around 500 wheel horsepower. Using a patented ball-bearing actuated pressure plate design, the ScienceofSpeed Sport Clutches have smooth engagement with a more precise pedal feel compared to a factory clutch. See more details on the <a href=\"https://www.scienceofspeed.com/scienceofspeed-sport-350-clutch-flywheel-kit-includes-bearings-nsx-1991-05.html\" target=\"_blank\">ScienceofSpeed</a> site!",
-    "startingBid": 0.0,
+    "desc": "The Sport 350 Clutch & Flywheel Kit is designed to be as smooth as a factory clutch with the ability to handle 350 lb/ft of torque for the supercharged or turbocharged NSX producing up to around 500 wheel horsepower. See more details on the <a href=\"https://www.scienceofspeed.com/scienceofspeed-sport-350-clutch-flywheel-kit-includes-bearings-nsx-1991-05.html\" target=\"_blank\">ScienceofSpeed</a> site!",
+    "startingBid": 100.0,
+    "retailValue": 1895.0,
     "img": "./resources/clutchfly.webp"
   },
   {
@@ -12,47 +13,53 @@
     "name": "KTuner Flash V2 Touch (17-22 NSX)",
     "dono": "ScienceofSpeed",
     "desc": "The KTuner Flash V2 Touch is a device that reflashes the factory ECU in the 2017-22 NSX to increase performance by more than  40 - 130+ horsepower, depending on fuel used (91, 93, 98, or E40). Included is a touchscreen programming module that reads the software version on your NSX and uploads maps with higher performance targets. All factory emissions components and engine safety functions are retained. See more details on the <a href=\"https://www.scienceofspeed.com/ktuner-flash-v2-touch-nsx-2017-22-all.html\" target=\"_blank\">ScienceofSpeed</a> site!",
-    "startingBid": 0.0,
+    "startingBid": 100.0,
+    "retailValue": 1199.0,
     "img": "./resources/ktuner.webp"
   },
   {
     "id": "item3",
     "name": "Carbon Rear Window Garnish (91-05 NSX)",
     "dono": "Pride",
-    "desc": "Carbon fiber replacement for '91-'05 NSX Rear Window garnish. See more detail on <a href=\"https://pridecarbon.com/products/pride-nsx-91-05-carbon-rear-window-garnish?pr_prod_strat=e5_desc&pr_rec_id=bce831100&pr_rec_pid=8077742735656&pr_ref_pid=8077734740264&pr_seq=uniform\" target=\"_blank\">Pride's</a> site!",
-    "startingBid": 0.0,
+    "desc": "Carbon fiber replacement for '91-'05 NSX Rear Window garnish. See more details on the <a href=\"https://pridecarbon.com/products/pride-nsx-91-05-carbon-rear-window-garnish?pr_prod_strat=e5_desc&pr_rec_id=bce831100&pr_rec_pid=8077742735656&pr_ref_pid=8077734740264&pr_seq=uniform\" target=\"_blank\">Pride's</a> site!",
+    "startingBid": 100.0,
+    "retailValue": 899.0,
     "img": "./resources/rearwindow.webp"
   },
   {
     "id": "item4",
     "name": "Carbon Fiber Side Mirror Covers (17-22 NSX)",
     "dono": "EuroBoutique",
-    "desc": "Give your 2017+ NSX Interior a more refined and exotic look with OEM replacement Carbon Fiber exterior upper mirror caps! See more information on the <a href=\"https://euroboutique.us/products/2017-2022-nc1-nsx-carbon-fiber-exterior-side-mirror-upper-covers-pair?_pos=1&_sid=d8e30c050&_ss=r\" target=\"_blank\">Euro Boutique</a> site!",
-    "startingBid": 0.0,
+    "desc": "Give your 2017+ NSX Interior a more refined and exotic look with OEM replacement Carbon Fiber exterior upper mirror caps! See more details on the <a href=\"https://euroboutique.us/products/2017-2022-nc1-nsx-carbon-fiber-exterior-side-mirror-upper-covers-pair?_pos=1&_sid=d8e30c050&_ss=r\" target=\"_blank\">Euro Boutique</a> site!",
+    "startingBid": 100.0,
+    "retailValue": 1049.0,
     "img": "./resources/sidemirror.webp"
   },
   {
     "id": "item5",
     "name": "Carbon Fiber Airbox Cover (91-05 NSX)",
     "dono": "EuroBoutique",
-    "desc": "Direct replacement of the stock Intake Box Top Cover. See more information on the <a href=\"https://euroboutique.us/products/nsx-oem-airbox-cover-1991-2005-nsx?_pos=1&_sid=ff5ed9c09&_ss=r\" target=\"_blank\">Euro Boutique</a> site!",
-    "startingBid": 0.0,
+    "desc": "Direct replacement of the stock Intake Box Top Cover. See more details on the <a href=\"https://euroboutique.us/products/nsx-oem-airbox-cover-1991-2005-nsx?_pos=1&_sid=ff5ed9c09&_ss=r\" target=\"_blank\">Euro Boutique</a> site!",
+    "startingBid": 100.0,
+    "retailValue": 795.0,
     "img": "./resources/airboxcover.webp"
   },
   {
     "id": "item6",
-    "name": "Timing Belt Shields (91-05 NSX)",
+    "name": "Timing Belt Shields (91-05 NSX) [5 available]",
     "dono": "Cedar Ridge Fabrication",
     "desc": "The Harmonic Damper Shield is a simple steel plate which keys into the stock timing belt cover, with 2 chrome-moly legs and socket head cap screws securing it in place.  The shield will take the initial impact when the balancing weight separates from the back of the damper body, keeping your timing belt cover safe and giving you more time to pull over and save your motor! See more details on the <a href=\"https://cedarridgeparts.com/store/p/timing-belt-shield\" target=\"_blank\">Cedar Ridge Fabrication</a> site!",
     "startingBid": 0.0,
+    "retailValue": 100.0,
     "img": "./resources/beltshield.webp"
   },
   {
     "id": "item7",
-    "name": "Mattel NSX Brick Kits",
+    "name": "Mattel NSX Brick Kit [5 available]",
     "dono": "Mattel Brick Shop",
     "desc": "Build car history with the 1:16 scale Acura NSX by Mattel Brick Shop. This detailed and authentic set includes extra parts for customization, a decal sheet, metal wheel covers, signature plate, plus an exclusive metal car to collect and display. See more details on the <a href=\"https://shop.mattel.com/products/mattel-brick-shop-hot-wheels-90-acura-nsx-jft17\" target=\"_blank\">Mattel</a> site!",
     "startingBid": 0.0,
+    "retailValue": 50.0,
     "img": "./resources/mattelbrick.webp"
   },
   {
@@ -61,54 +68,61 @@
     "dono": "CyroMode Dry Ice Blasting services",
     "desc": "Dry Ice Blasting is the next level of perfection giving you a deep, chemical-free cleaning which will leave you saying, \"Wow, is that my car?!\". See more details on the <a href=\"https://www.cryomode.us/dryiceblasting\" target=\"_blank\">CryoMode</a> site!",
     "startingBid": 0.0,
+    "retailValue": 500.0,
     "img": "./resources/dryice.jpg"
   },
   {
     "id": "item9",
     "name": "Openbay Garage Premier Membership",
-    "dono": "Open Bay Garage",
+    "dono": "Openbay Garage",
     "desc": "Openbay Garage offers way more than secure vehicle storage, it's a DIY garage and social club for automotive enthusiasts. Premium membership gives you discounts on bay rentals, sim rentals, car storage, as well as a huge list of exclusive savings with their partners. See more details on the <a href=\"https://openbaygarage.com/\" target=\"_blank\">Openbay Garage</a> site!",
     "startingBid": 0.0,
+    "retailValue": 360.0,
     "img": "./resources/openbay.webp"
   },
   {
     "id": "item10",
-    "name": "Tomica NSX Transport truck (1/64 scale)",
+    "name": "Tomica NSX Transport truck 1/64 scale",
     "dono": "Brian Miller",
     "desc": "New in box, includes Honda NSX Type R and transporter truck to carry it in!",
     "startingBid": 0.0,
+    "retailValue": 100.0,
     "img": "./resources/Tomica_Transport_Truck_2.jpeg"
   },
   {
     "id": "item11",
-    "name": "Tomica NSX 3 car package (1/64 scale)",
+    "name": "Tomica NSX 3 car package 1/64 scale",
     "dono": "Brian Miller",
     "desc": "New in box, includes 1/64 scale NA1, NA2, and NC1.",
     "startingBid": 0.0,
+    "retailValue": 60.0,
     "img": "./resources/Tomica_NSX_3_car_1.jpeg"
   },
   {
     "id": "item12",
-    "name": "Hot Wheels Ryu\u2019s ride light up NSX (1/64 scale)",
+    "name": "Hot Wheels Ryu\u2019s ride light up NSX 1/64 scale",
     "dono": "Brian Miller",
     "desc": "New in box, special edition diecast car from the Hotwheels Red Line series.",
     "startingBid": 0.0,
+    "retailValue": 100.0,
     "img": "./resources/Ryus_ride_light_up.jpeg"
   },
   {
     "id": "item13",
-    "name": "Jada Toys Power Rangers NSX (1/64 scale) 2 available",
+    "name": "Jada Toys Power Rangers NSX 1/64 scale [2 available]",
     "dono": "Brian Miller",
     "desc": "New in box, Top 2 bidders win! Special edition diecast car from the Hotwheels Hollywood Rides series.",
     "startingBid": 0.0,
+    "retailValue": 40.0,
     "img": "./resources/Power_rangers_Green.jpeg"
   },
   {
     "id": "item14",
-    "name": "Jada Toys Power Rangers NSX with figurine (1/24 scale)",
+    "name": "Jada Toys Power Rangers NSX with figurine 1/24 scale",
     "dono": "Brian Miller",
     "desc": "New in box, special edition diecast car from the Hotwheels Hollywood Rides series.",
     "startingBid": 0.0,
+    "retailValue": 60.0,
     "img": "./resources/Power_Rangers_white.jpeg"
   },
   {
@@ -117,6 +131,7 @@
     "dono": "Brian Miller",
     "desc": "50 page coffee table book, cover is partially finished in aluminum",
     "startingBid": 0.0,
+    "retailValue": 150.0,
     "img": "./resources/Silver_and_Black.jpeg"
   },
   {
@@ -125,14 +140,25 @@
     "dono": "Brian Miller",
     "desc": "64 page NSX technical history and information coffee table book. Used, in good condition",
     "startingBid": 0.0,
+    "retailValue": 250.0,
     "img": "./resources/Technical_history.jpeg"
   },
   {
     "id": "item17",
     "name": "ScienceofSpeed NC1 wheel spacers with studs (12mm for front and 20mm for rear.)",
     "dono": "Alan Chan",
-    "desc": "N/A",
+    "desc": "Coming soon",
     "startingBid": 0.0,
+    "retailValue": 300.0,
     "img": "./resources/NC1_wheel_spacers_with_studs_1.jpeg"
+  },
+  {
+    "id": "item18",
+    "name": "4 tickets to LeMay Car Museum",
+    "dono": "Joe Bez",
+    "desc": "Coming soon",
+    "startingBid": 0.0,
+    "retailValue": 100.0,
+    "img": "./resources/Seattle_2025_logo.png"
   }
 ]
