@@ -3,14 +3,14 @@
     "id": "live1",
     "name": "Set of 4 Tires",
     "desc": "A set of 4 tires (of your choice) from Pirelli! Top 5 bidders will win. ",
-    "img": "./resources/tires.avif",
+    "img": "./resources/tires.png",
     "donor": "Pirelli"
   },
   {
     "id": "live2",
     "name": "NSX Our Dreams Come True book",
     "desc": "Rare 194 page book published by Honda in 1990, most copies were given to the original NSX development team. Although mostly in Japanese, this is a unique addition to any collector's shelf!",
-    "img": "./resources/Dreams_come_true_1.jpeg",
+    "img": "./resources/Dreams_come_true_1.png",
     "donor": "Brian Miller"
   }
 ]
