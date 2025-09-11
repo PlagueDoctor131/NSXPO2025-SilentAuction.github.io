@@ -688,6 +688,7 @@
         const expanded = document.createElement("div");
         expanded.className = "expanded";
         expanded.innerHTML = `
+        
         <p><strong>Donated by:</strong> ${item.dono}</p>
         <p>${item.desc}</p>
         <p><strong>Retail Value:</strong> $${item.retailValue}</p>
@@ -724,7 +725,7 @@
             topEl.innerHTML = `<br>Top: ${cur.firstName} ${cur.lastName}`;
             expandedTopEl.textContent = `$${cur.amount} by ${cur.firstName} ${cur.lastName}`;
           } else {
-            topEl.innerHTML = "<br>No bids yet";
+            topEl.innerHTML = `<br>No bids yet<br>Starting Bid: ${item.startingBid}`;
             expandedTopEl.textContent = "No bids yet";
           }
           document.getElementById(`${item.id}-total`).textContent = hist.length;
