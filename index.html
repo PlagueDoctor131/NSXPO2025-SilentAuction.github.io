@@ -370,7 +370,7 @@
 
       // If enforcement is active and current member is blacklisted kick them
       if (globalBL && currentMember && currentMember.blacklisted) {
-        alert("You have been blacklisted. You are now logged out.");
+        alert("Thank you for bidding! The auction is now closed for all non-attendees.");
         logoutMember();
       }
     });
@@ -574,7 +574,7 @@
         const memberData = memberSnap.val();
         globalBL = !!globalSnap.val();
         if (!memberData) throw new Error("Unknown Bid Number");
-        if (globalBL && memberData.blacklisted) throw new Error("You are blacklisted.");
+        if (globalBL && memberData.blacklisted) throw new Error("You are no longer allowed to bid.");
         return {
           bidNumber,
           firstName: memberData.firstName,
@@ -619,7 +619,7 @@
 
       if (!currentMember) return alert("Please enter your bid number first.");
       if (allFrozen) return alert("All auctions are currently frozen.");
-      if (globalBL && currentMember.blacklisted) return alert("You are blacklisted.");
+      if (globalBL && currentMember.blacklisted) return alert("You are no longer allowed to bid.");
       if (auctionPaused) return alert("Bidding is currently paused. Please wait until the auction reopens.");
 
 
@@ -724,7 +724,7 @@
             topEl.innerHTML = `<br>Top: ${cur.firstName} ${cur.lastName}`;
             expandedTopEl.textContent = `$${cur.amount} by ${cur.firstName} ${cur.lastName}`;
           } else {
-            topEl.innerHTML = `<br>No bids yet<br><strong>Starting Bid:</strong> $${item.startingBid}`;
+            topEl.innerHTML = `<br><strong>Starting Bid:</strong> $${item.startingBid}`;
             expandedTopEl.textContent = "No bids yet";
           }
           document.getElementById(`${item.id}-total`).textContent = hist.length;
