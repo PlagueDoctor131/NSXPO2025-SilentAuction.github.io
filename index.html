@@ -730,7 +730,7 @@ function watchMemberBlacklist(bidNumber) {
             topEl.innerHTML = `<br>Top: ${cur.firstName} ${cur.lastName}`;
             expandedTopEl.textContent = `$${cur.amount} by ${cur.firstName} ${cur.lastName}`;
           } else {
-            topEl.innerHTML = `<br><strong>Starting Bid:</strong> $${item.startingBid}`;
+            topEl.innerHTML = `<br><strong>Minimum Bid:</strong> $${item.startingBid}`;
             expandedTopEl.textContent = "No bids yet";
           }
           document.getElementById(`${item.id}-total`).textContent = hist.length;
