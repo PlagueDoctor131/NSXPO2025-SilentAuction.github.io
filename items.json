@@ -156,9 +156,18 @@
     "id": "item18",
     "name": "4 tickets to LeMay Car Museum",
     "dono": "Joe Bez",
-    "desc": "Coming soon",
+    "desc": "LeMays is one of the largest automobile museums in the world with a collection of more than 300 vehicles, they are dedicated to preserving the history and culture of the automobile in America. See more details on the <a href=\"https://www.americascarmuseum.org/\" target=\"_blank\">LeMay's</a> site!",
     "startingBid": 0.0,
     "retailValue": 100.0,
-    "img": "./resources/Seattle_2025_logo.png"
+    "img": "./resources/LeMay.png"
+  },
+  {
+    "id": "item19",
+    "name": "Seibon CF TR-Style Rear Spoiler (91-05 NSX) <br><strong>OR</strong><br> OEM-Style Carbon Fiber Engine Cover (91-05 NSX)",
+    "dono": "HeelToe Automotive",
+    "desc": "The winner of this auction will get to choose which item they would like to receive either the Rear Spoiler or the Engine Cover.",
+    "startingBid": 100.0,
+    "retailValue": 1100.0,
+    "img": "./resources/spoilercover.png"
   }
 ]

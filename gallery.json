@@ -12,5 +12,12 @@
     "desc": "Rare 194 page book published by Honda in 1990, most copies were given to the original NSX development team. Although mostly in Japanese, this is a unique addition to any collector's shelf!",
     "img": "./resources/Dreams_come_true_1.png",
     "donor": "Brian Miller"
+  },
+  {
+    "id": "live3",
+    "name": "“NSXs in Rainy Seattle” — a 24x36 acrylic painting",
+    "desc": "Artist Niko Burton created this unique acrylic painting which captures the spirit of this year's NSXPO and showcases both older and newer generations of NSXs driving through the rainy streets of Seattle",
+    "img": "./resources/painting.png",
+    "donor": "Niko Burton"
   }
 ]
