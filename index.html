@@ -303,12 +303,15 @@
     // auto fills the name fields, and immediately shows them
     function onMemberLoaded(member) {
       currentMember = member;
+      
       localStorage.setItem("bidNumber", member.bidNumber);
       lookupOverlay.classList.add("hidden");
       logoutBtn.style.display = "inline-block";
 
       autofillMemberFields();
+      watchMemberBlacklist(member.bidNumber);
     }
+    
 
 
     // SHA-256 helper
@@ -363,17 +366,18 @@
     });
 
     refreshGlobalBL();
-    // Watch blacklist enforcement in real time
-    db.ref("settings/blacklistActive").on("value", snap => {
-      globalBL = !!snap.val();
-      globalBLStatus.textContent = globalBL ? "ENFORCED" : "IGNORED";
+function watchMemberBlacklist(bidNumber) {
+  const memberRef = db.ref(`members/${bidNumber}/blacklisted`);
+  memberRef.on("value", snap => {
+    const isBL = !!snap.val();
+    if (globalBL && isBL) {
+      alert("You have been blacklisted. You are no longer allowed to bid.");
+      logoutMember();
+      memberRef.off(); // stop listening after logout
+    }
+  });
+}
 
-      // If enforcement is active and current member is blacklisted kick them
-      if (globalBL && currentMember && currentMember.blacklisted) {
-        alert("Thank you for bidding! The auction is now closed for all non-attendees.");
-        logoutMember();
-      }
-    });
 
 
     // Member blacklist toggle
