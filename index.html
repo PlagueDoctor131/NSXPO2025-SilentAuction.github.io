@@ -409,6 +409,7 @@ db.ref("settings/forceRefresh").on("value", snap => {
       db.ref("settings/blacklistActive").once("value").then(snap => {
         const current = !!snap.val();
         db.ref("settings/blacklistActive").set(!current).then(refreshGlobalBL);
+        db.ref("settings/forceRefresh").set(Date.now());
       });
     });
 
@@ -489,7 +490,7 @@ db.ref("settings/forceRefresh").on("value", snap => {
         .catch(err => {
           memberBLStatus.textContent = "Error: " + err.message;
         });
-        db.ref("settings/forceRefresh").set(Date.now());
+        
 
     });
     //Starts the countdown for locking folks out
