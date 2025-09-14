@@ -564,7 +564,7 @@
                 bid.bidNumber,
                 bid.firstName || "",
                 bid.lastName || "",
-                phone,
+                contactNumber,
                 bid.amount
               ].join(","));
             });
@@ -622,8 +622,8 @@
           return ref.set({
             firstName: first,
             lastName: last,
-            email: email,
-            phone: phone,
+            contactEmail: email,
+            contactNumber: phone,
             blacklisted: false
           });
         })
