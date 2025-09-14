@@ -267,6 +267,11 @@
     <button id="toggleAllFreeze">Toggle Pause All Auctions</button>
     <p>Auctions Status: <span id="allFreezeStatus">Loading…</span></p>
 
+    <!-- Exporting bidders to a csv -->
+    <hr>
+    <h4>Export Data</h4>
+    <button id="exportCSVBtn">Export Bidding History (CSV)</button>
+
   </div>
 
 
@@ -535,6 +540,51 @@
       });
     });
 
+    // --- Export CSV ---
+    function exportBiddingHistory() {
+      const header = ["itemId", "bidNum", "firstName", "lastName", "contactNumber", "amtBid"];
+      const rows = [header.join(",")];
+
+      // For each item, pull bid history
+      const promises = auctionItems.map(item => {
+        return db.ref(`bids/${item.id}/history`).once("value").then(snap => {
+          const history = snap.val() || [];
+
+          // For each bid, look up member details (esp. phone number)
+          const memberLookups = history.map(bid => {
+            return db.ref(`members/${bid.bidNumber}`).once("value").then(memSnap => {
+              const member = memSnap.val() || {};
+              rows.push([
+                item.id,
+                bid.bidNumber || "",
+                bid.firstName || "",
+                bid.lastName || "",
+                member.phone || "",
+                bid.amount
+              ].join(","));
+            });
+          });
+
+          return Promise.all(memberLookups);
+        });
+      });
+
+      // Once all data is ready, generate CSV
+      Promise.all(promises).then(() => {
+        const csvContent = rows.join("\n");
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.setAttribute("href", url);
+        link.setAttribute("download", "bidding_history.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    }
+
+    document.getElementById("exportCSVBtn").addEventListener("click", exportBiddingHistory);
 
     // Add new member
     const addMemberBtn = document.getElementById("addMemberBtn");
