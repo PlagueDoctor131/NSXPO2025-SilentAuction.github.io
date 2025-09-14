@@ -413,38 +413,40 @@
       });
     }
     function createImageCarousel(images, itemId) {
-      let currentIndex = 0;
-      const wrapper = document.createElement("div");
-      wrapper.className = "carousel";
+  let currentIndex = 0;
+  const wrapper = document.createElement("div");
+  wrapper.className = "carousel";
 
-      const img = document.createElement("img");
+  const img = document.createElement("img");
+  img.src = images[currentIndex];   // ✅ should show first image
+  wrapper.appendChild(img);
+
+  if (images.length > 1) {
+    const leftBtn = document.createElement("button");
+    leftBtn.textContent = "◀";
+    leftBtn.className = "carousel-btn left";
+    leftBtn.onclick = () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      console.log("Switched left to", currentIndex, images[currentIndex]); // DEBUG
       img.src = images[currentIndex];
-      img.alt = "Auction Image";
-      wrapper.appendChild(img);
+    };
 
-      if (images.length > 1) {
-        const leftBtn = document.createElement("button");
-        leftBtn.textContent = "◀";
-        leftBtn.className = "carousel-btn left";
-        leftBtn.onclick = () => {
-          currentIndex = (currentIndex - 1 + images.length) % images.length;
-          img.src = images[currentIndex];
-        };
+    const rightBtn = document.createElement("button");
+    rightBtn.textContent = "▶";
+    rightBtn.className = "carousel-btn right";
+    rightBtn.onclick = () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      console.log("Switched right to", currentIndex, images[currentIndex]); // DEBUG
+      img.src = images[currentIndex];
+    };
 
-        const rightBtn = document.createElement("button");
-        rightBtn.textContent = "▶";
-        rightBtn.className = "carousel-btn right";
-        rightBtn.onclick = () => {
-          currentIndex = (currentIndex + 1) % images.length;
-          img.src = images[currentIndex];
-        };
+    wrapper.appendChild(leftBtn);
+    wrapper.appendChild(rightBtn);
+  }
 
-        wrapper.appendChild(leftBtn);
-        wrapper.appendChild(rightBtn);
-      }
+  return wrapper;
+}
 
-      return wrapper;
-    }
 
 
 
