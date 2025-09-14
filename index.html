@@ -73,6 +73,7 @@
       flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
+      align-items:flex-start;
     }
 
     .admin-btn {
@@ -302,6 +303,15 @@
     let currentMember = null;
     let globalBL = false;
 
+
+    // --- Force refresh listener ---
+db.ref("settings/forceRefresh").on("value", snap => {
+  if (snap.val()) {
+    console.log("🔄 Refresh triggered:", snap.val());
+    window.location.reload();
+  }
+});
+
     const logoutBtn = document.getElementById("logoutBtn");
 
     function autofillMemberFields() {
@@ -389,6 +399,8 @@
         const active = !!snap.val();
         globalBL = active;
         globalBLStatus.textContent = active ? "ON" : "OFF";
+        db.ref("settings/forceRefresh").set(Date.now());
+
       });
     }
 
@@ -457,6 +469,7 @@
     const memberBLStatus = document.getElementById("memberBLStatus");
 
     toggleMemberBLBtn.addEventListener("click", () => {
+      
       const bid = memberBidInput.value.trim();
       if (!bid) { alert("Enter a bid number"); return; }
 
@@ -476,6 +489,8 @@
         .catch(err => {
           memberBLStatus.textContent = "Error: " + err.message;
         });
+        db.ref("settings/forceRefresh").set(Date.now());
+
     });
     //Starts the countdown for locking folks out
     const startCountdownBtn = document.getElementById("startCountdownBtn");
