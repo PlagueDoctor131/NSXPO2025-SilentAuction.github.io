@@ -802,14 +802,22 @@
         card.className = "item";
 
         const summary = document.createElement("summary");
-        const imgCarousel = createImageCarousel(item.images || [item.img], item.id);
-        summary.appendChild(imgCarousel);
-        summary.innerHTML += `
-  <div class="item-info">
-    <span class="title"><strong>${item.name}</strong></span>
-    <span id="${item.id}-current" class="top-bid">Loading…</span>
-  </div>`;
-        card.appendChild(summary);
+
+// Create carousel for this item
+const imgCarousel = createImageCarousel(item.images || [item.img], item.id);
+summary.appendChild(imgCarousel);
+
+// Create info container
+const info = document.createElement("div");
+info.className = "item-info";
+info.innerHTML = `
+  <span class="title"><strong>${item.name}</strong></span>
+  <span id="${item.id}-current" class="top-bid">Loading…</span>
+`;
+summary.appendChild(info);
+
+card.appendChild(summary);
+
 
 
         const expanded = document.createElement("div");
