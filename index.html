@@ -413,39 +413,39 @@
       });
     }
     function createImageCarousel(images, itemId) {
-  let currentIndex = 0;
-  const wrapper = document.createElement("div");
-  wrapper.className = "carousel";
+      let currentIndex = 0;
+      const wrapper = document.createElement("div");
+      wrapper.className = "carousel";
 
-  const img = document.createElement("img");
-  img.src = images[currentIndex];   // ✅ should show first image
-  wrapper.appendChild(img);
+      const img = document.createElement("img");
+      img.src = images[currentIndex];   // ✅ should show first image
+      wrapper.appendChild(img);
 
-  if (images.length > 1) {
-    const leftBtn = document.createElement("button");
-    leftBtn.textContent = "◀";
-    leftBtn.className = "carousel-btn left";
-    leftBtn.onclick = () => {
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
-      console.log("Switched left to", currentIndex, images[currentIndex]); // DEBUG
-      img.src = images[currentIndex];
-    };
+      if (images.length > 1) {
+        const leftBtn = document.createElement("button");
+        leftBtn.textContent = "◀";
+        leftBtn.className = "carousel-btn left";
+        leftBtn.onclick = () => {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+          console.log("Switched left to", currentIndex, images[currentIndex]); // DEBUG
+          img.src = images[currentIndex];
+        };
 
-    const rightBtn = document.createElement("button");
-    rightBtn.textContent = "▶";
-    rightBtn.className = "carousel-btn right";
-    rightBtn.onclick = () => {
-      currentIndex = (currentIndex + 1) % images.length;
-      console.log("Switched right to", currentIndex, images[currentIndex]); // DEBUG
-      img.src = images[currentIndex];
-    };
+        const rightBtn = document.createElement("button");
+        rightBtn.textContent = "▶";
+        rightBtn.className = "carousel-btn right";
+        rightBtn.onclick = () => {
+          currentIndex = (currentIndex + 1) % images.length;
+          console.log("Switched right to", currentIndex, images[currentIndex]); // DEBUG
+          img.src = images[currentIndex];
+        };
 
-    wrapper.appendChild(leftBtn);
-    wrapper.appendChild(rightBtn);
-  }
+        wrapper.appendChild(leftBtn);
+        wrapper.appendChild(rightBtn);
+      }
 
-  return wrapper;
-}
+      return wrapper;
+    }
 
 
 
@@ -547,21 +547,24 @@
       const header = ["itemId", "bidNum", "firstName", "lastName", "contactNumber", "amtBid"];
       const rows = [header.join(",")];
 
-      // For each item, pull bid history
       const promises = auctionItems.map(item => {
         return db.ref(`bids/${item.id}/history`).once("value").then(snap => {
           const history = snap.val() || [];
 
-          // For each bid, look up member details (esp. phone number)
+          // Fetch all member records for this item's history
           const memberLookups = history.map(bid => {
+            if (!bid.bidNumber) return Promise.resolve(); // skip if malformed
+
             return db.ref(`members/${bid.bidNumber}`).once("value").then(memSnap => {
               const member = memSnap.val() || {};
+              const phone = member.phone || "";
+
               rows.push([
                 item.id,
-                bid.bidNumber || "",
+                bid.bidNumber,
                 bid.firstName || "",
                 bid.lastName || "",
-                member.phone || "",
+                phone,
                 bid.amount
               ].join(","));
             });
@@ -571,7 +574,6 @@
         });
       });
 
-      // Once all data is ready, generate CSV
       Promise.all(promises).then(() => {
         const csvContent = rows.join("\n");
         const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
@@ -587,6 +589,7 @@
     }
 
     document.getElementById("exportCSVBtn").addEventListener("click", exportBiddingHistory);
+
 
     // Add new member
     const addMemberBtn = document.getElementById("addMemberBtn");
