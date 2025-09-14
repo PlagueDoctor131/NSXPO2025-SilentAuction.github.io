@@ -38,7 +38,7 @@
 
     h1 {
       text-align: center;
-      color:aqua;
+      color: aqua;
     }
 
     h1 span {
@@ -144,32 +144,62 @@
       text-align: center;
       font-size: 1.75em;
     }
+
     nav a:link {
-      color:aqua;
+      color: aqua;
     }
+
     nav a:visited {
-      color:#888;
+      color: #888;
     }
+
     .Logo {
       width: 25%;
       display: block;
       margin: 0 auto;
     }
+
+    .carousel {
+      position: relative;
+      display: inline-block;
+    }
+
+    .carousel img {
+      max-width: 100%;
+      border-radius: 6px;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 1.2em;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+
+    .carousel-btn.left {
+      left: 5px;
+    }
+
+    .carousel-btn.right {
+      right: 5px;
+    }
   </style>
 </head>
 
 <body>
-  <img class="Logo"src="./resources/Seattle_2025_logo.png">
+  <img class="Logo" src="./resources/Seattle_2025_logo.png">
   <hr>
-  <h1 class="page-title">
-    NSXPO 2025 Seattle
-  </h1>
   <nav>
     <a href="index.html">Silent Auction</a> |
     <a href="gallery.html">Live Auction Preview</a>
   </nav>
   <div class=logoutBtn>
-  <button id="logoutBtn" >
+    <button id="logoutBtn">
       Switch Bidder
     </button>
   </div>
@@ -303,7 +333,7 @@
     // auto fills the name fields, and immediately shows them
     function onMemberLoaded(member) {
       currentMember = member;
-      
+
       localStorage.setItem("bidNumber", member.bidNumber);
       lookupOverlay.classList.add("hidden");
       logoutBtn.style.display = "inline-block";
@@ -311,7 +341,7 @@
       autofillMemberFields();
       watchMemberBlacklist(member.bidNumber);
     }
-    
+
 
 
     // SHA-256 helper
@@ -366,17 +396,51 @@
     });
 
     refreshGlobalBL();
-function watchMemberBlacklist(bidNumber) {
-  const memberRef = db.ref(`members/${bidNumber}/blacklisted`);
-  memberRef.on("value", snap => {
-    const isBL = !!snap.val();
-    if (globalBL && isBL) {
-      alert("You have been blacklisted. You are no longer allowed to bid.");
-      logoutMember();
-      memberRef.off(); // stop listening after logout
+    function watchMemberBlacklist(bidNumber) {
+      const memberRef = db.ref(`members/${bidNumber}/blacklisted`);
+      memberRef.on("value", snap => {
+        const isBL = !!snap.val();
+        if (globalBL && isBL) {
+          alert("You have been blacklisted. You are no longer allowed to bid.");
+          logoutMember();
+          memberRef.off(); // stop listening after logout
+        }
+      });
     }
-  });
-}
+    function createImageCarousel(images, itemId) {
+      let currentIndex = 0;
+      const wrapper = document.createElement("div");
+      wrapper.className = "carousel";
+
+      const img = document.createElement("img");
+      img.src = images[currentIndex];
+      img.alt = "Auction Image";
+      wrapper.appendChild(img);
+
+      if (images.length > 1) {
+        const leftBtn = document.createElement("button");
+        leftBtn.textContent = "◀";
+        leftBtn.className = "carousel-btn left";
+        leftBtn.onclick = () => {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+          img.src = images[currentIndex];
+        };
+
+        const rightBtn = document.createElement("button");
+        rightBtn.textContent = "▶";
+        rightBtn.className = "carousel-btn right";
+        rightBtn.onclick = () => {
+          currentIndex = (currentIndex + 1) % images.length;
+          img.src = images[currentIndex];
+        };
+
+        wrapper.appendChild(leftBtn);
+        wrapper.appendChild(rightBtn);
+      }
+
+      return wrapper;
+    }
+
 
 
 
@@ -683,13 +747,15 @@ function watchMemberBlacklist(bidNumber) {
         card.className = "item";
 
         const summary = document.createElement("summary");
-        summary.innerHTML = `
-        <img src="${item.img}" class="thumb" alt="${item.name}">
-        <div class="item-info">
-          <span class="title"><strong>${item.name}</strong></span>
-          <span id="${item.id}-current" class="top-bid">Loading…</span>
-        </div>`;
+        const imgCarousel = createImageCarousel(item.images || [item.img], item.id);
+        summary.appendChild(imgCarousel);
+        summary.innerHTML += `
+  <div class="item-info">
+    <span class="title"><strong>${item.name}</strong></span>
+    <span id="${item.id}-current" class="top-bid">Loading…</span>
+  </div>`;
         card.appendChild(summary);
+
 
         const expanded = document.createElement("div");
         expanded.className = "expanded";
@@ -727,7 +793,7 @@ function watchMemberBlacklist(bidNumber) {
           const topEl = document.getElementById(`${item.id}-current`);
           const expandedTopEl = document.getElementById(`${item.id}-expandedTop`);
           if (cur) {
-            topEl.innerHTML = `<br>Top: ${cur.firstName} ${cur.lastName}`;
+            topEl.innerHTML = `<br>Top Bidder: ${cur.firstName} ${cur.lastName}`;
             expandedTopEl.textContent = `$${cur.amount} by ${cur.firstName} ${cur.lastName}`;
           } else {
             topEl.innerHTML = `<br><strong>Minimum Bid:</strong> $${item.startingBid}`;
