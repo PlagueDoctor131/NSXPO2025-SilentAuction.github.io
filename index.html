@@ -557,14 +557,14 @@
 
             return db.ref(`members/${bid.bidNumber}`).once("value").then(memSnap => {
               const member = memSnap.val() || {};
-              const phone = member.phone || "";
+              const phone = member.contactNumber || "";
 
               rows.push([
                 item.id,
                 bid.bidNumber,
                 bid.firstName || "",
                 bid.lastName || "",
-                contactNumber,
+                phone,
                 bid.amount
               ].join(","));
             });
