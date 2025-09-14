@@ -306,11 +306,16 @@
 
     // --- Force refresh listener ---
 db.ref("settings/forceRefresh").on("value", snap => {
-  if (snap.val()) {
-    console.log("🔄 Refresh triggered:", snap.val());
-    window.location.reload();
+  const val = snap.val();
+  if (val) {
+    console.log("🔄 Refresh triggered:", val);
+    
+    db.ref("settings/forceRefresh").set(null).then(() => {
+      window.location.reload();
+    });
   }
 });
+
 
     const logoutBtn = document.getElementById("logoutBtn");
 
