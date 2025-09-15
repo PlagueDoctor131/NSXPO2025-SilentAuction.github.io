@@ -73,7 +73,7 @@
       flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
-      align-items:flex-start;
+      align-items: flex-start;
     }
 
     .admin-btn {
@@ -199,11 +199,19 @@
     <a href="index.html">Silent Auction</a> |
     <a href="gallery.html">Live Auction Preview</a>
   </nav>
+
   <div class=logoutBtn>
     <button id="logoutBtn">
       Switch Bidder
     </button>
   </div>
+  <div id="auctionTimerBanner"
+    style="display:none; background:#e0f7ff; padding:10px; margin:15px auto; text-align:center; font-size:1.2em; border-radius:6px; max-width:600px;">
+    <span id="auctionTimerMessage"></span>
+    <br>
+    <span id="auctionTimerCountdown" style="font-weight:bold; font-size:1.4em;"></span>
+  </div>
+
 
   <div id="countdownDisplay"
     style="display:none; background:#ffeeba; padding:10px; margin-bottom:20px; text-align:center; font-size:1.2em; border-radius:6px;">
@@ -244,12 +252,20 @@
     <p id="memberBLStatus"></p>
 
     <hr>
-    <h4>Auction Pause Timer</h4>
-    <input type="number" id="countdownHours" placeholder="Hours">
-    <input type="number" id="countdownMinutes" placeholder="Minutes">
-    <input type="text" id="countdownMessage" placeholder="Custom message (optional)">
-    <button id="startCountdownBtn">Start Pause</button>
-    <p id="countdownStatus"></p>
+    <h4>Auction Timer (Start & End)</h4>
+    <label>Start Time:</label>
+    <input type="datetime-local" id="auctionStartDateTime"><br>
+    <label>End Time:</label>
+    <input type="datetime-local" id="auctionEndDateTime"><br>
+    <input type="number" id="auctionReminderHours" placeholder="Reminder Hours (e.g. 2)">
+    <br>
+    <label>
+      <input type="checkbox" id="endEnableBlacklist"> Enable Global Blacklist at End
+    </label>
+    <br>
+    <button id="setAuctionTimerBtn">Set Auction Start/End</button>
+    <p id="auctionTimerStatus"></p>
+
     <hr>
 
     <!-- Add Member -->
@@ -305,16 +321,16 @@
 
 
     // --- Force refresh listener ---
-db.ref("settings/forceRefresh").on("value", snap => {
-  const val = snap.val();
-  if (val) {
-    console.log("🔄 Refresh triggered:", val);
-    
-    db.ref("settings/forceRefresh").set(null).then(() => {
-      window.location.reload();
+    db.ref("settings/forceRefresh").on("value", snap => {
+      const val = snap.val();
+      if (val) {
+        console.log("🔄 Refresh triggered:", val);
+
+        db.ref("settings/forceRefresh").set(null).then(() => {
+          window.location.reload();
+        });
+      }
     });
-  }
-});
 
 
     const logoutBtn = document.getElementById("logoutBtn");
@@ -404,7 +420,7 @@ db.ref("settings/forceRefresh").on("value", snap => {
         const active = !!snap.val();
         globalBL = active;
         globalBLStatus.textContent = active ? "ON" : "OFF";
-        
+
 
       });
     }
@@ -475,7 +491,7 @@ db.ref("settings/forceRefresh").on("value", snap => {
     const memberBLStatus = document.getElementById("memberBLStatus");
 
     toggleMemberBLBtn.addEventListener("click", () => {
-      
+
       const bid = memberBidInput.value.trim();
       if (!bid) { alert("Enter a bid number"); return; }
 
@@ -495,27 +511,42 @@ db.ref("settings/forceRefresh").on("value", snap => {
         .catch(err => {
           memberBLStatus.textContent = "Error: " + err.message;
         });
-        
+
 
     });
-    //Starts the countdown for locking folks out
-    const startCountdownBtn = document.getElementById("startCountdownBtn");
-    const countdownStatus = document.getElementById("countdownStatus");
+    // --- Auction Timer Scheduling ---
+    const setAuctionTimerBtn = document.getElementById("setAuctionTimerBtn");
+    const auctionTimerStatus = document.getElementById("auctionTimerStatus");
 
-    startCountdownBtn.addEventListener("click", () => {
-      const hrs = parseInt(document.getElementById("countdownHours").value, 10) || 0;
-      const mins = parseInt(document.getElementById("countdownMinutes").value, 10) || 0;
-      const msg = document.getElementById("countdownMessage").value.trim();
+    setAuctionTimerBtn.addEventListener("click", () => {
+      const startStr = document.getElementById("auctionStartDateTime").value;
+      const endStr = document.getElementById("auctionEndDateTime").value;
+      const reminderHrs = parseInt(document.getElementById("auctionReminderHours").value, 10) || 0;
+      const enableBlacklist = document.getElementById("endEnableBlacklist").checked;
 
-      if (hrs <= 0 && mins <= 0) {
-        countdownStatus.textContent = "Enter at least minutes or hours.";
+      if (!startStr || !endStr) {
+        auctionTimerStatus.textContent = "Please select both start and end times.";
         return;
       }
 
-      const endTime = Date.now() + (hrs * 3600 + mins * 60) * 1000;
-      db.ref("settings/pause").set({ endTime, message: msg });
-      countdownStatus.textContent = `Auction paused for ${hrs}h ${mins}m.`;
+      const startTime = new Date(startStr).getTime();
+      const endTime = new Date(endStr).getTime();
+
+      if (isNaN(startTime) || isNaN(endTime) || endTime <= startTime) {
+        auctionTimerStatus.textContent = "Invalid times (end must be after start).";
+        return;
+      }
+
+      db.ref("settings/auctionTimer").set({
+        startTime,
+        endTime,
+        reminderHours: reminderHrs,
+        endEnableBlacklist: enableBlacklist
+      }).then(() => {
+        auctionTimerStatus.textContent = "Auction timer set successfully!";
+      });
     });
+
     document.addEventListener("DOMContentLoaded", () => {
       const auctionOverlay = document.getElementById("auctionOverlay");
       const overlayMessage = document.getElementById("overlayMessage");
@@ -824,20 +855,20 @@ db.ref("settings/forceRefresh").on("value", snap => {
 
         const summary = document.createElement("summary");
 
-// Create carousel for this item
-const imgCarousel = createImageCarousel(item.images || [item.img], item.id);
-summary.appendChild(imgCarousel);
+        // Create carousel for this item
+        const imgCarousel = createImageCarousel(item.images || [item.img], item.id);
+        summary.appendChild(imgCarousel);
 
-// Create info container
-const info = document.createElement("div");
-info.className = "item-info";
-info.innerHTML = `
+        // Create info container
+        const info = document.createElement("div");
+        info.className = "item-info";
+        info.innerHTML = `
   <span class="title"><strong>${item.name}</strong></span>
   <span id="${item.id}-current" class="top-bid">Loading…</span>
 `;
-summary.appendChild(info);
+        summary.appendChild(info);
 
-card.appendChild(summary);
+        card.appendChild(summary);
 
 
 
@@ -930,24 +961,7 @@ card.appendChild(summary);
     });
   </script>
 
-  <!-- Overlay for the timer, hidden until needed -->
-  <div id="auctionOverlay" style="
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8);
-  color: white;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 2000;
-  text-align: center;
-  font-size: 2em;
-">
-    <p id="overlayMessage"></p>
-    <p id="overlayTimer" style="font-size:3em; margin-top:10px;"></p>
-  </div>
+  
 
 </body>
 
