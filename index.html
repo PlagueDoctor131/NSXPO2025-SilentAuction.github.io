@@ -200,11 +200,11 @@
     <a href="gallery.html">Live Auction Preview</a>
   </nav>
   <div id="auctionTimerBanner"
-     style="display:none; background:#e0f7ff; padding:10px; margin:15px auto; text-align:center; font-size:1.2em; border-radius:6px; max-width:600px;">
-  <span id="auctionTimerMessage"></span>
-  <br>
-  <span id="auctionTimerCountdown" style="font-weight:bold; font-size:1.4em;"></span>
-</div>
+    style="display:none; background:#e0f7ff; padding:10px; margin:15px auto; text-align:center; font-size:1.2em; border-radius:6px; max-width:600px;">
+    <span id="auctionTimerMessage"></span>
+    <br>
+    <span id="auctionTimerCountdown" style="font-weight:bold; font-size:1.4em;"></span>
+  </div>
 
 
   <div class=logoutBtn>
@@ -212,7 +212,7 @@
       Switch Bidder
     </button>
   </div>
-  
+
 
 
   <div id="countdownDisplay"
@@ -254,21 +254,14 @@
     <p id="memberBLStatus"></p>
 
     <hr>
-    <h4>Auction Timer (Start & End)</h4>
-    <label for="auctionStartDateTime">Start Time:</label>
-<input type="datetime-local" id="auctionStartDateTime"><br>
+    <hr>
+    <h4>Auction Schedule</h4>
+    <div id="scheduleEditor"></div>
+    <button id="addPhaseBtn">Add Phase</button>
+    <button id="saveScheduleBtn">Save Schedule</button>
+    <p id="scheduleStatus"></p>
+    <hr>
 
-<label for="auctionEndDateTime">End Time:</label>
-<input type="datetime-local" id="auctionEndDateTime"><br>
-
-    <input type="number" id="auctionReminderHours" placeholder="Reminder Hours (e.g. 2)">
-    <br>
-    <label>
-      <input type="checkbox" id="endEnableBlacklist"> Enable Global Blacklist at End
-    </label>
-    <br>
-    <button id="setAuctionTimerBtn">Set Auction Start/End</button>
-    <p id="auctionTimerStatus"></p>
 
     <hr>
 
@@ -644,45 +637,72 @@
 
     document.getElementById("exportCSVBtn").addEventListener("click", exportBiddingHistory);
 
-    // --- Auction Timer Scheduling ---
-const setAuctionTimerBtn = document.getElementById("setAuctionTimerBtn");
-const auctionTimerStatus = document.getElementById("auctionTimerStatus");
+    // --- Auction Schedule Runtime with Live Countdown ---
+    db.ref("settings/auctionSchedule").on("value", snap => {
+      const phases = snap.val() || [];
+      const banner = document.getElementById("auctionTimerBanner");
+      const bannerMsg = document.getElementById("auctionTimerMessage");
+      const bannerCountdown = document.getElementById("auctionTimerCountdown");
 
-if (setAuctionTimerBtn) {
-  setAuctionTimerBtn.addEventListener("click", () => {
-    const startStr = document.getElementById("auctionStartDateTime").value;
-    const endStr = document.getElementById("auctionEndDateTime").value;
-    const reminderHrs = parseInt(document.getElementById("auctionReminderHours").value, 10) || 0;
-    const enableBlacklist = document.getElementById("endEnableBlacklist").checked;
+      if (!phases.length) {
+        banner.style.display = "none";
+        return;
+      }
 
-    console.log("Clicked SetAuctionTimer:", startStr, endStr, reminderHrs, enableBlacklist);
+      function updatePhase() {
+        const now = Date.now();
+        let currentPhase = null;
 
-    if (!startStr || !endStr) {
-      auctionTimerStatus.textContent = "Please select both start and end times.";
-      return;
-    }
+        for (const p of phases) {
+          if ((!p.end && now >= p.start) || (p.start <= now && now < p.end)) {
+            currentPhase = p;
+            break;
+          }
+        }
 
-    const startTime = new Date(startStr).getTime();
-    const endTime = new Date(endStr).getTime();
+        if (!currentPhase) {
+          banner.style.display = "none";
+          return;
+        }
 
-    if (isNaN(startTime) || isNaN(endTime) || endTime <= startTime) {
-      auctionTimerStatus.textContent = "Invalid times (end must be after start).";
-      return;
-    }
+        banner.style.display = "block";
+        bannerMsg.textContent = `Current Phase: ${currentPhase.phase}`;
 
-    db.ref("settings/auctionTimer").set({
-      startTime,
-      endTime,
-      reminderHours: reminderHrs,
-      endEnableBlacklist: enableBlacklist
-    }).then(() => {
-      auctionTimerStatus.textContent = "Auction timer set successfully!";
-      console.log("✅ Auction timer saved to Firebase");
+        if (currentPhase.end) {
+          const diff = currentPhase.end - now;
+          bannerCountdown.textContent = diff > 0 ? formatDiff(diff) : "Ended";
+        } else {
+          bannerCountdown.textContent = "No scheduled end";
+        }
+
+        // Apply blacklist & bidding rules
+        globalBL = currentPhase.blacklistActive;
+        setBiddingEnabled(
+          currentPhase.biddingAllowed &&
+          (!globalBL || (globalBL && !currentMember?.blacklisted))
+        );
+      }
+
+      updatePhase();
+      clearInterval(window._phaseTimerInterval);
+      window._phaseTimerInterval = setInterval(updatePhase, 1000);
     });
-  });
-} else {
-  console.error("❌ Set Auction Timer button not found in DOM");
-}
+
+    // Reuse helpers
+    function formatDiff(ms) {
+      const hrs = Math.floor(ms / 3600000);
+      const mins = Math.floor((ms % 3600000) / 60000);
+      const secs = Math.floor((ms % 60000) / 1000);
+      return `${hrs}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+    }
+
+    function setBiddingEnabled(enabled) {
+      document.querySelectorAll("input[id$='-amount'], button").forEach(el => {
+        if (el.textContent === "Submit Bid") el.disabled = !enabled;
+      });
+    }
+
+
 
     // Add new member
     const addMemberBtn = document.getElementById("addMemberBtn");
@@ -732,6 +752,72 @@ if (setAuctionTimerBtn) {
           addMemberStatus.textContent = "Error: " + err.message;
         });
     });
+
+    // --- Auction Schedule Editor ---
+    const scheduleEditor = document.getElementById("scheduleEditor");
+    const addPhaseBtn = document.getElementById("addPhaseBtn");
+    const saveScheduleBtn = document.getElementById("saveScheduleBtn");
+    const scheduleStatus = document.getElementById("scheduleStatus");
+
+    function createPhaseRow(phase = {}) {
+      const div = document.createElement("div");
+      div.style.border = "1px solid #ccc";
+      div.style.padding = "10px";
+      div.style.marginBottom = "10px";
+      div.innerHTML = `
+    <label>Phase Name:
+      <input type="text" class="phase-name" value="${phase.phase || ""}">
+    </label><br>
+    <label>Start:
+      <input type="datetime-local" class="phase-start" value="${phase.start ? new Date(phase.start).toISOString().slice(0, 16) : ""}">
+    </label><br>
+    <label>End:
+      <input type="datetime-local" class="phase-end" value="${phase.end ? new Date(phase.end).toISOString().slice(0, 16) : ""}">
+    </label><br>
+    <label>
+      <input type="checkbox" class="phase-bl" ${phase.blacklistActive ? "checked" : ""}>
+      Enable Blacklist
+    </label><br>
+    <label>
+      <input type="checkbox" class="phase-bid" ${phase.biddingAllowed ? "checked" : ""}>
+      Bidding Allowed
+    </label><br>
+    <button class="removePhaseBtn">Remove Phase</button>
+  `;
+      div.querySelector(".removePhaseBtn").onclick = () => div.remove();
+      scheduleEditor.appendChild(div);
+    }
+
+    addPhaseBtn.addEventListener("click", () => {
+      createPhaseRow();
+    });
+
+    // Load existing schedule
+    db.ref("settings/auctionSchedule").once("value").then(snap => {
+      const phases = snap.val() || [];
+      phases.forEach(p => createPhaseRow(p));
+    });
+
+    // Save schedule
+    saveScheduleBtn.addEventListener("click", () => {
+      const phases = [];
+      scheduleEditor.querySelectorAll("div").forEach(div => {
+        const phase = {
+          phase: div.querySelector(".phase-name").value.trim(),
+          start: new Date(div.querySelector(".phase-start").value).getTime(),
+          end: new Date(div.querySelector(".phase-end").value).getTime(),
+          blacklistActive: div.querySelector(".phase-bl").checked,
+          biddingAllowed: div.querySelector(".phase-bid").checked
+        };
+        if (!phase.phase || isNaN(phase.start)) return;
+        phases.push(phase);
+      });
+
+      db.ref("settings/auctionSchedule").set(phases).then(() => {
+        scheduleStatus.textContent = "✅ Schedule saved!";
+      });
+    });
+
 
 
     // --- Global freeze all ---
@@ -1002,7 +1088,7 @@ if (setAuctionTimerBtn) {
     });
   </script>
 
-  
+
 
 </body>
 
