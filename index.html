@@ -199,18 +199,20 @@
     <a href="index.html">Silent Auction</a> |
     <a href="gallery.html">Live Auction Preview</a>
   </nav>
+  <div id="auctionTimerBanner"
+     style="display:none; background:#e0f7ff; padding:10px; margin:15px auto; text-align:center; font-size:1.2em; border-radius:6px; max-width:600px;">
+  <span id="auctionTimerMessage"></span>
+  <br>
+  <span id="auctionTimerCountdown" style="font-weight:bold; font-size:1.4em;"></span>
+</div>
+
 
   <div class=logoutBtn>
     <button id="logoutBtn">
       Switch Bidder
     </button>
   </div>
-  <div id="auctionTimerBanner"
-    style="display:none; background:#e0f7ff; padding:10px; margin:15px auto; text-align:center; font-size:1.2em; border-radius:6px; max-width:600px;">
-    <span id="auctionTimerMessage"></span>
-    <br>
-    <span id="auctionTimerCountdown" style="font-weight:bold; font-size:1.4em;"></span>
-  </div>
+  
 
 
   <div id="countdownDisplay"
@@ -514,84 +516,82 @@
 
 
     });
-    // --- Auction Timer Scheduling ---
-    const setAuctionTimerBtn = document.getElementById("setAuctionTimerBtn");
-    const auctionTimerStatus = document.getElementById("auctionTimerStatus");
+    // ✅ Auction Timer logic
+    const banner = document.getElementById("auctionTimerBanner");
+    const bannerMsg = document.getElementById("auctionTimerMessage");
+    const bannerCountdown = document.getElementById("auctionTimerCountdown");
 
-    setAuctionTimerBtn.addEventListener("click", () => {
-      const startStr = document.getElementById("auctionStartDateTime").value;
-      const endStr = document.getElementById("auctionEndDateTime").value;
-      const reminderHrs = parseInt(document.getElementById("auctionReminderHours").value, 10) || 0;
-      const enableBlacklist = document.getElementById("endEnableBlacklist").checked;
+    db.ref("settings/auctionTimer").on("value", snap => {
+      const data = snap.val();
+      console.log("Auction Timer data:", data);
 
-      if (!startStr || !endStr) {
-        auctionTimerStatus.textContent = "Please select both start and end times.";
+      if (!banner || !bannerMsg || !bannerCountdown) {
+        console.error("❌ Auction Timer Banner elements missing in DOM.");
         return;
       }
 
-      const startTime = new Date(startStr).getTime();
-      const endTime = new Date(endStr).getTime();
-
-      if (isNaN(startTime) || isNaN(endTime) || endTime <= startTime) {
-        auctionTimerStatus.textContent = "Invalid times (end must be after start).";
+      if (!data || !data.startTime || !data.endTime) {
+        banner.style.display = "none";
         return;
       }
 
-      db.ref("settings/auctionTimer").set({
-        startTime,
-        endTime,
-        reminderHours: reminderHrs,
-        endEnableBlacklist: enableBlacklist
-      }).then(() => {
-        auctionTimerStatus.textContent = "Auction timer set successfully!";
-      });
-    });
+      const { startTime, endTime, reminderHours, endEnableBlacklist } = data;
+      banner.style.display = "block";
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const auctionOverlay = document.getElementById("auctionOverlay");
-      const overlayMessage = document.getElementById("overlayMessage");
-      const overlayTimer = document.getElementById("overlayTimer");
+      function updateTimer() {
+        const now = Date.now();
 
-      db.ref("settings/pause").on("value", snap => {
-        const data = snap.val();
-        if (!data || !data.endTime) {
-          auctionOverlay.style.display = "none";
-          auctionPaused = false;
+        if (now < startTime) {
+          bannerMsg.textContent = "Auction starts in:";
+          bannerCountdown.textContent = formatDiff(startTime - now);
+          setBiddingEnabled(false);
           return;
         }
 
-        const { endTime, message } = data;
-        auctionPaused = true;
-        auctionOverlay.style.display = "flex";
-
-        function runTimer() {
-          const now = Date.now();
+        if (now >= startTime && now < endTime) {
           const diff = endTime - now;
+          bannerMsg.textContent = "Auction ends in:";
+          bannerCountdown.textContent = formatDiff(diff);
+          setBiddingEnabled(true);
 
-          if (diff <= 0) {
-            overlayMessage.textContent = "Auction is now OPEN!";
-            overlayTimer.textContent = "";
-            setTimeout(() => {
-              db.ref("settings/pause").remove();
-              auctionOverlay.style.display = "none";
-              auctionPaused = false;
-            }, 5000);
-            return;
+          if (reminderHours > 0 && diff <= reminderHours * 3600000 && !window._reminderShown) {
+            window._reminderShown = true;
+            const reminder = document.createElement("div");
+            reminder.textContent = `⚡ Reminder: Only ${reminderHours} hours left!`;
+            reminder.style.color = "red";
+            reminder.style.fontWeight = "bold";
+            reminder.style.marginTop = "10px";
+            banner.appendChild(reminder);
           }
-
-          const hrs = Math.floor(diff / 3600000);
-          const mins = Math.floor((diff % 3600000) / 60000);
-          const secs = Math.floor((diff % 60000) / 1000);
-
-          overlayMessage.textContent = message || "Auction Paused";
-          overlayTimer.textContent = `${hrs}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+          return;
         }
 
-        // Run immediately and every second
-        runTimer();
-        clearInterval(window._pauseTimerInterval);
-        window._pauseTimerInterval = setInterval(runTimer, 1000);
-      });
+        bannerMsg.textContent = "⏰ Auction has ended!";
+        bannerCountdown.textContent = "";
+        setBiddingEnabled(false);
+
+        if (endEnableBlacklist && !window._blacklistApplied) {
+          window._blacklistApplied = true;
+          db.ref("settings/blacklistActive").set(true);
+        }
+      }
+
+      function formatDiff(ms) {
+        const hrs = Math.floor(ms / 3600000);
+        const mins = Math.floor((ms % 3600000) / 60000);
+        const secs = Math.floor((ms % 60000) / 1000);
+        return `${hrs}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+      }
+
+      function setBiddingEnabled(enabled) {
+        document.querySelectorAll("input[id$='-amount'], button").forEach(el => {
+          if (el.textContent === "Submit Bid") el.disabled = !enabled;
+        });
+      }
+
+      updateTimer();
+      clearInterval(window._auctionTimerInterval);
+      window._auctionTimerInterval = setInterval(updateTimer, 1000);
     });
 
     // --- Export CSV ---
