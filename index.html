@@ -256,6 +256,15 @@
     <div id="auctionNextLine" style="margin-top:4px; opacity:.9;"></div>
     <div id="auctionTimerCountdown"></div>
   </div>
+  <div id="auctionReminderBanner" style="display:none;background:#fff3cd;color:#664d03;border:1px solid #ffecb5;
+            border-radius:6px;padding:10px;margin:10px auto;max-width:750px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+      <div id="auctionReminderText"></div>
+      <button id="dismissReminderBtn"
+        style="border:none;background:transparent;font-size:1.25em;cursor:pointer;">×</button>
+    </div>
+  </div>
+
 
 
   <div class=logoutBtn>
@@ -774,6 +783,11 @@
         <div class="line">
           <label><input type="checkbox" class="phase-bid" ${phase.biddingAllowed ? "checked" : ""}> Bidding Allowed</label>
           <label><input type="checkbox" class="phase-bl" ${phase.blacklistActive ? "checked" : ""}> Enable Blacklist</label>
+          <label>
+  Reminder Hours:
+  <input type="number" class="phase-reminder" min="0" value="${phase.reminderHours || 0}">
+</label>
+
         </div>
         <button type="button" class="removePhaseBtn">Remove Phase</button>
       `;
@@ -797,6 +811,17 @@
 
     // Save schedule
     saveScheduleBtn.addEventListener("click", () => {
+      const reminderHours = parseInt(row.querySelector(".phase-reminder").value, 10) || 0;
+
+      phases.push({
+        phase: name,
+        start,
+        end,
+        biddingAllowed,
+        blacklistActive,
+        reminderHours
+      });
+
       const rows = Array.from(scheduleEditor.querySelectorAll(".phase-row"));
       const phases = [];
 
@@ -915,11 +940,41 @@
             countdownEl.textContent = `Starts in ${fmtDiff(next.start - now)}`;
             nextLineEl.textContent = "";
           } else {
-            banner.style.display = "none";
+            // No active and no upcoming phases
+            banner.style.display = "block";
+            phaseNameEl.textContent = " Auction has ended!";
+            phaseFlagsEl.textContent = "";
+            countdownEl.textContent = "";
+            nextLineEl.textContent = " Thank you for bidding!";
+            setBiddingEnabled(false);
           }
-          // No bidding if not in an active bidding-allowed phase
-          setBiddingEnabled(false);
         }
+        // --- Reminder logic ---
+        const reminderBanner = document.getElementById("auctionReminderBanner");
+        const reminderText = document.getElementById("auctionReminderText");
+        const dismissBtn = document.getElementById("dismissReminderBtn");
+
+        if (active.reminderHours && active.end && active.biddingAllowed) {
+          const reminderMs = active.reminderHours * 60 * 60 * 1000;
+          const timeLeft = active.end - now;
+
+          const reminderKey = `auctionReminder:${active.phase}:${active.end}`;
+          const dismissed = localStorage.getItem(reminderKey) === "dismissed";
+
+          if (!dismissed && timeLeft > 0 && timeLeft <= reminderMs) {
+            reminderText.textContent = `⚡ Only ${fmtDiff(timeLeft)} left in “${active.phase}”! Place your final bids.`;
+            reminderBanner.style.display = "block";
+            dismissBtn.onclick = () => {
+              localStorage.setItem(reminderKey, "dismissed");
+              reminderBanner.style.display = "none";
+            };
+          } else {
+            reminderBanner.style.display = "none";
+          }
+        } else {
+          reminderBanner.style.display = "none";
+        }
+
       }
 
       tick();
