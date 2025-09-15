@@ -255,10 +255,12 @@
 
     <hr>
     <h4>Auction Timer (Start & End)</h4>
-    <label>Start Time:</label>
-    <input type="datetime-local" id="auctionStartDateTime"><br>
-    <label>End Time:</label>
-    <input type="datetime-local" id="auctionEndDateTime"><br>
+    <label for="auctionStartDateTime">Start Time:</label>
+<input type="datetime-local" id="auctionStartDateTime"><br>
+
+<label for="auctionEndDateTime">End Time:</label>
+<input type="datetime-local" id="auctionEndDateTime"><br>
+
     <input type="number" id="auctionReminderHours" placeholder="Reminder Hours (e.g. 2)">
     <br>
     <label>
@@ -642,6 +644,45 @@
 
     document.getElementById("exportCSVBtn").addEventListener("click", exportBiddingHistory);
 
+    // --- Auction Timer Scheduling ---
+const setAuctionTimerBtn = document.getElementById("setAuctionTimerBtn");
+const auctionTimerStatus = document.getElementById("auctionTimerStatus");
+
+if (setAuctionTimerBtn) {
+  setAuctionTimerBtn.addEventListener("click", () => {
+    const startStr = document.getElementById("auctionStartDateTime").value;
+    const endStr = document.getElementById("auctionEndDateTime").value;
+    const reminderHrs = parseInt(document.getElementById("auctionReminderHours").value, 10) || 0;
+    const enableBlacklist = document.getElementById("endEnableBlacklist").checked;
+
+    console.log("Clicked SetAuctionTimer:", startStr, endStr, reminderHrs, enableBlacklist);
+
+    if (!startStr || !endStr) {
+      auctionTimerStatus.textContent = "Please select both start and end times.";
+      return;
+    }
+
+    const startTime = new Date(startStr).getTime();
+    const endTime = new Date(endStr).getTime();
+
+    if (isNaN(startTime) || isNaN(endTime) || endTime <= startTime) {
+      auctionTimerStatus.textContent = "Invalid times (end must be after start).";
+      return;
+    }
+
+    db.ref("settings/auctionTimer").set({
+      startTime,
+      endTime,
+      reminderHours: reminderHrs,
+      endEnableBlacklist: enableBlacklist
+    }).then(() => {
+      auctionTimerStatus.textContent = "Auction timer set successfully!";
+      console.log("✅ Auction timer saved to Firebase");
+    });
+  });
+} else {
+  console.error("❌ Set Auction Timer button not found in DOM");
+}
 
     // Add new member
     const addMemberBtn = document.getElementById("addMemberBtn");
