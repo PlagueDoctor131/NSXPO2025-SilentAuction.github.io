@@ -811,35 +811,35 @@
 
     // Save schedule
     // Save schedule
-saveScheduleBtn.addEventListener("click", () => {
-  const rows = Array.from(scheduleEditor.querySelectorAll(".phase-row"));
-  const phases = [];
+    saveScheduleBtn.addEventListener("click", () => {
+      const rows = Array.from(scheduleEditor.querySelectorAll(".phase-row"));
+      const phases = [];
 
-  for (const row of rows) {
-    const name = row.querySelector(".phase-name").value.trim();
-    const startStr = row.querySelector(".phase-start").value;
-    const endStr = row.querySelector(".phase-end").value;
-    const biddingAllowed = row.querySelector(".phase-bid").checked;
-    const blacklistActive = row.querySelector(".phase-bl").checked;
-    const reminderHours = parseInt(row.querySelector(".phase-reminder").value, 10) || 0;
+      for (const row of rows) {
+        const name = row.querySelector(".phase-name").value.trim();
+        const startStr = row.querySelector(".phase-start").value;
+        const endStr = row.querySelector(".phase-end").value;
+        const biddingAllowed = row.querySelector(".phase-bid").checked;
+        const blacklistActive = row.querySelector(".phase-bl").checked;
+        const reminderHours = parseInt(row.querySelector(".phase-reminder").value, 10) || 0;
 
-    if (!name || !startStr) continue;
-    const start = new Date(startStr).getTime();
-    const end = endStr ? new Date(endStr).getTime() : null;
+        if (!name || !startStr) continue;
+        const start = new Date(startStr).getTime();
+        const end = endStr ? new Date(endStr).getTime() : null;
 
-    if (isNaN(start)) continue;
-    if (endStr && (isNaN(end) || end <= start)) {
-      scheduleStatus.textContent = "⚠ Each phase's end must be after its start.";
-      return;
-    }
+        if (isNaN(start)) continue;
+        if (endStr && (isNaN(end) || end <= start)) {
+          scheduleStatus.textContent = "⚠ Each phase's end must be after its start.";
+          return;
+        }
 
-    phases.push({ phase: name, start, end, biddingAllowed, blacklistActive, reminderHours });
-  }
+        phases.push({ phase: name, start, end, biddingAllowed, blacklistActive, reminderHours });
+      }
 
-  db.ref("settings/auctionSchedule").set(phases).then(() => {
-    scheduleStatus.textContent = "✅ Schedule saved!";
-  });
-});
+      db.ref("settings/auctionSchedule").set(phases).then(() => {
+        scheduleStatus.textContent = "✅ Schedule saved!";
+      });
+    });
 
 
 
@@ -943,15 +943,16 @@ saveScheduleBtn.addEventListener("click", () => {
         const reminderText = document.getElementById("auctionReminderText");
         const dismissBtn = document.getElementById("dismissReminderBtn");
 
-        if (active.reminderHours && active.end && active.biddingAllowed) {
-          const reminderMs = active.reminderHours * 60 * 60 * 1000;
+        if (active && active.end && active.biddingAllowed && Number(active.reminderHours) > 0) {
+          const reminderMs = Number(active.reminderHours) * 60 * 60 * 1000;
           const timeLeft = active.end - now;
 
           const reminderKey = `auctionReminder:${active.phase}:${active.end}`;
           const dismissed = localStorage.getItem(reminderKey) === "dismissed";
 
           if (!dismissed && timeLeft > 0 && timeLeft <= reminderMs) {
-            reminderText.textContent = `⚡ Only ${fmtDiff(timeLeft)} left in “${active.phase}”! Place your final bids.`;
+            reminderText.textContent =
+              `⚡ Only ${fmtDiff(timeLeft)} left in “${active.phase}”! Place your final bids.`;
             reminderBanner.style.display = "block";
             dismissBtn.onclick = () => {
               localStorage.setItem(reminderKey, "dismissed");
@@ -963,6 +964,7 @@ saveScheduleBtn.addEventListener("click", () => {
         } else {
           reminderBanner.style.display = "none";
         }
+
 
       }
 
