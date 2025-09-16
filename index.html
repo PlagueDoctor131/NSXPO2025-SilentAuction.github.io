@@ -811,29 +811,18 @@
 
     // Save schedule
     saveScheduleBtn.addEventListener("click", () => {
-      const reminderHours = parseInt(row.querySelector(".phase-reminder").value, 10) || 0;
-
-      phases.push({
-        phase: name,
-        start,
-        end,
-        biddingAllowed,
-        blacklistActive,
-        reminderHours
-      });
-
       const rows = Array.from(scheduleEditor.querySelectorAll(".phase-row"));
       const phases = [];
 
-      for (const row of rows) {
+      for (const row of rows) {  // 👈 define `row`
         const name = row.querySelector(".phase-name").value.trim();
         const startStr = row.querySelector(".phase-start").value;
         const endStr = row.querySelector(".phase-end").value;
         const biddingAllowed = row.querySelector(".phase-bid").checked;
         const blacklistActive = row.querySelector(".phase-bl").checked;
+        const reminderHours = parseInt(row.querySelector(".phase-reminder").value, 10) || 0;
 
         if (!name || !startStr) continue;
-
         const start = new Date(startStr).getTime();
         const end = endStr ? new Date(endStr).getTime() : null;
 
@@ -843,16 +832,14 @@
           return;
         }
 
-        phases.push({ phase: name, start, end, biddingAllowed, blacklistActive });
+        phases.push({ phase: name, start, end, biddingAllowed, blacklistActive, reminderHours });
       }
-
-      // Sort by start time to keep things tidy
-      phases.sort((a, b) => (a.start || 0) - (b.start || 0));
 
       db.ref("settings/auctionSchedule").set(phases).then(() => {
         scheduleStatus.textContent = "✅ Schedule saved!";
       });
     });
+
 
     // Clear schedule
     clearScheduleBtn.addEventListener("click", () => {
