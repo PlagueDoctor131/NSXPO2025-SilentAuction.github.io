@@ -242,7 +242,7 @@
     "startingBid": 25.0,
     "retailValue": 200.0,
     "images": [
-      "./resources/foamkit1.png"
+      "./resources/foamkit1.PNG"
     ]
   },
   {
@@ -253,7 +253,7 @@
     "startingBid": 50.0,
     "retailValue": 450.0,
     "images": [
-      "./resources/ceramic1.png"
+      "./resources/ceramic1.PNG"
     ]
   }
 ]
