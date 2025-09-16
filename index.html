@@ -121,6 +121,7 @@
     #items .item img {
       width: 200%;
       max-width: 100%;
+      height:400px;
     }
 
     .page-title {
@@ -1160,7 +1161,7 @@
         
         <p><strong>Donated by:</strong> ${item.dono}</p>
         <p>${item.desc}</p>
-        <p><strong>Retail Value:</strong> $${item.retailValue}</p>
+        <p><strong>Retail Value:</strong> ${item.retailValue ? `$${item.retailValue}` : "Event Exclusive"}</p>
         <p><strong>Current Top Bid:</strong> <span id="${item.id}-expandedTop">Loading…</span></p>
         <p><strong>Total Bids:</strong> <span id="${item.id}-total">0</span></p>
         <form onsubmit="submitBid(event, '${item.id}')">

@@ -73,7 +73,8 @@
     "startingBid": 0.0,
     "retailValue": 50.0,
     "images": [
-      "./resources/mattelbrick.png"
+      "./resources/mattel1.webp",
+      "./resources/mattel2.webp"
     ]
   },
   {
@@ -106,8 +107,9 @@
     "startingBid": 0.0,
     "retailValue": 100.0,
     "images": [
-      "./resources/Tomica_Transport_Truck_1.png",
-      "./resources/Tomica_Transport_Truck_2.png"
+      "./resources/transport1.jpeg",
+      "./resources/transport2.jpeg",
+      "./resources/transport3.jpeg"
     ]
   },
   {
@@ -118,7 +120,8 @@
     "startingBid": 0.0,
     "retailValue": 60.0,
     "images": [
-      "./resources/Tomica_NSX_3_car_1.png"
+      "./resources/3car1.jpeg",
+      "./resources/3car2.jpeg"
     ]
   },
   {
@@ -140,7 +143,7 @@
     "startingBid": 0.0,
     "retailValue": 40.0,
     "images": [
-      "./resources/Power_rangers_Green.png"
+      "./resources/greenranger.jpg"
     ]
   },
   {
@@ -158,7 +161,7 @@
     "id": "item15",
     "name": "Aluminium and Black NSX coffee table book",
     "dono": "Brian Miller",
-    "desc": "RARE FIND! This 50-page coffee table book was self published by Honda in 1990. It was presented to corporate guests and prospective buyers at the introduction of the NSX. It includes cutaway illustrations, full technical specification, and also features a full-page photo of Ayrton Senna driving the McLaren-Honda MP4/5B.",
+    "desc": "This very rare 50-page coffee table book was self published by Honda in 1990. It was presented to corporate guests and prospective buyers at the introduction of the NSX. It includes cutaway illustrations, full technical specification, and also features a full-page photo of Ayrton Senna driving the McLaren-Honda MP4/5B.",
     "startingBid": 0.0,
     "retailValue": 150.0,
     "images": [
@@ -180,11 +183,11 @@
     "id": "item17",
     "name": "ScienceofSpeed NC1 wheel spacers with studs",
     "dono": "Alan Chan",
-    "desc": "Coming soon",
+    "desc": "NC1 Wheel spacers from ScienceofSpeed, longer studs included to accomodate spacers. 12.5 front and 20mm rear",
     "startingBid": 0.0,
     "retailValue": 300.0,
     "images": [
-      "./resources/NC1_wheel_spacers_with_studs_1.png"
+      "./resources/spacers1.jpg"
     ]
   },
   {
@@ -207,6 +210,50 @@
     "retailValue": 1100.0,
     "images": [
       "./resources/spoilercover.png"
+    ]
+  },
+  {
+    "id": "item20",
+    "name": "Signed NC1 Coffee Table book",
+    "dono": "Acura",
+    "desc": "Signed by the Honda Japan Sportscar design team this 100-page full color book highlights the features of the NC1.",
+    "startingBid": 0.0,
+    "retailValue": ,
+    "images": [
+      "./resources/nc1book1.jpg"
+    ]
+  },
+  {
+    "id": "item21",
+    "name": "Gift Set from Le Mans event",
+    "dono": "NSX Club of Europe",
+    "desc": "This gift set was given out to the attendees of this year\u2019s event hosted by the NSX Club of Europe, in conjunction with the NSX Club of the UK. It was a spectacular event which included 45 NSX\u2019s driving together on Circuit de la Sarthe during the historic Le Mans Classic event. You can see pictures and more highlights on the <a href=https://nsxclubeurope.com/2025/07/postcards-from-nsx-le-mans-classic-tour-2025/\" target=\"_blank\">NSX-CE site</a>!",
+    "startingBid": 0.0,
+    "retailValue": ,
+    "images": [
+      "./resources/giftset1.png"
+    ]
+  },
+  {
+    "id": "item22",
+    "name": "Griot\u2019s Garage Boss Foaming System Starter Kit",
+    "dono": "Griot's Garage",
+    "desc": "The BOSS Foaming System deep cleans while avoiding wash-induced scratches, adds gloss and protection, and delivers a truly fun and engaging user experience. This kit includes all the essentials you need to hit the road running... You just add a pressure washer and water. See more details on the <a href=\"https://www.griotsgarage.com/boss-foaming-system-starter-kit/?srsltid=AfmBOopV6eJdKY4R4UmFhmQFE8gtN1pXM2dAGwoiRvL_Rnz-At0sCe7N\" target=\"_blank\">Griot's Garage</a> site!",
+    "startingBid": 150.0,
+    "retailValue": 200.0,
+    "images": [
+      "./resources/foamkit1.PNG"
+    ]
+  },
+  {
+    "id": "item23",
+    "name": "Griot\u2019s Garage G8 & G9 Orbital 2-Step Ceramic Kit",
+    "dono": "Griot's Garage",
+    "desc": "This kit ups your detailing game by including the maneuverability of the G8 orbital, the power of the big-block equipped G9, and the durable finish protection of our Ceramic 3-in-1 Wax. See more details on the <a href=\"https://www.griotsgarage.com/g8-g9-orbital-2-step-ceramic-kit/?srsltid=AfmBOoqN_cRHHISRWA_hjWL6lFj7bGx1kQAY1QUq1iHNf61JqRs7mCbc\" target=\"_blank\">Griot's Garage</a> site!",
+    "startingBid": 330.0,
+    "retailValue": 450.0,
+    "images": [
+      "./resources/ceramic1.PNG"
     ]
   }
 ]

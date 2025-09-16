@@ -1,21 +1,21 @@
 [
   {
     "id": "live1",
-    "name": "Set of 4 Tires",
-    "desc": "A set of 4 tires (of your choice) from Pirelli! Top 5 bidders will win. ",
+    "name": "Set of Pirelli tires [5 available]",
+    "desc": "Winners will receive a $2,500 gift card toward purchases of any Pirelli tires.",
     "img": "./resources/tires.png",
     "donor": "Pirelli"
   },
   {
     "id": "live2",
-    "name": "NSX Our Dreams Come True book",
-    "desc": "Rare 194 page book published by Honda in 1990, most copies were given to the original NSX development team. Although mostly in Japanese, this is a unique addition to any collector's shelf!",
+    "name": "The NSX Story",
+    "desc": "This very rare 194-page book published by Honda was originally created and given to new owners after production delays so they would have something in hand while waiting for their new NSX. There is a fantastic write-up by Shawn Sejera about this book which you can read on the <a href=\"https://nsxclubeurope.com/2017/01/nsxmobilia-top-10-the-nsx-story/\" target=\"_blank\">NSX-CE site</a>. <em>“If Soichiro Honda’s axiom of life’s value being ‘measured by the number of times your soul has been deeply stirred’ then value has certainly been created. The book has stirred my soul. The NSX Story is an inherently beautiful book that can tell the NSX’s tale, in a compelling way, just through its design execution and pictures.”</em>",
     "img": "./resources/Dreams_come_true_1.png",
     "donor": "Brian Miller"
   },
   {
     "id": "live3",
-    "name": "“NSXs in Rainy Seattle” — a 24x36 acrylic painting",
+    "name": "“NSXs in Rainy Seattle”",
     "desc": "Artist Niko Burton created this unique acrylic painting which captures the spirit of this year's NSXPO and showcases both older and newer generations of NSXs driving through the rainy streets of Seattle",
     "img": "./resources/painting.png",
     "donor": "Niko Burton"
