@@ -236,10 +236,10 @@
   },
   {
     "id": "item22",
-    "name": "Griot\u2019s Garage Boss Foaming System Starter Kit",
+    "name": "Boss Foaming System Starter Kit",
     "dono": "Griot's Garage",
     "desc": "The BOSS Foaming System deep cleans while avoiding wash-induced scratches, adds gloss and protection, and delivers a truly fun and engaging user experience. This kit includes all the essentials you need to hit the road running... You just add a pressure washer and water. See more details on the <a href=\"https://www.griotsgarage.com/boss-foaming-system-starter-kit/?srsltid=AfmBOopV6eJdKY4R4UmFhmQFE8gtN1pXM2dAGwoiRvL_Rnz-At0sCe7N\" target=\"_blank\">Griot's Garage</a> site!",
-    "startingBid": 150.0,
+    "startingBid": 25.0,
     "retailValue": 200.0,
     "images": [
       "./resources/foamkit1.PNG"
@@ -247,10 +247,10 @@
   },
   {
     "id": "item23",
-    "name": "Griot\u2019s Garage G8 & G9 Orbital 2-Step Ceramic Kit",
+    "name": "G8 & G9 Orbital 2-Step Ceramic Kit",
     "dono": "Griot's Garage",
     "desc": "This kit ups your detailing game by including the maneuverability of the G8 orbital, the power of the big-block equipped G9, and the durable finish protection of our Ceramic 3-in-1 Wax. See more details on the <a href=\"https://www.griotsgarage.com/g8-g9-orbital-2-step-ceramic-kit/?srsltid=AfmBOoqN_cRHHISRWA_hjWL6lFj7bGx1kQAY1QUq1iHNf61JqRs7mCbc\" target=\"_blank\">Griot's Garage</a> site!",
-    "startingBid": 330.0,
+    "startingBid": 50.0,
     "retailValue": 450.0,
     "images": [
       "./resources/ceramic1.PNG"
