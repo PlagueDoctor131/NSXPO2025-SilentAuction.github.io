@@ -375,6 +375,21 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
+
+function setBidControlsHidden(hidden) {
+  document.querySelectorAll("input[id$='-amount']").forEach(inp => {
+    inp.disabled = hidden;
+    inp.style.display = hidden ? "none" : "inline-block";
+  });
+  document.querySelectorAll("button").forEach(btn => {
+    if (btn.textContent.trim().toLowerCase() === "submit bid") {
+      btn.disabled = hidden;
+      btn.style.display = hidden ? "none" : "inline-block";
+    }
+  });
+}
+
+
     let auctionPaused = false;
     let allFrozen = false;
     let isAdmin = false;
@@ -912,12 +927,16 @@
           }
 
           // Enforce rules
-          const blOn = !!active.blacklistActive;
+          const blOn = !!active.blacklistActive || globalBL; // include schedule + global
           const bidding = !!active.biddingAllowed;
 
-          // If blacklist is on and user is blacklisted → treat as bidding closed for them.
+          // Block if blacklist is active AND user is blacklisted
           const memberBlocked = blOn && !!(currentMember && currentMember.blacklisted);
+
           setBiddingEnabled(bidding && !memberBlocked);
+
+          // Additionally hide the controls fully if member is blocked
+          setBidControlsHidden(memberBlocked);
 
           // Show next phase preview if exists
           if (next) {
