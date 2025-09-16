@@ -73,8 +73,8 @@
     "startingBid": 0.0,
     "retailValue": 50.0,
     "images": [
-      "./resources/mattel1.webp",
-      "./resources/mattel2.webp"
+      "./resources/mattel1.png",
+      "./resources/mattel2.png"
     ]
   },
   {
@@ -107,9 +107,9 @@
     "startingBid": 0.0,
     "retailValue": 100.0,
     "images": [
-      "./resources/transport1.jpeg",
-      "./resources/transport2.jpeg",
-      "./resources/transport3.jpeg"
+      "./resources/transport1.png",
+      "./resources/transport2.png",
+      "./resources/transport3.png"
     ]
   },
   {
@@ -120,8 +120,8 @@
     "startingBid": 0.0,
     "retailValue": 60.0,
     "images": [
-      "./resources/3car1.jpeg",
-      "./resources/3car2.jpeg"
+      "./resources/3car1.png",
+      "./resources/3car2.png"
     ]
   },
   {
@@ -143,7 +143,7 @@
     "startingBid": 0.0,
     "retailValue": 40.0,
     "images": [
-      "./resources/greenranger.jpg"
+      "./resources/greenranger.png"
     ]
   },
   {
@@ -187,7 +187,7 @@
     "startingBid": 0.0,
     "retailValue": 300.0,
     "images": [
-      "./resources/spacers1.jpg"
+      "./resources/spacers1.png"
     ]
   },
   {
@@ -220,7 +220,7 @@
     "startingBid": 0.0,
     "retailValue": 0.0,
     "images": [
-      "./resources/nc1book1.jpg"
+      "./resources/nc1book1.png"
     ]
   },
   {
@@ -242,7 +242,7 @@
     "startingBid": 25.0,
     "retailValue": 200.0,
     "images": [
-      "./resources/foamkit1.PNG"
+      "./resources/foamkit1.png"
     ]
   },
   {
@@ -253,7 +253,7 @@
     "startingBid": 50.0,
     "retailValue": 450.0,
     "images": [
-      "./resources/ceramic1.PNG"
+      "./resources/ceramic1.png"
     ]
   }
 ]
