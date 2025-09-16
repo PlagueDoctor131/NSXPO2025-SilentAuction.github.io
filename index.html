@@ -917,22 +917,11 @@
 
       function tick() {
         const now = Date.now();
-        if (next) {
-          banner.style.display = "block";
-          phaseNameEl.textContent = `Next Phase: ${next.phase}`;
-          phaseFlagsEl.textContent = ""; // no flags now
-          countdownEl.textContent = `Starts in ${fmtDiff(next.start - now)}`;
-          nextLineEl.textContent = "";
-          setBiddingEnabled(false);
-        } else {
-          // No active and no upcoming phases
-          banner.style.display = "block";
-          phaseNameEl.textContent = " Auction has ended!";
-          phaseFlagsEl.textContent = "";
-          countdownEl.textContent = "";
-          nextLineEl.textContent = " Thank you for bidding!";
-          setBiddingEnabled(false);
-        }
+        if (!phases.length) {
+    banner.style.display = "none";
+    setBiddingEnabled(false);
+    return;
+  }
 
 
         // Try to find an active phase
@@ -978,22 +967,22 @@
             nextLineEl.textContent = "";
           }
         } else {
-          // No active phase → show next phase countdown (browse-only)
           if (next) {
-            banner.style.display = "block";
-            phaseNameEl.textContent = `Next Phase: ${next.phase}`;
-            phaseFlagsEl.textContent = " ";
-            countdownEl.textContent = `Starts in ${fmtDiff(next.start - now)}`;
-            nextLineEl.textContent = "";
-          } else {
-            // No active and no upcoming phases
-            banner.style.display = "block";
-            phaseNameEl.textContent = " Auction has ended!";
-            phaseFlagsEl.textContent = "";
-            countdownEl.textContent = "";
-            nextLineEl.textContent = " Thank you for bidding!";
-            setBiddingEnabled(false);
-          }
+          banner.style.display = "block";
+          phaseNameEl.textContent = `Next Phase: ${next.phase}`;
+          phaseFlagsEl.textContent = ""; // no flags now
+          countdownEl.textContent = `Starts in ${fmtDiff(next.start - now)}`;
+          nextLineEl.textContent = "";
+          setBiddingEnabled(false);
+        } else {
+          // No active and no upcoming phases
+          banner.style.display = "block";
+          phaseNameEl.textContent = " Auction has ended!";
+          phaseFlagsEl.textContent = "";
+          countdownEl.textContent = "";
+          nextLineEl.textContent = " Thank you for bidding!";
+          setBiddingEnabled(false);
+        }
         }
         // --- Reminder logic ---
         const reminderBanner = document.getElementById("auctionReminderBanner");
