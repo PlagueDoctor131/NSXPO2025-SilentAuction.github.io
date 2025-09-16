@@ -253,6 +253,11 @@
     <a href="index.html">Silent Auction</a> |
     <a href="gallery.html">Live Auction Preview</a>
   </nav>
+  <div id="blacklistBanner" 
+     style="display:none; background:#f8d7da; color:#721c24; border:1px solid #f5c6cb;
+            border-radius:6px; padding:10px; margin:10px auto; max-width:750px; text-align:center;">
+  <span id="blacklistBannerText">Thank you for participating in the pre-event auction. Bidding is now closed for non-attendees.</span>
+</div>
   <div id="auctionTimerBanner">
     <div id="auctionPhaseLine">
       <b id="auctionPhaseName"></b>
@@ -388,6 +393,18 @@ function setBidControlsHidden(hidden) {
     }
   });
 }
+function showBlacklistBanner(text) {
+  const banner = document.getElementById("blacklistBanner");
+  const span = document.getElementById("blacklistBannerText");
+  if (span && text) span.textContent = text;
+  banner.style.display = "block";
+}
+
+function hideBlacklistBanner() {
+  const banner = document.getElementById("blacklistBanner");
+  banner.style.display = "none";
+}
+
 
 
     let auctionPaused = false;
@@ -524,7 +541,9 @@ function setBidControlsHidden(hidden) {
       memberRef.on("value", snap => {
         const isBL = !!snap.val();
         if (globalBL && isBL) {
-          alert("You have been blacklisted. You are no longer allowed to bid.");
+          alert("You are no longer allowed to bid.");
+          showBlacklistBanner("Thank you for participating in the pre-event auction. Bidding is now closed for non-attendees.");
+          setBidControlsHidden(true);
           logoutMember();
           memberRef.off(); // stop listening after logout
         }
@@ -937,6 +956,13 @@ function setBidControlsHidden(hidden) {
 
           // Additionally hide the controls fully if member is blocked
           setBidControlsHidden(memberBlocked);
+          if (memberBlocked) {
+  showBlacklistBanner("Thank you for participating in the pre-event auction. Bidding is now closed for non-attendees."); 
+  // 👆 you can change this text or load it dynamically
+} else {
+  hideBlacklistBanner();
+}
+
 
           // Show next phase preview if exists
           if (next) {
