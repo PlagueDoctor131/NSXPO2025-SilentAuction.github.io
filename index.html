@@ -21,8 +21,9 @@
       flex-direction: column;
       align-items: flex-start;
     }
+
     summary .item-info {
-      min-height:5em;
+      min-height: 5em;
     }
 
     summary::after {
@@ -242,7 +243,6 @@
     .phase-row .removePhaseBtn {
       margin-top: 6px;
     }
-
   </style>
 </head>
 
@@ -253,11 +253,11 @@
     <a href="index.html">Silent Auction</a> |
     <a href="gallery.html">Live Auction Preview</a>
   </nav>
-  <div id="blacklistBanner" 
-     style="display:none; background:#f8d7da; color:#721c24; border:1px solid #f5c6cb;
+  <div id="blacklistBanner" style="display:none; background:#f8d7da; color:#721c24; border:1px solid #f5c6cb;
             border-radius:6px; padding:10px; margin:10px auto; max-width:750px; text-align:center;">
-  <span id="blacklistBannerText">Thank you for participating in the pre-event auction. Bidding is now closed for non-attendees.</span>
-</div>
+    <span id="blacklistBannerText">Thank you for participating in the pre-event auction. Bidding is now closed for
+      non-attendees.</span>
+  </div>
   <div id="auctionTimerBanner">
     <div id="auctionPhaseLine">
       <b id="auctionPhaseName"></b>
@@ -381,29 +381,29 @@
     const db = firebase.database();
 
 
-function setBidControlsHidden(hidden) {
-  document.querySelectorAll("input[id$='-amount']").forEach(inp => {
-    inp.disabled = hidden;
-    inp.style.display = hidden ? "none" : "inline-block";
-  });
-  document.querySelectorAll("button").forEach(btn => {
-    if (btn.textContent.trim().toLowerCase() === "submit bid") {
-      btn.disabled = hidden;
-      btn.style.display = hidden ? "none" : "inline-block";
+    function setBidControlsHidden(hidden) {
+      document.querySelectorAll("input[id$='-amount']").forEach(inp => {
+        inp.disabled = hidden;
+        inp.style.display = hidden ? "none" : "inline-block";
+      });
+      document.querySelectorAll("button").forEach(btn => {
+        if (btn.textContent.trim().toLowerCase() === "submit bid") {
+          btn.disabled = hidden;
+          btn.style.display = hidden ? "none" : "inline-block";
+        }
+      });
     }
-  });
-}
-function showBlacklistBanner(text) {
-  const banner = document.getElementById("blacklistBanner");
-  const span = document.getElementById("blacklistBannerText");
-  if (span && text) span.textContent = text;
-  banner.style.display = "block";
-}
+    function showBlacklistBanner(text) {
+      const banner = document.getElementById("blacklistBanner");
+      const span = document.getElementById("blacklistBannerText");
+      if (span && text) span.textContent = text;
+      banner.style.display = "block";
+    }
 
-function hideBlacklistBanner() {
-  const banner = document.getElementById("blacklistBanner");
-  banner.style.display = "none";
-}
+    function hideBlacklistBanner() {
+      const banner = document.getElementById("blacklistBanner");
+      banner.style.display = "none";
+    }
 
 
 
@@ -897,12 +897,7 @@ function hideBlacklistBanner() {
     const nextLineEl = document.getElementById("auctionNextLine");
     const countdownEl = document.getElementById("auctionTimerCountdown");
 
-    function describeFlags(p) {
-      const parts = [];
-      parts.push(p.biddingAllowed ? "Bidding open" : "Bidding closed");
-      parts.push(p.blacklistActive ? "Blacklist on" : "Blacklist off");
-      return `(${parts.join(", ")})`;
-    }
+
 
     function findActivePhase(phases, now) {
       // Active if: start <= now < end, or start <= now and no end (open-ended)
@@ -922,11 +917,23 @@ function hideBlacklistBanner() {
 
       function tick() {
         const now = Date.now();
-        if (!phases.length) {
-          banner.style.display = "none";
+        if (next) {
+          banner.style.display = "block";
+          phaseNameEl.textContent = `Next Phase: ${next.phase}`;
+          phaseFlagsEl.textContent = ""; // no flags now
+          countdownEl.textContent = `Starts in ${fmtDiff(next.start - now)}`;
+          nextLineEl.textContent = "";
           setBiddingEnabled(false);
-          return;
+        } else {
+          // No active and no upcoming phases
+          banner.style.display = "block";
+          phaseNameEl.textContent = " Auction has ended!";
+          phaseFlagsEl.textContent = "";
+          countdownEl.textContent = "";
+          nextLineEl.textContent = " Thank you for bidding!";
+          setBiddingEnabled(false);
         }
+
 
         // Try to find an active phase
         const active = findActivePhase(phases, now);
@@ -936,7 +943,7 @@ function hideBlacklistBanner() {
           // Show active phase with countdown to its end (if present)
           banner.style.display = "block";
           phaseNameEl.textContent = `Current Phase: ${active.phase}`;
-          phaseFlagsEl.textContent = " " + describeFlags(active);
+          phaseFlagsEl.textContent = " ";
 
           if (active.end) {
             const diff = active.end - now;
@@ -957,11 +964,11 @@ function hideBlacklistBanner() {
           // Additionally hide the controls fully if member is blocked
           setBidControlsHidden(memberBlocked);
           if (memberBlocked) {
-  showBlacklistBanner("Thank you for participating in the pre-event auction. Bidding is now closed for non-attendees."); 
-  // 👆 you can change this text or load it dynamically
-} else {
-  hideBlacklistBanner();
-}
+            showBlacklistBanner("Thank you for participating in the pre-event auction. Bidding is now closed for non-attendees.");
+            // 👆 you can change this text or load it dynamically
+          } else {
+            hideBlacklistBanner();
+          }
 
 
           // Show next phase preview if exists
@@ -975,7 +982,7 @@ function hideBlacklistBanner() {
           if (next) {
             banner.style.display = "block";
             phaseNameEl.textContent = `Next Phase: ${next.phase}`;
-            phaseFlagsEl.textContent = " " + describeFlags(next);
+            phaseFlagsEl.textContent = " ";
             countdownEl.textContent = `Starts in ${fmtDiff(next.start - now)}`;
             nextLineEl.textContent = "";
           } else {
