@@ -34,13 +34,14 @@
   },
   {
     "id": "item4",
-    "name": "Carbon Fiber Side Mirror Covers (17-22 NSX)",
+    "name": "Carbon Fiber Side Mirror Covers (17-22 NSX)<br><strong>OR</strong><br>2017-2022 NC1 NSX Carbon Fiber Center Radio Cover Shroud",
     "dono": "Euro Boutique",
-    "desc": "Give your 2017+ NSX Interior a more refined and exotic look with OEM replacement Carbon Fiber exterior upper mirror caps! See more details on the <a href=\"https://euroboutique.us/products/2017-2022-nc1-nsx-carbon-fiber-exterior-side-mirror-upper-covers-pair?_pos=1&_sid=d8e30c050&_ss=r\" target=\"_blank\">Euro Boutique</a> site!",
+    "desc": "Give your 2017+ NSX Interior a more refined and exotic look with OEM replacement Carbon Fiber exterior upper mirror caps, or a <a href=\"https://euroboutique.us/products/2017-2022-nc1-nsx-carbon-fiber-center-radio-cover-shroud?_pos=1&_sid=28598c7e2&_ss=r\" target=\"_blank\">Carbon Fiber Center Radio Cover Shroud</a>! See more details on the <a href=\"https://euroboutique.us/products/2017-2022-nc1-nsx-carbon-fiber-exterior-side-mirror-upper-covers-pair?_pos=1&_sid=d8e30c050&_ss=r\" target=\"_blank\">Euro Boutique</a> site!",
     "startingBid": 500.0,
     "retailValue": 1049.0,
     "images": [
-      "./resources/sidemirror.png"
+      "./resources/sidemirror.png",
+      "./resources/radio.png"
     ]
   },
   {
