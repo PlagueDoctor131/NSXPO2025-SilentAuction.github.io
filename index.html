@@ -997,7 +997,7 @@
 
           if (!dismissed && timeLeft > 0 && timeLeft <= reminderMs) {
             reminderText.textContent =
-              `⚡ Only ${fmtDiff(timeLeft)} left in “${active.phase}”! Place your final bids.`;
+              `⚡ Only ${fmtDiff(timeLeft)} left in the ${active.phase}! Place your final bids.`;
             reminderBanner.style.display = "block";
             dismissBtn.onclick = () => {
               localStorage.setItem(reminderKey, "dismissed");
