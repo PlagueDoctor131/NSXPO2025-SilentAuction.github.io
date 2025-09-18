@@ -697,7 +697,7 @@
         }
 
         banner.style.display = "block";
-        bannerMsg.textContent = `Current Phase: ${currentPhase.phase}`;
+        bannerMsg.textContent = `${currentPhase.phase}`;
 
         if (currentPhase.end) {
           const diff = currentPhase.end - now;
@@ -932,7 +932,7 @@
         if (active) {
           // Show active phase with countdown to its end (if present)
           banner.style.display = "block";
-          phaseNameEl.textContent = `Current Phase: ${active.phase}`;
+          phaseNameEl.textContent = `${active.phase}`;
           phaseFlagsEl.textContent = " ";
 
           if (active.end) {
