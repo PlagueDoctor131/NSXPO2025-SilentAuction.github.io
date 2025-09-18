@@ -920,6 +920,7 @@
       function tick() {
         const now = Date.now();
         if (!phases.length) {
+          console.log("⏱ No phases at all → hiding banner");
           banner.style.display = "none";
           setBiddingEnabled(false);
           return;
@@ -931,6 +932,9 @@
         const next = findNextPhase(phases, now);
 
         if (active) {
+          console.log("⏱ Active phase:", active.phase, 
+                "start:", new Date(active.start).toLocaleTimeString(), 
+                "end:", active.end ? new Date(active.end).toLocaleTimeString() : "open");
           // Show active phase with countdown to its end (if present)
           banner.style.display = "block";
           phaseNameEl.textContent = `${active.phase}`;
