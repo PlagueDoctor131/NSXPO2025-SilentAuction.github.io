@@ -231,7 +231,8 @@
     "startingBid": 0.0,
     "retailValue": 0.0,
     "images": [
-      "./resources/giftset1.png"
+      "./resources/giftset1.png",
+      "./resources/giftset2.png"
     ]
   },
   {
