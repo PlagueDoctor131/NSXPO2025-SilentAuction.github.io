@@ -241,6 +241,10 @@
     .phase-row .removePhaseBtn {
       margin-top: 6px;
     }
+
+    #auctionTimerCountdown {
+      will-change: contents;
+    }
   </style>
 </head>
 
@@ -460,6 +464,11 @@
         });
       });
     }
+    function setCountdownText(newText) {
+      if (countdownEl.textContent !== newText) {
+        countdownEl.textContent = newText;
+      }
+    }
 
 
     logoutBtn.addEventListener("click", logoutMember);
@@ -552,7 +561,7 @@
       wrapper.className = "carousel";
 
       const img = document.createElement("img");
-      img.src = images[currentIndex];   
+      img.src = images[currentIndex];
       wrapper.appendChild(img);
 
       if (images.length > 1) {
@@ -846,7 +855,7 @@
       }
     });
 
-    
+
     saveScheduleBtn.addEventListener("click", () => {
       const rows = Array.from(scheduleEditor.querySelectorAll(".phase-row"));
       const phases = [];
@@ -936,10 +945,12 @@
 
           if (active.end) {
             const diff = active.end - now;
-            countdownEl.textContent = diff > 0 ? `Ends in ${fmtDiff(diff)}` : "Ended";
+            const pretty = fmtDiff(diff);
+            setCountdownText(pretty ? `Ends in ${pretty}` : "Ended");
           } else {
-            countdownEl.textContent = "No scheduled end";
+            setCountdownText("No scheduled end");
           }
+
 
           // --- Enforce rules correctly ---
           const blOn = !!active.blacklistActive || globalBL;
@@ -1050,7 +1061,7 @@
       const ref = db.ref(`bids/${itemId}/frozen`);
       ref.once("value").then(s => ref.set(!s.val()));
     }
-    
+
     function removeLastBid(itemId) {
       if (!isAdmin) return;
       const ref = db.ref(`bids/${itemId}`);
