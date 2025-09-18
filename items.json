@@ -256,5 +256,29 @@
     "images": [
       "./resources/ceramic1.PNG"
     ]
+  },
+  {
+    "id": "item24",
+    "name": "Ironclad Cabernet",
+    "dono": "Contrivance",
+    "desc": "This bottle of 2021 cabernet from the award-winning meadery Contrivance is sure to impress! It's earthy, delicious, and has just enough of that franc funk to make it interesting.",
+    "startingBid": 0.0,
+    "retailValue": 30.0,
+    "images": [
+      "./resources/cabernet1.png",
+      "./resources/cabernet2.png"
+    ]
+  },
+  {
+    "id": "item25",
+    "name": "BrambleBerry Twist Blackberry Mead",
+    "dono": "Contrivance",
+    "desc": "This bottle of delectable mead from award-winning meadery Contrivance is crafted with local blackberries by expert hands. From Contrivance themselves: <em>This mojito-inspired delight is our blackberry mead with mint and lime. It is dangerously refreshing and one of the top 3 meads we've ever made.</em>",
+    "startingBid": 0.0,
+    "retailValue": 38.0,
+    "images": [
+      "./resources/mead1.png",
+      "./resources/mead2.png"
+    ]
   }
 ]
