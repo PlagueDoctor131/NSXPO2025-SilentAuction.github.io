@@ -684,11 +684,12 @@
         let currentPhase = null;
 
         for (const p of phases) {
-          if ((!p.end && now >= p.start) || (p.start <= now && now < p.end)) {
+          if (p.start <= now && (!p.end || now < p.end)) {
             currentPhase = p;
             break;
           }
         }
+
 
         if (!currentPhase) {
           banner.style.display = "none";
@@ -918,10 +919,10 @@
       function tick() {
         const now = Date.now();
         if (!phases.length) {
-    banner.style.display = "none";
-    setBiddingEnabled(false);
-    return;
-  }
+          banner.style.display = "none";
+          setBiddingEnabled(false);
+          return;
+        }
 
 
         // Try to find an active phase
@@ -941,20 +942,18 @@
             countdownEl.textContent = "No scheduled end";
           }
 
-          // Enforce rules
-          const blOn = !!active.blacklistActive || globalBL; // include schedule + global
-          const bidding = !!active.biddingAllowed;
-
-          // Block if blacklist is active AND user is blacklisted
+          // --- Enforce rules correctly ---
+          const blOn = !!active.blacklistActive || globalBL;
+          const biddingOpen = !!active.biddingAllowed && now >= active.start;
           const memberBlocked = blOn && !!(currentMember && currentMember.blacklisted);
 
-          setBiddingEnabled(bidding && !memberBlocked);
-
-          // Additionally hide the controls fully if member is blocked
+          setBiddingEnabled(biddingOpen && !memberBlocked);
           setBidControlsHidden(memberBlocked);
+
           if (memberBlocked) {
-            showBlacklistBanner("Thank you for participating in the pre-event auction. Bidding is now closed for non-attendees.");
-            // 👆 you can change this text or load it dynamically
+            showBlacklistBanner(
+              "Thank you for participating in the pre-event auction. Bidding is now closed for non-attendees."
+            );
           } else {
             hideBlacklistBanner();
           }
@@ -962,27 +961,27 @@
 
           // Show next phase preview if exists
           if (next) {
-            nextLineEl.textContent = `Next: ${next.phase} at ${new Date(next.start).toLocaleString()}`;
+            nextLineEl.textContent = ``;
           } else {
             nextLineEl.textContent = "";
           }
         } else {
           if (next) {
-          banner.style.display = "block";
-          phaseNameEl.textContent = `Next auction is at ${new Date(next.start).toLocaleString()}`;
-          phaseFlagsEl.textContent = ""; // no flags now
-          countdownEl.textContent = `Starts in ${fmtDiff(next.start - now)}`;
-          nextLineEl.textContent = "";
-          setBiddingEnabled(false);
-        } else {
-          // No active and no upcoming phases
-          banner.style.display = "block";
-          phaseNameEl.textContent = " Auction has ended!";
-          phaseFlagsEl.textContent = "";
-          countdownEl.textContent = "";
-          nextLineEl.textContent = " Thank you for bidding!";
-          setBiddingEnabled(false);
-        }
+            banner.style.display = "block";
+            phaseNameEl.textContent = `Next auction is at ${new Date(next.start).toLocaleString()}`;
+            phaseFlagsEl.textContent = ""; // no flags now
+            countdownEl.textContent = `Starts in ${fmtDiff(next.start - now)}`;
+            nextLineEl.textContent = "";
+            setBiddingEnabled(false);
+          } else {
+            // No active and no upcoming phases
+            banner.style.display = "block";
+            phaseNameEl.textContent = " Auction has ended!";
+            phaseFlagsEl.textContent = "";
+            countdownEl.textContent = "";
+            nextLineEl.textContent = " Thank you for bidding!";
+            setBiddingEnabled(false);
+          }
         }
         // --- Reminder logic ---
         const reminderBanner = document.getElementById("auctionReminderBanner");
