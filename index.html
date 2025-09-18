@@ -241,10 +241,6 @@
     .phase-row .removePhaseBtn {
       margin-top: 6px;
     }
-
-    #auctionTimerCountdown {
-      will-change: contents;
-    }
   </style>
 </head>
 
@@ -463,11 +459,6 @@
           if (el) el.value = "";
         });
       });
-    }
-    function setCountdownText(newText) {
-      if (countdownEl.textContent !== newText) {
-        countdownEl.textContent = newText;
-      }
     }
 
 
@@ -906,11 +897,13 @@
 
 
     function findActivePhase(phases, now) {
-      const buffer = 1000; // 1 second grace
+      const grace = 1000;
       return phases.find(p =>
-        (p.start - buffer <= now) && (p.end == null || now < p.end + buffer)
+        p.start <= now &&
+        (p.end == null || now <= p.end + grace)  // <= instead of <
       ) || null;
     }
+
 
 
     function findNextPhase(phases, now) {
@@ -945,12 +938,10 @@
 
           if (active.end) {
             const diff = active.end - now;
-            const pretty = fmtDiff(diff);
-            setCountdownText(pretty ? `Ends in ${pretty}` : "Ended");
+            countdownEl.textContent = diff > 0 ? `Ends in ${fmtDiff(diff)}` : "Ended";
           } else {
-            setCountdownText("No scheduled end");
+            countdownEl.textContent = "No scheduled end";
           }
-
 
           // --- Enforce rules correctly ---
           const blOn = !!active.blacklistActive || globalBL;
