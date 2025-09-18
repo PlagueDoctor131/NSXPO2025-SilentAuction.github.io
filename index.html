@@ -866,7 +866,6 @@
       const phases = snap.val() || [];
 
       function tick() {
-        console.log("[tick] running", new Date().toLocaleTimeString());
         const now = Date.now();
         if (!phases.length) {
           console.log("⏱ No phases at all → hiding banner");
