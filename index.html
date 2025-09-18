@@ -664,59 +664,6 @@
 
     document.getElementById("exportCSVBtn").addEventListener("click", exportBiddingHistory);
 
-    // --- Auction Schedule Runtime with Live Countdown ---
-    db.ref("settings/auctionSchedule").on("value", snap => {
-      const phases = snap.val() || [];
-      const banner = document.getElementById("auctionTimerBanner");
-      const bannerMsg = document.getElementById("auctionTimerMessage");
-      const bannerCountdown = document.getElementById("auctionTimerCountdown");
-
-      if (!phases.length) {
-        banner.style.display = "none";
-        return;
-      }
-
-      function updatePhase() {
-        console.log("[updatePhase] running", new Date().toLocaleTimeString());
-        const now = Date.now();
-        let currentPhase = null;
-
-        for (const p of phases) {
-          if (p.start <= now && (!p.end || now < p.end)) {
-            currentPhase = p;
-            break;
-          }
-        }
-
-
-        if (!currentPhase) {
-          banner.style.display = "none";
-          return;
-        }
-
-        banner.style.display = "block";
-        bannerMsg.textContent = `${currentPhase.phase}`;
-
-        if (currentPhase.end) {
-          const diff = currentPhase.end - now;
-          bannerCountdown.textContent = diff > 0 ? formatDiff(diff) : "Ended";
-        } else {
-          bannerCountdown.textContent = "No scheduled end";
-        }
-
-        // Apply blacklist & bidding rules
-        globalBL = currentPhase.blacklistActive;
-        setBiddingEnabled(
-          currentPhase.biddingAllowed &&
-          (!globalBL || (globalBL && !currentMember?.blacklisted))
-        );
-      }
-
-      updatePhase();
-      clearInterval(window._phaseTimerInterval);
-      window._phaseTimerInterval = setInterval(updatePhase, 1000);
-    });
-
     // Reuse helpers
     function formatDiff(ms) {
       const hrs = Math.floor(ms / 3600000);
