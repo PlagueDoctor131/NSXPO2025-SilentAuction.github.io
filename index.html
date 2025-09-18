@@ -968,7 +968,7 @@
         } else {
           if (next) {
             banner.style.display = "block";
-            phaseNameEl.textContent = `Next auction is at ${new Date(next.start).toLocaleString()}`;
+            phaseNameEl.textContent = `Next auction is on ${new Date(next.start).toLocaleString()}`;
             phaseFlagsEl.textContent = ""; // no flags now
             countdownEl.textContent = `Starts in ${fmtDiff(next.start - now)}`;
             nextLineEl.textContent = "";
