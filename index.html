@@ -195,7 +195,6 @@
       right: 5px;
     }
 
-    /* Top banner for phases */
     #auctionTimerBanner {
       display: none;
       background: #e0f7ff;
@@ -218,7 +217,6 @@
       font-size: 1.3em;
     }
 
-    /* Schedule editor rows */
     .phase-row {
       border: 1px solid #ccc;
       border-radius: 6px;
@@ -455,7 +453,6 @@
       lookupOverlay.classList.remove("hidden");
       logoutBtn.style.display = "none";
 
-      // Clear readonly fields
       auctionItems.forEach(item => {
         ["firstName", "lastName", "bidNumber"].forEach(f => {
           const el = document.getElementById(`${item.id}-${f}`);
@@ -467,7 +464,7 @@
 
     logoutBtn.addEventListener("click", logoutMember);
 
-    // auto fills the name fields, and immediately shows them
+
     function onMemberLoaded(member) {
       currentMember = member;
 
@@ -555,7 +552,7 @@
       wrapper.className = "carousel";
 
       const img = document.createElement("img");
-      img.src = images[currentIndex];   // ✅ should show first image
+      img.src = images[currentIndex];   
       wrapper.appendChild(img);
 
       if (images.length > 1) {
@@ -849,8 +846,7 @@
       }
     });
 
-    // Save schedule
-    // Save schedule
+    
     saveScheduleBtn.addEventListener("click", () => {
       const rows = Array.from(scheduleEditor.querySelectorAll(".phase-row"));
       const phases = [];
@@ -901,9 +897,12 @@
 
 
     function findActivePhase(phases, now) {
-      // Active if: start <= now < end, or start <= now and no end (open-ended)
-      return phases.find(p => (p.start <= now) && (p.end == null || now < p.end)) || null;
+      const buffer = 1000; // 1 second grace
+      return phases.find(p =>
+        (p.start - buffer <= now) && (p.end == null || now < p.end + buffer)
+      ) || null;
     }
+
 
     function findNextPhase(phases, now) {
       // Next is the earliest with start > now
@@ -1051,7 +1050,7 @@
       const ref = db.ref(`bids/${itemId}/frozen`);
       ref.once("value").then(s => ref.set(!s.val()));
     }
-    // removing the last bid made from the firebase and site
+    
     function removeLastBid(itemId) {
       if (!isAdmin) return;
       const ref = db.ref(`bids/${itemId}`);
