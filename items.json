@@ -1,13 +1,13 @@
 [
   {
     "id": "item1",
-    "name": "Sport 350 Clutch & Flywheel (91-05 NSX)",
+    "name": "Sport 275 Clutch & Flywheel (91-05 NSX)",
     "dono": "ScienceofSpeed",
-    "desc": "The Sport 350 Clutch & Flywheel Kit is designed to be as smooth as a factory clutch with the ability to handle 350 lb/ft of torque for the supercharged or turbocharged NSX producing up to around 500 wheel horsepower. See more details on the <a href=\"https://www.scienceofspeed.com/scienceofspeed-sport-350-clutch-flywheel-kit-includes-bearings-nsx-1991-05.html\" target=\"_blank\">ScienceofSpeed</a> site!",
+    "desc": "The Sport 275 Clutch & Flywheel Kit is designed to be as smooth as a factory clutch with notable improvements. The Clutch & Flywheel Kit is rated for 275 lb/ft at the engine (the factory NSX 3.0L engine produces 210 lb/ft and the 3.2L engine produces 225 lb/ft). This makes the clutch ideal for the factory powered (\"all stock\") NSX as well as the mildly modified NSX up to around 350 wheel horsepower. See more details on the <a href=\"https://www.scienceofspeed.com/scienceofspeed-sport-275-clutch-flywheel-includes-bearings-nsx-1991-05.html\" target=\"_blank\">ScienceofSpeed</a> site!",
     "startingBid": 600.0,
-    "retailValue": 1895.0,
+    "retailValue": 1695.0,
     "images": [
-      "./resources/clutchfly.png"
+      "./resources/clutchfly2.png"
     ]
   },
   {
@@ -291,6 +291,17 @@
     "retailValue": 2500.0,
     "images": [
       "./resources/tires.png"
+    ]
+  },
+  {
+    "id": "item27",
+    "name": "Intake Air Bypass (IAB) Delete Kit - NSX, 1991-05",
+    "dono": "ScienceofSpeed",
+    "desc": "The factory Intake Air Bypass (IAB) system, also known as the Variable Volume Intake System (VVIS) is a vacuum-operated set of valve plates that alters the volume of the intake depending on load. With this kit, you can ensure that a failed IAB valve does not damage your engine - and pick up some additional performance at higher RPM as well. See more details on the <a href=\"https://www.scienceofspeed.com/scienceofspeed-intake-air-bypass-iab-delete-kit-nsx-1991-05.html\" target=\"_blank\">ScienceofSpeed</a> site!",
+    "startingBid": 20.0,
+    "retailValue": 190.0,
+    "images": [
+      "./resources/IABDelete.png"
     ]
   }
 ]
