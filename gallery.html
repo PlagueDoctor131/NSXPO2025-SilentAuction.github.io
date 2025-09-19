@@ -63,7 +63,8 @@
   
 
   <script>
-    fetch("gallery.json")
+    const GALLERY_VERSION = "1";
+    fetch("gallery.json?v=" + GALLERY_VERSION)
       .then(r => r.json())
       .then(items => {
         const container = document.getElementById("gallery");
