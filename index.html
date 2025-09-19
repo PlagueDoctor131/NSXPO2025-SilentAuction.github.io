@@ -1191,7 +1191,7 @@
           const topEl = document.getElementById(`${item.id}-current`);
           const expandedTopEl = document.getElementById(`${item.id}-expandedTop`);
           if (cur) {
-            topEl.innerHTML = `<br>Top Bidder: ${cur.firstName} ${cur.lastName}`;
+            topEl.innerHTML = `<br><strong>Top Bidder:</strong> ${cur.firstName} ${cur.lastName}`;
             expandedTopEl.textContent = `$${cur.amount} by ${cur.firstName} ${cur.lastName}`;
           } else {
             topEl.innerHTML = `<br><strong>Minimum Bid:</strong> $${item.startingBid}`;
