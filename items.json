@@ -281,5 +281,16 @@
       "./resources/mead1.png",
       "./resources/mead2.png"
     ]
+  },
+  {
+    "id": "item26",
+    "name": "Set of Pirelli tires [4 available]",
+    "dono": "Pirelli",
+    "desc": "Winners will receive a $2,500 gift card toward purchases of any Pirelli tires.",
+    "startingBid": 600.0,
+    "retailValue": 2500.0,
+    "images": [
+      "./resources/tires.png"
+    ]
   }
 ]
