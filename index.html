@@ -1218,9 +1218,9 @@
         });
       });
     }
-
+    const Index_VERSION = "1";
     // load items
-    fetch("items.json")
+    fetch("items.json?v=" + Index_VERSION)
       .then(r => r.json())
       .then(data => {
         auctionItems = data;
