@@ -22,26 +22,14 @@
     ]
   },
   {
-    "id": "item3",
-    "name": "Carbon Rear Window Garnish (91-05 NSX)",
-    "dono": "Pride",
-    "desc": "Carbon fiber replacement for '91-'05 NSX Rear Window garnish. See more details on <a href=\"https://pridecarbon.com/products/pride-nsx-91-05-carbon-rear-window-garnish?pr_prod_strat=e5_desc&pr_rec_id=bce831100&pr_rec_pid=8077742735656&pr_ref_pid=8077734740264&pr_seq=uniform\" target=\"_blank\">Pride's</a> site!",
-    "startingBid": 400.0,
-    "retailValue": 899.0,
+    "id": "item27",
+    "name": "Intake Air Bypass (IAB) Delete Kit - NSX, 1991-05",
+    "dono": "ScienceofSpeed",
+    "desc": "The factory Intake Air Bypass (IAB) system, also known as the Variable Volume Intake System (VVIS) is a vacuum-operated set of valve plates that alters the volume of the intake depending on load. With this kit, you can ensure that a failed IAB valve does not damage your engine - and pick up some additional performance at higher RPM as well. See more details on the <a href=\"https://www.scienceofspeed.com/scienceofspeed-intake-air-bypass-iab-delete-kit-nsx-1991-05.html\" target=\"_blank\">ScienceofSpeed</a> site!",
+    "startingBid": 20.0,
+    "retailValue": 190.0,
     "images": [
-      "./resources/rearwindow.png"
-    ]
-  },
-  {
-    "id": "item4",
-    "name": "Carbon Fiber Side Mirror Covers (17-22 NSX)<br><strong>OR</strong><br>2017-2022 NC1 NSX Carbon Fiber Center Radio Cover Shroud",
-    "dono": "Euro Boutique",
-    "desc": "Give your 2017+ NSX Interior a more refined and exotic look with OEM replacement Carbon Fiber exterior upper mirror caps, or a <a href=\"https://euroboutique.us/products/2017-2022-nc1-nsx-carbon-fiber-center-radio-cover-shroud?_pos=1&_sid=28598c7e2&_ss=r\" target=\"_blank\">Carbon Fiber Center Radio Cover Shroud</a>! See more details on the <a href=\"https://euroboutique.us/products/2017-2022-nc1-nsx-carbon-fiber-exterior-side-mirror-upper-covers-pair?_pos=1&_sid=d8e30c050&_ss=r\" target=\"_blank\">Euro Boutique</a> site!",
-    "startingBid": 500.0,
-    "retailValue": 1049.0,
-    "images": [
-      "./resources/sidemirror.png",
-      "./resources/radio.png"
+      "./resources/IABDelete.png"
     ]
   },
   {
@@ -67,15 +55,81 @@
     ]
   },
   {
-    "id": "item7",
-    "name": "Mattel NSX Brick Kit [5 available]",
-    "dono": "Mattel Brick Shop",
-    "desc": "Build car history with the 1:16 scale Acura NSX by Mattel Brick Shop. This detailed and authentic set includes extra parts for customization, a decal sheet, metal wheel covers, signature plate, plus an exclusive metal car to collect and display. See more details on the <a href=\"https://shop.mattel.com/products/mattel-brick-shop-hot-wheels-90-acura-nsx-jft17\" target=\"_blank\">Mattel Brick Shop</a> site!",
+    "id": "item17",
+    "name": "ScienceofSpeed NC1 wheel spacers with studs",
+    "dono": "Alan Chan",
+    "desc": "NC1 Wheel spacers from ScienceofSpeed, longer studs included to accomodate spacers. 12.5 front and 20mm rear",
     "startingBid": 0.0,
-    "retailValue": 50.0,
+    "retailValue": 300.0,
     "images": [
-      "./resources/mattel1.png",
-      "./resources/mattel2.png"
+      "./resources/spacers1.png"
+    ]
+  },
+  {
+    "id": "item26",
+    "name": "Set of Pirelli tires [4 available]",
+    "dono": "Pirelli",
+    "desc": "Winners will receive a $2,500 gift card toward purchases of any Pirelli tires.",
+    "startingBid": 600.0,
+    "retailValue": 2500.0,
+    "images": [
+      "./resources/tires.png"
+    ]
+  },
+  {
+    "id": "item3",
+    "name": "Carbon Rear Window Garnish (91-05 NSX)",
+    "dono": "Pride",
+    "desc": "Carbon fiber replacement for '91-'05 NSX Rear Window garnish. See more details on <a href=\"https://pridecarbon.com/products/pride-nsx-91-05-carbon-rear-window-garnish?pr_prod_strat=e5_desc&pr_rec_id=bce831100&pr_rec_pid=8077742735656&pr_ref_pid=8077734740264&pr_seq=uniform\" target=\"_blank\">Pride's</a> site!",
+    "startingBid": 400.0,
+    "retailValue": 899.0,
+    "images": [
+      "./resources/rearwindow.png"
+    ]
+  },
+  {
+    "id": "item4",
+    "name": "Carbon Fiber Side Mirror Covers (17-22 NSX)<br><strong>OR</strong><br>2017-2022 NC1 NSX Carbon Fiber Center Radio Cover Shroud",
+    "dono": "Euro Boutique",
+    "desc": "Give your 2017+ NSX Interior a more refined and exotic look with OEM replacement Carbon Fiber exterior upper mirror caps, or a <a href=\"https://euroboutique.us/products/2017-2022-nc1-nsx-carbon-fiber-center-radio-cover-shroud?_pos=1&_sid=28598c7e2&_ss=r\" target=\"_blank\">Carbon Fiber Center Radio Cover Shroud</a>! See more details on the <a href=\"https://euroboutique.us/products/2017-2022-nc1-nsx-carbon-fiber-exterior-side-mirror-upper-covers-pair?_pos=1&_sid=d8e30c050&_ss=r\" target=\"_blank\">Euro Boutique</a> site!",
+    "startingBid": 500.0,
+    "retailValue": 1049.0,
+    "images": [
+      "./resources/sidemirror.png",
+      "./resources/radio.png"
+    ]
+  },
+  {
+    "id": "item19",
+    "name": "Seibon CF TR-Style Rear Spoiler (91-05 NSX) <br><strong>OR</strong><br> OEM-Style Carbon Fiber Engine Cover (91-05 NSX)",
+    "dono": "HeelToe Automotive",
+    "desc": "The winner of this auction will get to choose which item they would like to receive either the Rear Spoiler or the Engine Cover.",
+    "startingBid": 500.0,
+    "retailValue": 1100.0,
+    "images": [
+      "./resources/spoilercover.png"
+    ]
+  },
+  {
+    "id": "item23",
+    "name": "G8 & G9 Orbital 2-Step Ceramic Kit",
+    "dono": "Griot's Garage",
+    "desc": "This kit ups your detailing game by including the maneuverability of the G8 orbital, the power of the big-block equipped G9, and the durable finish protection of our Ceramic 3-in-1 Wax. See more details on the <a href=\"https://www.griotsgarage.com/g8-g9-orbital-2-step-ceramic-kit/?srsltid=AfmBOoqN_cRHHISRWA_hjWL6lFj7bGx1kQAY1QUq1iHNf61JqRs7mCbc\" target=\"_blank\">Griot's Garage</a> site!",
+    "startingBid": 50.0,
+    "retailValue": 450.0,
+    "images": [
+      "./resources/ceramic1.PNG"
+    ]
+  },
+  {
+    "id": "item22",
+    "name": "Boss Foaming System Starter Kit",
+    "dono": "Griot's Garage",
+    "desc": "The BOSS Foaming System deep cleans while avoiding wash-induced scratches, adds gloss and protection, and delivers a truly fun and engaging user experience. This kit includes all the essentials you need to hit the road running... You just add a pressure washer and water. See more details on the <a href=\"https://www.griotsgarage.com/boss-foaming-system-starter-kit/?srsltid=AfmBOopV6eJdKY4R4UmFhmQFE8gtN1pXM2dAGwoiRvL_Rnz-At0sCe7N\" target=\"_blank\">Griot's Garage</a> site!",
+    "startingBid": 25.0,
+    "retailValue": 200.0,
+    "images": [
+      "./resources/foamkit1.PNG"
     ]
   },
   {
@@ -98,6 +152,74 @@
     "retailValue": 360.0,
     "images": [
       "./resources/openbay.png"
+    ]
+  },
+  {
+    "id": "item21",
+    "name": "Gift Set from Le Mans event",
+    "dono": "NSX Club of Europe",
+    "desc": "This gift set was given out to the attendees of this year\u2019s event hosted by the NSX Club of Europe, in conjunction with the NSX Club of the UK. It was a spectacular event which included 45 NSX\u2019s driving together on Circuit de la Sarthe during the historic Le Mans Classic event. You can see pictures and more highlights on the <a href=https://nsxclubeurope.com/2025/07/postcards-from-nsx-le-mans-classic-tour-2025/\" target=\"_blank\">NSX-CE site</a>!",
+    "startingBid": 0.0,
+    "retailValue": 0.0,
+    "images": [
+      "./resources/giftset1.png",
+      "./resources/giftset2.png"
+    ]
+  },
+  {
+    "id": "item20",
+    "name": "Signed NC1 Coffee Table book",
+    "dono": "Acura",
+    "desc": "Signed by the Honda Japan Sportscar design team this 100-page full color book highlights the features of the NC1.",
+    "startingBid": 0.0,
+    "retailValue": 0.0,
+    "images": [
+      "./resources/nc1book1.png"
+    ]
+  },
+  {
+    "id": "item16",
+    "name": "NSX technical history coffee table book",
+    "dono": "Brian Miller",
+    "desc": "64 page NSX technical history and information coffee table book. Used, in good condition",
+    "startingBid": 0.0,
+    "retailValue": 250.0,
+    "images": [
+      "./resources/Technical_history.png"
+    ]
+  },
+  {
+    "id": "item15",
+    "name": "Aluminium and Black NSX coffee table book",
+    "dono": "Brian Miller",
+    "desc": "This very rare 50-page coffee table book was self published by Honda in 1990. It was presented to corporate guests and prospective buyers at the introduction of the NSX. It includes cutaway illustrations, full technical specification, and also features a full-page photo of Ayrton Senna driving the McLaren-Honda MP4/5B.",
+    "startingBid": 0.0,
+    "retailValue": 150.0,
+    "images": [
+      "./resources/Silver_and_Black.png"
+    ]
+  },
+  {
+    "id": "item18",
+    "name": "2 tickets to LeMay Car Museum",
+    "dono": "Joe Bez",
+    "desc": "LeMays is one of the largest automobile museums in the world with a collection of more than 300 vehicles, they are dedicated to preserving the history and culture of the automobile in America. See more details on <a href=\"https://www.americascarmuseum.org/\" target=\"_blank\">LeMay's</a> site!",
+    "startingBid": 0.0,
+    "retailValue": 50.0,
+    "images": [
+      "./resources/LeMay.png"
+    ]
+  },
+  {
+    "id": "item7",
+    "name": "Mattel NSX Brick Kit [5 available]",
+    "dono": "Mattel Brick Shop",
+    "desc": "Build car history with the 1:16 scale Acura NSX by Mattel Brick Shop. This detailed and authentic set includes extra parts for customization, a decal sheet, metal wheel covers, signature plate, plus an exclusive metal car to collect and display. See more details on the <a href=\"https://shop.mattel.com/products/mattel-brick-shop-hot-wheels-90-acura-nsx-jft17\" target=\"_blank\">Mattel Brick Shop</a> site!",
+    "startingBid": 0.0,
+    "retailValue": 50.0,
+    "images": [
+      "./resources/mattel1.png",
+      "./resources/mattel2.png"
     ]
   },
   {
@@ -159,106 +281,6 @@
     ]
   },
   {
-    "id": "item15",
-    "name": "Aluminium and Black NSX coffee table book",
-    "dono": "Brian Miller",
-    "desc": "This very rare 50-page coffee table book was self published by Honda in 1990. It was presented to corporate guests and prospective buyers at the introduction of the NSX. It includes cutaway illustrations, full technical specification, and also features a full-page photo of Ayrton Senna driving the McLaren-Honda MP4/5B.",
-    "startingBid": 0.0,
-    "retailValue": 150.0,
-    "images": [
-      "./resources/Silver_and_Black.png"
-    ]
-  },
-  {
-    "id": "item16",
-    "name": "NSX technical history coffee table book",
-    "dono": "Brian Miller",
-    "desc": "64 page NSX technical history and information coffee table book. Used, in good condition",
-    "startingBid": 0.0,
-    "retailValue": 250.0,
-    "images": [
-      "./resources/Technical_history.png"
-    ]
-  },
-  {
-    "id": "item17",
-    "name": "ScienceofSpeed NC1 wheel spacers with studs",
-    "dono": "Alan Chan",
-    "desc": "NC1 Wheel spacers from ScienceofSpeed, longer studs included to accomodate spacers. 12.5 front and 20mm rear",
-    "startingBid": 0.0,
-    "retailValue": 300.0,
-    "images": [
-      "./resources/spacers1.png"
-    ]
-  },
-  {
-    "id": "item18",
-    "name": "2 tickets to LeMay Car Museum",
-    "dono": "Joe Bez",
-    "desc": "LeMays is one of the largest automobile museums in the world with a collection of more than 300 vehicles, they are dedicated to preserving the history and culture of the automobile in America. See more details on <a href=\"https://www.americascarmuseum.org/\" target=\"_blank\">LeMay's</a> site!",
-    "startingBid": 0.0,
-    "retailValue": 50.0,
-    "images": [
-      "./resources/LeMay.png"
-    ]
-  },
-  {
-    "id": "item19",
-    "name": "Seibon CF TR-Style Rear Spoiler (91-05 NSX) <br><strong>OR</strong><br> OEM-Style Carbon Fiber Engine Cover (91-05 NSX)",
-    "dono": "HeelToe Automotive",
-    "desc": "The winner of this auction will get to choose which item they would like to receive either the Rear Spoiler or the Engine Cover.",
-    "startingBid": 500.0,
-    "retailValue": 1100.0,
-    "images": [
-      "./resources/spoilercover.png"
-    ]
-  },
-  {
-    "id": "item20",
-    "name": "Signed NC1 Coffee Table book",
-    "dono": "Acura",
-    "desc": "Signed by the Honda Japan Sportscar design team this 100-page full color book highlights the features of the NC1.",
-    "startingBid": 0.0,
-    "retailValue": 0.0,
-    "images": [
-      "./resources/nc1book1.png"
-    ]
-  },
-  {
-    "id": "item21",
-    "name": "Gift Set from Le Mans event",
-    "dono": "NSX Club of Europe",
-    "desc": "This gift set was given out to the attendees of this year\u2019s event hosted by the NSX Club of Europe, in conjunction with the NSX Club of the UK. It was a spectacular event which included 45 NSX\u2019s driving together on Circuit de la Sarthe during the historic Le Mans Classic event. You can see pictures and more highlights on the <a href=https://nsxclubeurope.com/2025/07/postcards-from-nsx-le-mans-classic-tour-2025/\" target=\"_blank\">NSX-CE site</a>!",
-    "startingBid": 0.0,
-    "retailValue": 0.0,
-    "images": [
-      "./resources/giftset1.png",
-      "./resources/giftset2.png"
-    ]
-  },
-  {
-    "id": "item22",
-    "name": "Boss Foaming System Starter Kit",
-    "dono": "Griot's Garage",
-    "desc": "The BOSS Foaming System deep cleans while avoiding wash-induced scratches, adds gloss and protection, and delivers a truly fun and engaging user experience. This kit includes all the essentials you need to hit the road running... You just add a pressure washer and water. See more details on the <a href=\"https://www.griotsgarage.com/boss-foaming-system-starter-kit/?srsltid=AfmBOopV6eJdKY4R4UmFhmQFE8gtN1pXM2dAGwoiRvL_Rnz-At0sCe7N\" target=\"_blank\">Griot's Garage</a> site!",
-    "startingBid": 25.0,
-    "retailValue": 200.0,
-    "images": [
-      "./resources/foamkit1.PNG"
-    ]
-  },
-  {
-    "id": "item23",
-    "name": "G8 & G9 Orbital 2-Step Ceramic Kit",
-    "dono": "Griot's Garage",
-    "desc": "This kit ups your detailing game by including the maneuverability of the G8 orbital, the power of the big-block equipped G9, and the durable finish protection of our Ceramic 3-in-1 Wax. See more details on the <a href=\"https://www.griotsgarage.com/g8-g9-orbital-2-step-ceramic-kit/?srsltid=AfmBOoqN_cRHHISRWA_hjWL6lFj7bGx1kQAY1QUq1iHNf61JqRs7mCbc\" target=\"_blank\">Griot's Garage</a> site!",
-    "startingBid": 50.0,
-    "retailValue": 450.0,
-    "images": [
-      "./resources/ceramic1.PNG"
-    ]
-  },
-  {
     "id": "item24",
     "name": "Ironclad Cabernet",
     "dono": "Contrivance",
@@ -280,28 +302,6 @@
     "images": [
       "./resources/mead1.png",
       "./resources/mead2.png"
-    ]
-  },
-  {
-    "id": "item26",
-    "name": "Set of Pirelli tires [4 available]",
-    "dono": "Pirelli",
-    "desc": "Winners will receive a $2,500 gift card toward purchases of any Pirelli tires.",
-    "startingBid": 600.0,
-    "retailValue": 2500.0,
-    "images": [
-      "./resources/tires.png"
-    ]
-  },
-  {
-    "id": "item27",
-    "name": "Intake Air Bypass (IAB) Delete Kit - NSX, 1991-05",
-    "dono": "ScienceofSpeed",
-    "desc": "The factory Intake Air Bypass (IAB) system, also known as the Variable Volume Intake System (VVIS) is a vacuum-operated set of valve plates that alters the volume of the intake depending on load. With this kit, you can ensure that a failed IAB valve does not damage your engine - and pick up some additional performance at higher RPM as well. See more details on the <a href=\"https://www.scienceofspeed.com/scienceofspeed-intake-air-bypass-iab-delete-kit-nsx-1991-05.html\" target=\"_blank\">ScienceofSpeed</a> site!",
-    "startingBid": 20.0,
-    "retailValue": 190.0,
-    "images": [
-      "./resources/IABDelete.png"
     ]
   }
 ]
