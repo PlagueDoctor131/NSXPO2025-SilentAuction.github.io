@@ -1,307 +1,63 @@
 [
   {
     "id": "item1",
-    "name": "Sport 275 Clutch & Flywheel (91-05 NSX)",
-    "dono": "ScienceofSpeed",
-    "desc": "The Sport 275 Clutch & Flywheel Kit is designed to be as smooth as a factory clutch with notable improvements. The Clutch & Flywheel Kit is rated for 275 lb/ft at the engine (the factory NSX 3.0L engine produces 210 lb/ft and the 3.2L engine produces 225 lb/ft). This makes the clutch ideal for the factory powered (\"all stock\") NSX as well as the mildly modified NSX up to around 350 wheel horsepower. See more details on the <a href=\"https://www.scienceofspeed.com/scienceofspeed-sport-275-clutch-flywheel-includes-bearings-nsx-1991-05.html\" target=\"_blank\">ScienceofSpeed</a> site!",
-    "startingBid": 600.0,
-    "retailValue": 1695.0,
+    "name": "Air Cup Kit - Tankless Front Kit",
+    "dono": "Kuya Automotive",
+    "desc": "This beauty of an air cup suspension provides the ability to raise your car up to 2 inches at a moments notice AND have the reliability/trackability of a coilover setup.  This will allow you to avoid obstacles on the road to protect your investment. Additionally, Kuya will exchange the size to fit your coilovers. If you need a set of coilovers, this bid INCLUDES a discount on a new set of coilovers! Check it out at <a href=\"(https://kuyaauto.com/products/stanceparts-air-cup-kit-tankless-front-kit?variant=37607210582177)\" target=\"_blank\">Kuya Auto's</a> site!",
+    "startingBid": 250.0,
+    "retailValue": 800.0,
     "images": [
-      "./resources/clutchfly2.png"
+      "./resources/AirCupKit_1.png",
+      "./resources/AirCupKit_2.png"
     ]
   },
   {
     "id": "item2",
-    "name": "KTuner Flash V2 Touch (17-22 NSX)",
-    "dono": "ScienceofSpeed",
-    "desc": "The KTuner Flash V2 Touch is a device that reflashes the factory ECU in the 2017-22 NSX to increase performance by more than  40 - 130+ horsepower, depending on fuel used (91, 93, 98, or E40). Included is a touchscreen programming module that reads the software version on your NSX and uploads maps with higher performance targets. All factory emissions components and engine safety functions are retained. See more details on the <a href=\"https://www.scienceofspeed.com/ktuner-flash-v2-touch-nsx-2017-22-all.html\" target=\"_blank\">ScienceofSpeed</a> site!",
-    "startingBid": 500.0,
-    "retailValue": 1199.0,
+    "name": "RFY NSX Racing Oil Pan",
+    "dono": "Valiants Racing",
+    "desc": "This upgraded racing oil pan is a must have for every NSX owner. It is made from aluminum die-casting and increases oil capacity by approximately 1.4 qts. Designed to support extended driving sessions, it helps manage the peak oil temperatures of the high-heat C30-series engines commonly used in motorsports. Additionally, the included anti-slosh plate addresses one of the NSX's known weaknesses\u2014oil pressure drop during right-hand turns\u2014by minimizing oil mist contamination into blow-by gas and stabilizing oil delivery under high G-forces. Check it out on the <a href=\"(https://valiantsracing.com/rfy-nsx-racing-oil-pan/)\" target=\"_blank\">Valiants Racing</a> site!",
+    "startingBid": 150.0,
+    "retailValue": 695.0,
     "images": [
-      "./resources/ktuner.png"
+      "./resources/RacingOilPan_1.png",
+      "./resources/RacingOilPan_2.png",
+      "./resources/RacingOilPan_3.png"
     ]
   },
   {
-    "id": "item27",
-    "name": "Intake Air Bypass (IAB) Delete Kit - NSX, 1991-05",
-    "dono": "ScienceofSpeed",
-    "desc": "The factory Intake Air Bypass (IAB) system, also known as the Variable Volume Intake System (VVIS) is a vacuum-operated set of valve plates that alters the volume of the intake depending on load. With this kit, you can ensure that a failed IAB valve does not damage your engine - and pick up some additional performance at higher RPM as well. See more details on the <a href=\"https://www.scienceofspeed.com/scienceofspeed-intake-air-bypass-iab-delete-kit-nsx-1991-05.html\" target=\"_blank\">ScienceofSpeed</a> site!",
-    "startingBid": 20.0,
-    "retailValue": 190.0,
+    "id": "item3",
+    "name": "NSX 100% full Carbon Fiber Replacement Exterior Side Body Vent",
+    "dono": "Euro Boutique",
+    "desc": "A set of full 100% carbon fiber center replacement exterior side vents for your 1991+ NSX. Not only are these new direct replacement side vent trims super light weight and strong, they look AMAZING and guaranteed to fit perfectly without any broken tabs! NO CORE EXCHANGE NEEDED. Get more info on the <a href=\"(https://euroboutique.us/collections/nsx/products/nsx-100-full-carbon-fiber-replacement-exterior-side-body-vent-for-1st-gen-coupes)\" target=\"_blank\">Euro Boutique</a> site!",
+    "startingBid": 450.0,
+    "retailValue": 1095.0,
     "images": [
-      "./resources/IABDelete.png"
+      "./resources/SideVents_1.png",
+      "./resources/SideVents_2.png"
+    ]
+  },
+  {
+    "id": "item4",
+    "name": "Honda Motocompacto",
+    "dono": "Honda",
+    "desc": "Honda believes the future of clean transportation is already here and powerfully revolutionized with the Motocompacto. Earning a category all its own, Motocompacto is personal mobility designed like a dream. It fits perfectly into compact spaces, dynamic commutes, and individual styles. Designed, engineered and tested by Honda, Motocompacto delivers the company\u2019s signature durability, quality and reliability in personal electric transportation. Simple, elegant and approachable, Motocompacto is built for competitive performance. Get more info, and product specs, on <a href=\"(https://motocompacto.honda.com/)\" target=\"_blank\">Honda's Motocompacto</a> site!",
+    "startingBid": 400.0,
+    "retailValue": 995.0,
+    "images": [
+      "./resources/motocompacto_1.png",
+      "./resources/motocompacto_2.png",
+      "./resources/motocompacto_3.png"
     ]
   },
   {
     "id": "item5",
-    "name": "Carbon Fiber Airbox Cover (91-05 NSX)",
-    "dono": "Euro Boutique",
-    "desc": "Direct replacement of the stock Intake Box Top Cover. See more details on the <a href=\"https://euroboutique.us/products/nsx-oem-airbox-cover-1991-2005-nsx?_pos=1&_sid=ff5ed9c09&_ss=r\" target=\"_blank\">Euro Boutique</a> site!",
-    "startingBid": 300.0,
-    "retailValue": 795.0,
-    "images": [
-      "./resources/airboxcover.png"
-    ]
-  },
-  {
-    "id": "item6",
-    "name": "Timing Belt Shields (91-05 NSX) [5 available]",
-    "dono": "Cedar Ridge Fabrication",
-    "desc": "The Harmonic Damper Shield is a simple steel plate which keys into the stock timing belt cover, with 2 chrome-moly legs and socket head cap screws securing it in place.  The shield will take the initial impact when the balancing weight separates from the back of the damper body, keeping your timing belt cover safe and giving you more time to pull over and save your motor! See more details on the <a href=\"https://cedarridgeparts.com/store/p/timing-belt-shield\" target=\"_blank\">Cedar Ridge Fabrication</a> site!",
-    "startingBid": 0.0,
-    "retailValue": 75.0,
-    "images": [
-      "./resources/beltshield.png"
-    ]
-  },
-  {
-    "id": "item17",
-    "name": "ScienceofSpeed NC1 wheel spacers with studs",
-    "dono": "Alan Chan",
-    "desc": "NC1 Wheel spacers from ScienceofSpeed, longer studs included to accomodate spacers. 12.5 front and 20mm rear",
-    "startingBid": 0.0,
-    "retailValue": 300.0,
-    "images": [
-      "./resources/spacers1.png"
-    ]
-  },
-  {
-    "id": "item26",
-    "name": "Set of Pirelli tires [4 available]",
+    "name": "Set of Pirelli tires [5 available]",
     "dono": "Pirelli",
     "desc": "Winners will receive a $2,500 gift card toward purchases of any Pirelli tires.",
     "startingBid": 600.0,
     "retailValue": 2500.0,
     "images": [
       "./resources/tires.png"
-    ]
-  },
-  {
-    "id": "item3",
-    "name": "Carbon Rear Window Garnish (91-05 NSX)",
-    "dono": "Pride",
-    "desc": "Carbon fiber replacement for '91-'05 NSX Rear Window garnish. See more details on <a href=\"https://pridecarbon.com/products/pride-nsx-91-05-carbon-rear-window-garnish?pr_prod_strat=e5_desc&pr_rec_id=bce831100&pr_rec_pid=8077742735656&pr_ref_pid=8077734740264&pr_seq=uniform\" target=\"_blank\">Pride's</a> site!",
-    "startingBid": 400.0,
-    "retailValue": 899.0,
-    "images": [
-      "./resources/rearwindow.png"
-    ]
-  },
-  {
-    "id": "item4",
-    "name": "Carbon Fiber Side Mirror Covers (17-22 NSX)<br><strong>OR</strong><br>2017-2022 NC1 NSX Carbon Fiber Center Radio Cover Shroud",
-    "dono": "Euro Boutique",
-    "desc": "Give your 2017+ NSX Interior a more refined and exotic look with OEM replacement Carbon Fiber exterior upper mirror caps, or a <a href=\"https://euroboutique.us/products/2017-2022-nc1-nsx-carbon-fiber-center-radio-cover-shroud?_pos=1&_sid=28598c7e2&_ss=r\" target=\"_blank\">Carbon Fiber Center Radio Cover Shroud</a>! See more details on the <a href=\"https://euroboutique.us/products/2017-2022-nc1-nsx-carbon-fiber-exterior-side-mirror-upper-covers-pair?_pos=1&_sid=d8e30c050&_ss=r\" target=\"_blank\">Euro Boutique</a> site!",
-    "startingBid": 500.0,
-    "retailValue": 1049.0,
-    "images": [
-      "./resources/sidemirror.png",
-      "./resources/radio.png"
-    ]
-  },
-  {
-    "id": "item19",
-    "name": "Seibon CF TR-Style Rear Spoiler (91-05 NSX) <br><strong>OR</strong><br> OEM-Style Carbon Fiber Engine Cover (91-05 NSX)",
-    "dono": "HeelToe Automotive",
-    "desc": "The winner of this auction will get to choose which item they would like to receive either the Rear Spoiler or the Engine Cover.",
-    "startingBid": 500.0,
-    "retailValue": 1100.0,
-    "images": [
-      "./resources/spoilercover.png"
-    ]
-  },
-  {
-    "id": "item23",
-    "name": "G8 & G9 Orbital 2-Step Ceramic Kit",
-    "dono": "Griot's Garage",
-    "desc": "This kit ups your detailing game by including the maneuverability of the G8 orbital, the power of the big-block equipped G9, and the durable finish protection of our Ceramic 3-in-1 Wax. See more details on the <a href=\"https://www.griotsgarage.com/g8-g9-orbital-2-step-ceramic-kit/?srsltid=AfmBOoqN_cRHHISRWA_hjWL6lFj7bGx1kQAY1QUq1iHNf61JqRs7mCbc\" target=\"_blank\">Griot's Garage</a> site!",
-    "startingBid": 50.0,
-    "retailValue": 450.0,
-    "images": [
-      "./resources/ceramic1.PNG"
-    ]
-  },
-  {
-    "id": "item22",
-    "name": "Boss Foaming System Starter Kit",
-    "dono": "Griot's Garage",
-    "desc": "The BOSS Foaming System deep cleans while avoiding wash-induced scratches, adds gloss and protection, and delivers a truly fun and engaging user experience. This kit includes all the essentials you need to hit the road running... You just add a pressure washer and water. See more details on the <a href=\"https://www.griotsgarage.com/boss-foaming-system-starter-kit/?srsltid=AfmBOopV6eJdKY4R4UmFhmQFE8gtN1pXM2dAGwoiRvL_Rnz-At0sCe7N\" target=\"_blank\">Griot's Garage</a> site!",
-    "startingBid": 25.0,
-    "retailValue": 200.0,
-    "images": [
-      "./resources/foamkit1.PNG"
-    ]
-  },
-  {
-    "id": "item8",
-    "name": "Dry Ice Blasting Gift Certificate",
-    "dono": "CryoMode Dry Ice Blasting services",
-    "desc": "Dry Ice Blasting is the next level of perfection giving you a deep, chemical-free cleaning which will leave you saying, \"Wow, is that my car?!\". See more details on the <a href=\"https://www.cryomode.us/dryiceblasting\" target=\"_blank\">CryoMode</a> site!",
-    "startingBid": 50.0,
-    "retailValue": 500.0,
-    "images": [
-      "./resources/dryice.png"
-    ]
-  },
-  {
-    "id": "item9",
-    "name": "Openbay Garage Premier Membership",
-    "dono": "Openbay Garage",
-    "desc": "Openbay Garage offers way more than secure vehicle storage, it's a DIY garage and social club for automotive enthusiasts. Premium membership gives you discounts on bay rentals, sim rentals, car storage, as well as a huge list of exclusive savings with their partners. See more details on the <a href=\"https://openbaygarage.com/\" target=\"_blank\">Openbay Garage</a> site!",
-    "startingBid": 25.0,
-    "retailValue": 360.0,
-    "images": [
-      "./resources/openbay.png"
-    ]
-  },
-  {
-    "id": "item21",
-    "name": "Gift Set from Le Mans event",
-    "dono": "NSX Club of Europe",
-    "desc": "This gift set was given out to the attendees of this year\u2019s event hosted by the NSX Club of Europe, in conjunction with the NSX Club of the UK. It was a spectacular event which included 45 NSX\u2019s driving together on Circuit de la Sarthe during the historic Le Mans Classic event. You can see pictures and more highlights on the <a href=https://nsxclubeurope.com/2025/07/postcards-from-nsx-le-mans-classic-tour-2025/\" target=\"_blank\">NSX-CE site</a>!",
-    "startingBid": 0.0,
-    "retailValue": 0.0,
-    "images": [
-      "./resources/giftset1.png",
-      "./resources/giftset2.png"
-    ]
-  },
-  {
-    "id": "item20",
-    "name": "Signed NC1 Coffee Table book",
-    "dono": "Acura",
-    "desc": "Signed by the Honda Japan Sportscar design team this 100-page full color book highlights the features of the NC1.",
-    "startingBid": 0.0,
-    "retailValue": 0.0,
-    "images": [
-      "./resources/nc1book1.png"
-    ]
-  },
-  {
-    "id": "item16",
-    "name": "NSX technical history coffee table book",
-    "dono": "Brian Miller",
-    "desc": "64 page NSX technical history and information coffee table book. Used, in good condition",
-    "startingBid": 0.0,
-    "retailValue": 250.0,
-    "images": [
-      "./resources/Technical_history.png"
-    ]
-  },
-  {
-    "id": "item15",
-    "name": "Aluminium and Black NSX coffee table book",
-    "dono": "Brian Miller",
-    "desc": "This very rare 50-page coffee table book was self published by Honda in 1990. It was presented to corporate guests and prospective buyers at the introduction of the NSX. It includes cutaway illustrations, full technical specification, and also features a full-page photo of Ayrton Senna driving the McLaren-Honda MP4/5B.",
-    "startingBid": 0.0,
-    "retailValue": 150.0,
-    "images": [
-      "./resources/Silver_and_Black.png"
-    ]
-  },
-  {
-    "id": "item18",
-    "name": "Set of 2 tickets to LeMay Car Museum",
-    "dono": "Joe Bez",
-    "desc": "The winning bidder will receive 2 tickets to Lemays museum. LeMays is one of the largest automobile museums in the world with a collection of more than 300 vehicles, they are dedicated to preserving the history and culture of the automobile in America. See more details on <a href=\"https://www.americascarmuseum.org/\" target=\"_blank\">LeMay's</a> site!",
-    "startingBid": 0.0,
-    "retailValue": 50.0,
-    "images": [
-      "./resources/LeMay.png"
-    ]
-  },
-  {
-    "id": "item7",
-    "name": "Mattel NSX Brick Kit [5 available]",
-    "dono": "Mattel Brick Shop",
-    "desc": "Build car history with the 1:16 scale Acura NSX by Mattel Brick Shop. This detailed and authentic set includes extra parts for customization, a decal sheet, metal wheel covers, signature plate, plus an exclusive metal car to collect and display. See more details on the <a href=\"https://shop.mattel.com/products/mattel-brick-shop-hot-wheels-90-acura-nsx-jft17\" target=\"_blank\">Mattel Brick Shop</a> site!",
-    "startingBid": 0.0,
-    "retailValue": 50.0,
-    "images": [
-      "./resources/mattel1.png",
-      "./resources/mattel2.png"
-    ]
-  },
-  {
-    "id": "item10",
-    "name": "Tomica NSX Transport truck 1/64 scale",
-    "dono": "Brian Miller",
-    "desc": "Includes Honda NSX Type R and transporter truck to carry it in! New in box",
-    "startingBid": 0.0,
-    "retailValue": 100.0,
-    "images": [
-      "./resources/transport1.png",
-      "./resources/transport2.png",
-      "./resources/transport3.png"
-    ]
-  },
-  {
-    "id": "item11",
-    "name": "Tomica NSX 3 car package 1/64 scale",
-    "dono": "Brian Miller",
-    "desc": "Includes 1/64 scale NA1, NA2, and NC1! New in box",
-    "startingBid": 0.0,
-    "retailValue": 60.0,
-    "images": [
-      "./resources/3car1.png",
-      "./resources/3car2.png"
-    ]
-  },
-  {
-    "id": "item12",
-    "name": "Hot Wheels Ryu\u2019s ride light up NSX 1/64 scale",
-    "dono": "Brian Miller",
-    "desc": "Special edition diecast car from the Hotwheels Red Line series! New in box",
-    "startingBid": 0.0,
-    "retailValue": 100.0,
-    "images": [
-      "./resources/Ryus_ride_light_up.png"
-    ]
-  },
-  {
-    "id": "item13",
-    "name": "Jada Toys Power Rangers NSX 1/64 scale [2 available]",
-    "dono": "Brian Miller",
-    "desc": "Special edition diecast car from the Hotwheels Hollywood Rides series! New in box",
-    "startingBid": 0.0,
-    "retailValue": 40.0,
-    "images": [
-      "./resources/greenranger.png"
-    ]
-  },
-  {
-    "id": "item14",
-    "name": "Jada Toys Power Rangers NSX with figurine 1/24 scale",
-    "dono": "Brian Miller",
-    "desc": "Special edition diecast car from the Hotwheels Hollywood Rides series! New in box",
-    "startingBid": 0.0,
-    "retailValue": 60.0,
-    "images": [
-      "./resources/Power_Rangers_white.png"
-    ]
-  },
-  {
-    "id": "item24",
-    "name": "Ironclad Cabernet",
-    "dono": "Contrivance",
-    "desc": "This bottle of 2021 cabernet from the award-winning meadery Contrivance is sure to impress! It's earthy, delicious, and has just enough of that franc funk to make it interesting.",
-    "startingBid": 0.0,
-    "retailValue": 30.0,
-    "images": [
-      "./resources/cabernet1.png",
-      "./resources/cabernet2.png"
-    ]
-  },
-  {
-    "id": "item25",
-    "name": "BrambleBerry Twist Blackberry Mead",
-    "dono": "Contrivance",
-    "desc": "This bottle of delectable mead from award-winning meadery Contrivance is crafted with local blackberries by expert hands. From Contrivance themselves: <em>This mojito-inspired delight is our blackberry mead with mint and lime. It is dangerously refreshing and one of the top 3 meads we've ever made.</em>",
-    "startingBid": 0.0,
-    "retailValue": 38.0,
-    "images": [
-      "./resources/mead1.png",
-      "./resources/mead2.png"
     ]
   }
 ]
