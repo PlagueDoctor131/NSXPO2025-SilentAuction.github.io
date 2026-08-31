@@ -417,10 +417,11 @@
 
     function fmtDiff(ms) {
       if (ms <= 0) return "0:00:00";
-      const hrs = Math.floor(ms / 3600000);
+      const days = Math.floor(ms / 86400000);
+      const hrs = Math.floor((ms % 86400000) / 3600000);
       const mins = Math.floor((ms % 3600000) / 60000);
       const secs = Math.floor((ms % 60000) / 1000);
-      return `${hrs}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+      return `${days} Days, ${hrs} Hours, ${mins.toString().padStart(2, "0")} Minutes, ${secs.toString().padStart(2, "0")} Seconds`;
     }
     // --- Force refresh listener ---
     db.ref("settings/forceRefresh").on("value", snap => {
