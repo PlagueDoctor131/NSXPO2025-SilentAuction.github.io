@@ -62,20 +62,32 @@
   },
   {
     "id": "item6",
-    "name": "Acura NSX (NA1 / NA2) 1991\u20132005 Subframe Replacement Bushing Series",
+    "name": "Acura NSX (NA1 / NA2) 1991\u20132005 Subframe Replacement Bushings: Front",
     "dono": "Pride Exhaust",
-    "desc": "Factory subframe bushings deteriorate over time, leading to cracking, slop, and excessive suspension deflection regardless of mileage. Honda does not sell replacement bushings separately\u2014requiring the purchase of expensive complete subframe beams. Enter Pride Exhaust, bringing you a solution that replaces worn factory rubber bushings, resisting dry rotting and cracking under load. You can learn more at the Pride Exhaust site!",
-    "startingBid": 100.0,
-    "retailValue": 700.0,
+    "desc": "Factory subframe bushings deteriorate over time, leading to cracking, slop, and excessive suspension deflection regardless of mileage. Honda does not sell replacement bushings separately\u2014requiring the purchase of expensive complete subframe beams. Enter Pride Exhaust, bringing you a solution that replaces worn factory rubber bushings, resisting dry rotting and cracking under load. You can learn more at the <a href=\"https://prideexhaust.com/products/pride-nsx-91-05-front-subframe-bushings\" target=\"_blank\">Pride Exhaust</a> site!",
+    "startingBid": 0.0,
+    "retailValue": 350.0,
     "images": [
       "./resources/frontbushing_1.png",
       "./resources/frontbushing_2.png",
-      "./resources/rearbushing_1.png",
-      "./resources/rearbushing_2.png"
+      "./resources/bushing.png"
     ]
   },
   {
     "id": "item7",
+    "name": "Acura NSX (NA1 / NA2) 1991\u20132005 Subframe Replacement Bushings: Rear",
+    "dono": "Pride Exhaust",
+    "desc": "Factory subframe bushings deteriorate over time, leading to cracking, slop, and excessive suspension deflection regardless of mileage. Honda does not sell replacement bushings separately\u2014requiring the purchase of expensive complete subframe beams. Enter Pride Exhaust, bringing you a solution that replaces worn factory rubber bushings, resisting dry rotting and cracking under load. You can learn more at the <a href=\"https://prideexhaust.com/products/pride-nsx-91-05-rear-front-subframe-bushings\" target=\"_blank\">Pride Exhaust</a> site!",
+    "startingBid": 0.0,
+    "retailValue": 350.0,
+    "images": [
+      "./resources/rearbushing_1.png",
+      "./resources/rearbushing_2.png",
+      "./resources/bushing_rear.png"
+    ]
+  },
+  {
+    "id": "item8",
     "name": "Acura NSX (NC1) 2017\u20132022 Lower Intercooler Hose Set",
     "dono": "Pride Exhaust",
     "desc": "Factory rubber intercooler hoses are soft and the worm-gear clamps are a known weak point on the 2nd Gen NSX\u2014even on stock-boost vehicles. Under high boost pressures OEM hoses can stretch, swell, or completely come loose under load. This can even trigger limp mode on the road, or the track. Pride has a solution engineered for track reliability and high-boost consistency, their direct-replacement silicone intercooler hose kit locks your charge pipes in place permanently. You can find out more on the <a href=\"https://prideexhaust.com/products/acura-nsx-2017-2022-intercooler-hose-set\" target=\"_blank\">Pride Exhaust</a> site!",
@@ -84,15 +96,14 @@
     "images": [
       "./resources/intercooler_1.png",
       "./resources/intercooler_2.png",
-      "./resources/intercooler_3.png",
-      "./resources/bushing.png"
+      "./resources/intercooler_3.png"
     ]
   },
   {
-    "id": "item8",
+    "id": "item9",
     "name": "Acura NSX (Targa) 1995\u20132005 Burnt Titanium Engine Bay Prop Rod",
     "dono": "Pride Exhaust",
-    "desc": "Replace your boring factory engine hatch prop with custom burnt titanium crafted specifically for show display and weight reduction. No two are the same but they vary between more of a blue color to a purple. Direct Fit: Designed specifically for 1995\u20132005 Acura NSX (NA1/NA2) Targa Top Engine Covers.",
+    "desc": "Replace your boring factory engine hatch prop with custom burnt titanium crafted specifically for show display and weight reduction. No two are the same but they vary between more of a blue color to a purple. Direct Fit: Designed specifically for 1995\u20132005 Acura NSX (NA1/NA2) Targa Top Engine Covers. You can find out more on the <a href=\"https://pridecarbon.com/products/pride-titanium-engine-bay-rod-holder\" target=\"_blank\">Pride Exhaust</a> site!",
     "startingBid": 0.0,
     "retailValue": 149.0,
     "images": [
