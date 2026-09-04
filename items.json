@@ -39,8 +39,8 @@
   {
     "id": "item4",
     "name": "Honda Motocompacto",
-    "dono": "Honda",
-    "desc": "Honda believes the future of clean transportation is already here and powerfully revolutionized with the Motocompacto. Earning a category all its own, Motocompacto is personal mobility designed like a dream. It fits perfectly into compact spaces, dynamic commutes, and individual styles. Designed, engineered and tested by Honda, Motocompacto delivers the company\u2019s signature durability, quality and reliability in personal electric transportation. Simple, elegant and approachable, Motocompacto is built for competitive performance. Get more info, and product specs, on <a href=\"https://motocompacto.honda.com/\" target=\"_blank\">Honda's Motocompacto</a> site!",
+    "dono": "Pembroke Pines Acura",
+    "desc": "Honda believes the future of clean transportation is already here and powerfully revolutionized with the Motocompacto. Earning a category all its own, Motocompacto is personal mobility designed like a dream. It fits perfectly into compact spaces, dynamic commutes, and individual styles. Designed, engineered and tested by Honda, Motocompacto delivers the company\u2019s signature durability, quality and reliability in personal electric transportation. Simple, elegant and approachable, Motocompacto is built for competitive performance. Get more info, and product specs, on <a href=\"https://motocompacto.honda.com/\" target=\"_blank\">Honda's Motocompacto</a> site! And if you don't end up winning, don't worry! You can still puchase one at <a href=\"https://www.acuraofpembrokepines.com/\" target=\"_blank\">Pembroke Pines Acura</a>!",
     "startingBid": 400.0,
     "retailValue": 995.0,
     "images": [
@@ -58,6 +58,47 @@
     "retailValue": 2500.0,
     "images": [
       "./resources/tires.png"
+    ]
+  },
+  {
+    "id": "item6",
+    "name": "Acura NSX (NA1 / NA2) 1991\u20132005 Subframe Replacement Bushing Series",
+    "dono": "Pride Exhaust",
+    "desc": "Factory subframe bushings deteriorate over time, leading to cracking, slop, and excessive suspension deflection regardless of mileage. Honda does not sell replacement bushings separately\u2014requiring the purchase of expensive complete subframe beams. Enter Pride Exhaust, bringing you a solution that replaces worn factory rubber bushings, resisting dry rotting and cracking under load. You can learn more at the Pride Exhaust site!",
+    "startingBid": 100.0,
+    "retailValue": 700.0,
+    "images": [
+      "./resources/frontbushing_1.png",
+      "./resources/frontbushing_2.png",
+      "./resources/rearbushing_1.png",
+      "./resources/rearbushing_2.png"
+    ]
+  },
+  {
+    "id": "item7",
+    "name": "Acura NSX (NC1) 2017\u20132022 Lower Intercooler Hose Set",
+    "dono": "Pride Exhaust",
+    "desc": "Factory rubber intercooler hoses are soft and the worm-gear clamps are a known weak point on the 2nd Gen NSX\u2014even on stock-boost vehicles. Under high boost pressures OEM hoses can stretch, swell, or completely come loose under load. This can even trigger limp mode on the road, or the track. Pride has a solution engineered for track reliability and high-boost consistency, their direct-replacement silicone intercooler hose kit locks your charge pipes in place permanently. You can find out more on the <a href=\"https://prideexhaust.com/products/acura-nsx-2017-2022-intercooler-hose-set\" target=\"_blank\">Pride Exhaust</a> site!",
+    "startingBid": 0.0,
+    "retailValue": 295.0,
+    "images": [
+      "./resources/intercooler_1.png",
+      "./resources/intercooler_2.png",
+      "./resources/intercooler_3.png",
+      "./resources/bushing.png"
+    ]
+  },
+  {
+    "id": "item8",
+    "name": "Acura NSX (Targa) 1995\u20132005 Burnt Titanium Engine Bay Prop Rod",
+    "dono": "Pride Exhaust",
+    "desc": "Replace your boring factory engine hatch prop with custom burnt titanium crafted specifically for show display and weight reduction. No two are the same but they vary between more of a blue color to a purple. Direct Fit: Designed specifically for 1995\u20132005 Acura NSX (NA1/NA2) Targa Top Engine Covers.",
+    "startingBid": 0.0,
+    "retailValue": 149.0,
+    "images": [
+      "./resources/proprod_1.png",
+      "./resources/proprod_2.png",
+      "./resources/proprod_3.png"
     ]
   }
 ]
