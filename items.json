@@ -111,5 +111,16 @@
       "./resources/proprod_2.png",
       "./resources/proprod_3.png"
     ]
+  },
+  {
+    "id": "item10",
+    "name": "Wildlife Photography Tour with Dick Vautrinot",
+    "dono": "Ole\u003f",
+    "desc": "Join Dick Vautrinot on a beautiful journey to photograph bald eagles, raptors and shorebirds on a beautiful \"Old Florida\" lake with picturesque backdrops. The lake has  resident eagles that stay year-round. They host an abundance of bald eagles, ospreys, owls, herons, kingfishers, hawks, kestrels, woodpeckers, egrets, ibis and other shorebirds. The tour is held aboard their 24ft pontoon boat, and with over 45 yrs of boat and guiding experience, you will be in the right light to capture great images of \"birds-in-flight\"! You can find out more on <a href=\"https://www.dvwildlife.com/tours\" target=\"_blank\">Dick Vautrinot's</a> site!",
+    "startingBid": 0.0,
+    "retailValue": 250.0,
+    "images": [
+      "./resources/Vautrinot.png"
+    ]
   }
 ]
