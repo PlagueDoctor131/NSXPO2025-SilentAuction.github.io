@@ -115,12 +115,49 @@
   {
     "id": "item10",
     "name": "Wildlife Photography Tour with Dick Vautrinot",
-    "dono": "Ole\u003f",
+    "dono": "Dick Vautrinot",
     "desc": "Join Dick Vautrinot on a beautiful journey to photograph bald eagles, raptors and shorebirds on a beautiful \"Old Florida\" lake with picturesque backdrops. The lake has  resident eagles that stay year-round. They host an abundance of bald eagles, ospreys, owls, herons, kingfishers, hawks, kestrels, woodpeckers, egrets, ibis and other shorebirds. The tour is held aboard their 24ft pontoon boat, and with over 45 yrs of boat and guiding experience, you will be in the right light to capture great images of \"birds-in-flight\"! You can find out more on <a href=\"https://www.dvwildlife.com/tours\" target=\"_blank\">Dick Vautrinot's</a> site!",
     "startingBid": 0.0,
     "retailValue": 250.0,
     "images": [
       "./resources/Vautrinot.png"
+    ]
+  },
+  {
+    "id": "item11",
+    "name": "ScienceofSpeed Brake Master Cylinder Brace, NSX 1991-99 (Left Hand Drive, original ABS)",
+    "dono": "ScienceofSpeed",
+    "desc": "This CAD-optimized and 4-axis machined aluminum brace reduces the movement of the master cylinder by more than 50% by supporting the master cylinder as the pedal is depressed while still allowing a slight amount of movement for compliance. The result is an improved brake feel, giving the driver confidence at the braking limit. You can learn more at the <a href=\"https://www.scienceofspeed.com/scienceofspeed-brake-master-brace-nsx-1991-99-bpp-68x.html\" target=\"_blank\">ScienceofSpeed</a> site!",
+    "startingBid": 0.0,
+    "retailValue": 279.0,
+    "images": [
+      "./resources/brakebrace_1.png",
+      "./resources/brakebrace_2.png",
+      "./resources/brakebrace_3.png"
+    ]
+  },
+  {
+    "id": "item12",
+    "name": "ScienceofSpeed NSX-R Style Chassis Reinforcement Braces, NSX 1991-05",
+    "dono": "ScienceofSpeed",
+    "desc": "The 2002 NSX-R features two chassis-strengthening reinforcement bars at the tips of the front frame rails. These chassis bars increase structural rigidity and dynamic toe change during aggressive driving resulting in increased handling sharpness and response. Unfortunately, the supply of factory parts has dried up and future availability is unknown. ScienceofSpeed has reverse-engineered the factory brace and has created their own extrusion that replicates the factory shape. You can learn more at the <a href=\"https://www.scienceofspeed.com/scienceofspeed-nsx-r-style-chassis-reinforcement-braces-nsx-1991-05.html\" target=\"_blank\">ScienceofSpeed</a> site!",
+    "startingBid": 0.0,
+    "retailValue": 394.0,
+    "images": [
+      "./resources/chassisbrace_1.png",
+      "./resources/chassisbrace_2.png"
+    ]
+  },
+  {
+    "id": "item13",
+    "name": "KTuner Flash V2 Touch (17-22 NSX)",
+    "dono": "ScienceofSpeed",
+    "desc": "The KTuner Flash V2 Touch is a device that reflashes the factory ECU in the 2017-22 NSX to increase performance by more than  40 - 130+ horsepower, depending on fuel used (91, 93, 98, or E40). Included is a touchscreen programming module that reads the software version on your NSX and uploads maps with higher performance targets. All factory emissions components and engine safety functions are retained. See more details on the <a href=\"https://www.scienceofspeed.com/ktuner-flash-v2-touch-nsx-2017-22-all.html\" target=\"_blank\">ScienceofSpeed</a> site!",
+    "startingBid": 500.0,
+    "retailValue": 1199.0,
+    "images": [
+      "./resources/ktuner.png",
+      "./resources/ktuner_2.png"
     ]
   }
 ]
