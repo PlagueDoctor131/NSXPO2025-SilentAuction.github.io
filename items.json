@@ -120,6 +120,7 @@
     "startingBid": 0.0,
     "retailValue": 250.0,
     "images": [
+      "./resources/vautrinot_collage.png",
       "./resources/Vautrinot.png"
     ]
   },
